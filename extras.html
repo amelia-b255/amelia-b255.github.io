@@ -590,6 +590,106 @@
         .theme-toggle-thumb { width:12px !important; height:12px !important; }
         html.light-mode .theme-toggle-thumb { left:16px !important; }
     }
+    /* ── View toggle (stack ↔ gallery) ── */
+    .view-toggle-wrap {
+      display: flex; align-items: center; gap: 0;
+      background: rgba(139,71,93,0.07);
+      border: 1.5px solid rgba(139,71,93,0.18);
+      border-radius: 30px; padding: 4px;
+      width: fit-content; margin: 0 auto 32px;
+    }
+    .view-btn {
+      display: flex; align-items: center; gap: 6px;
+      padding: 7px 18px; border: none; border-radius: 25px;
+      background: transparent; color: #8b475d;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+      cursor: pointer; transition: all 0.25s ease; opacity: 0.45;
+    }
+    .view-btn.active { background: #8b475d; color: white; opacity: 1; box-shadow: 0 2px 8px rgba(139,71,93,0.28); }
+    html:not(.light-mode) .view-toggle-wrap { background: rgba(232,160,184,0.07); border-color: rgba(232,160,184,0.18); }
+    html:not(.light-mode) .view-btn { color: #e8a0b8; }
+    html:not(.light-mode) .view-btn.active { background: #4a1f30; color: #e8a0b8; box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
+
+    /* ── Gallery mode ── */
+    body.gallery-mode .stack-nav { display: none !important; }
+    body.gallery-mode .stack-counter { display: none !important; }
+    body.gallery-mode .stack-caption { display: none !important; }
+    body.gallery-mode .stack-scene { gap: 0; }
+    body.gallery-mode .card-stack {
+      display: flex !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
+      align-items: flex-start !important;
+      gap: 14px !important;
+      width: 100% !important;
+      max-width: 1060px !important;
+      height: auto !important;
+      position: static !important;
+      flex-shrink: unset !important;
+      margin: 0 auto !important;
+    }
+    body.gallery-mode .stack-card {
+      position: static !important;
+      transform: none !important;
+      filter: none !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      border-radius: 0 !important;
+      overflow: hidden !important;
+      box-shadow: 0 4px 16px rgba(139,71,93,0.13) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      background: rgba(255,255,255,0.55) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      flex: 0 0 220px !important;
+      width: 220px !important;
+    }
+    body.gallery-mode .stack-card:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
+    }
+    body.gallery-mode .stack-card[data-orient="landscape"] {
+      flex: 0 0 454px !important; width: 454px !important;
+    }
+    body.gallery-mode .stack-card img {
+      width: 100% !important; height: auto !important;
+      object-fit: contain !important; transform: none !important;
+      position: static !important; flex: 1 1 auto;
+    }
+    .gallery-card-title {
+      display: none; padding: 8px 10px 10px; flex-shrink: 0;
+    }
+    .gallery-card-name {
+      font-family: 'MADE Sunflower', sans-serif;
+      font-size: 13px; color: #8b475d;
+      text-align: center; line-height: 1.3; margin-bottom: 4px;
+    }
+    .gallery-card-desc {
+      font-family: 'Georgia Custom', Georgia, serif;
+      font-size: 11px; color: #a0617a;
+      text-align: center; line-height: 1.4;
+    }
+    body.gallery-mode .gallery-card-title { display: block; }
+    html:not(.light-mode) body.gallery-mode .stack-card {
+      background: rgba(18,8,14,0.65) !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
+    }
+    html:not(.light-mode) body.gallery-mode .stack-card:hover { box-shadow: 0 12px 28px rgba(0,0,0,0.55) !important; }
+    html:not(.light-mode) .gallery-card-name { color: #e8a0b8; }
+    html:not(.light-mode) .gallery-card-desc { color: #d4899e; }
+    @media (max-width: 968px) {
+      body.gallery-mode .card-stack { gap: 10px !important; }
+      body.gallery-mode .stack-card { flex: 0 0 150px !important; width: 150px !important; }
+      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      .view-btn { padding: 6px 14px; font-size: 9px; }
+    }
+    @media (max-width: 480px) {
+      body.gallery-mode .card-stack { gap: 8px !important; }
+      body.gallery-mode .stack-card { flex: 0 0 calc(50% - 4px) !important; width: calc(50% - 4px) !important; }
+      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 100% !important; width: 100% !important; }
+    }
+
     /* ── iPad / tablet (821px–1380px) ── */
     @media (min-width: 821px) and (max-width: 1380px) {
         nav { padding: 16px 30px !important; }
@@ -685,6 +785,20 @@
       </div>
     </div>
   </section>
+
+  <!-- View toggle -->
+  <div style="text-align:center; position:relative; z-index:10; padding-bottom:4px;">
+    <div class="view-toggle-wrap">
+      <button class="view-btn active" data-view="stack" id="btnStack">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg>
+        Stack
+      </button>
+      <button class="view-btn" data-view="gallery" id="btnGallery">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
+        Gallery
+      </button>
+    </div>
+  </div>
 
   <!-- Artist Posters -->
   <section>
@@ -1005,6 +1119,40 @@
 
       update();
     });
+
+    // ── Inject gallery title/desc divs into each stack card ──
+    document.querySelectorAll('.stack-card').forEach(function(card) {
+      var hasTitle = card.dataset.title, hasDesc = card.dataset.desc;
+      if (hasTitle || hasDesc) {
+        var wrap = document.createElement('div');
+        wrap.className = 'gallery-card-title';
+        if (hasTitle) {
+          var n = document.createElement('div');
+          n.className = 'gallery-card-name';
+          n.textContent = card.dataset.title;
+          wrap.appendChild(n);
+        }
+        if (hasDesc) {
+          var d = document.createElement('div');
+          d.className = 'gallery-card-desc';
+          d.textContent = card.dataset.desc;
+          wrap.appendChild(d);
+        }
+        card.appendChild(wrap);
+      }
+    });
+    // ── View toggle (stack ↔ gallery) ──
+    var viewBtns = document.querySelectorAll('.view-btn');
+    function setView(v) {
+      document.body.classList.toggle('gallery-mode', v === 'gallery');
+      viewBtns.forEach(function(b) { b.classList.toggle('active', b.dataset.view === v); });
+      try { localStorage.setItem('poster-view', v); } catch(e) {}
+    }
+    viewBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() { setView(btn.dataset.view); });
+    });
+    try { var sv = localStorage.getItem('poster-view'); if (sv) setView(sv); } catch(e) {}
+
   </script>
   <script src="shared/lightbox.js?v=5"></script>
 <script>
