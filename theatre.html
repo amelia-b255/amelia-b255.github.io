@@ -33,10 +33,10 @@
       animation:gentleFloat 6s infinite ease-in-out;
     }
     @keyframes gentleFloat{
-      0%,100%{transform:translate(0,0);opacity:.3}
-      25%{transform:translate(10px,-15px);opacity:.5}
-      50%{transform:translate(-5px,-25px);opacity:.4}
-      75%{transform:translate(-15px,-10px);opacity:.6}
+      0%,100%{transform:translate(0,0) scale(1.45);opacity:.3}
+      25%{transform:translate(10px,-15px) scale(1.45);opacity:.5}
+      50%{transform:translate(-5px,-25px) scale(1.45);opacity:.4}
+      75%{transform:translate(-15px,-10px) scale(1.45);opacity:.6}
     }
 
     /* original 10 */
@@ -96,7 +96,7 @@
     .logo a{color:#8b475d;text-decoration:none;display:flex;align-items:center;gap:10px}
     .logo-img{height:48px;width:auto;flex-shrink:0}
     .cv-button{padding:10px 25px;background:#8b475d;color:white!important;text-decoration:none;border-radius:25px;font-family:'Georgia Custom',Georgia,serif;font-size:16px;transition:all 0.3s ease;margin-left:20px;box-shadow:0 3px 10px rgba(139,71,93,.3);display:inline-block}
-    .cv-button:hover{background:#a0617a;transform:translateY(-3px);box-shadow:0 6px 20px rgba(139,71,93,.5)}
+    .cv-button:hover{background:#a0617a;transform: scale(1.04);box-shadow:0 6px 20px rgba(139,71,93,.5)}
     .cv-button::after{display:none!important}
 
     .menu-toggle{
@@ -113,7 +113,7 @@
     .nav-links a:hover::after{width:100%}
     .image-tip{font-size:14px;color:#a8c5b5;margin-top:20px;font-style:normal;animation:fadeInUp 1s ease .5s backwards}
     .music-nav-link{background:linear-gradient(135deg,#f5c1cf,#a8c5b5);padding:10px 20px!important;border-radius:20px;font-weight:600!important;transition:all .3s ease}
-    .music-nav-link:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(139,71,93,.3)}
+    .music-nav-link:hover{transform: scale(1.04);box-shadow:0 5px 15px rgba(139,71,93,.3)}
     .music-nav-link::after{display:none!important}
 
     /* Hero */
@@ -158,12 +158,13 @@
     .back-button{display:inline-block;padding:15px 35px;background:#8b475d;color:#fff;text-decoration:none;font-size:16px;letter-spacing:1px;transition:all .4s ease;font-family:'Archivo Black',sans-serif;text-transform:uppercase;border-radius:5px;box-shadow:0 3px 10px rgba(139,71,93,.3);margin-top:40px}
     .back-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(139,71,93,.4);background:#a0617a}
     .back-button-container{text-align:center;margin-top:60px}
+    @media (max-width: 820px) { .back-button { font-size:11px!important; padding:8px 18px!important; } }
 
     /* Mobile nav & mobile tweaks */
     @media (max-width:820px){
       .menu-toggle{display:block!important}
       nav{padding:10px 16px!important;top:30px!important}
-      .logo{font-size:15px!important;letter-spacing:0.5px;max-width:calc(100% - 60px)}
+      .logo{font-size:16px!important;letter-spacing:0.5px;max-width:calc(100% - 60px)}
       .logo-img{height:40px}
       .nav-links{
         position:fixed;top:50px;left:-100%;width:100%;height:calc(100vh - 50px);
@@ -171,7 +172,7 @@
         flex-direction:column;padding:30px 20px;transition:left .3s ease;
         box-shadow:0 4px 20px rgba(0,0,0,.1);overflow-y:auto;gap:0!important;z-index:999;align-items:stretch;
       }
-      .nav-links.active{left:0}
+      .nav-links.active{left:0}.nav-links.active{top:0!important;height:100vh!important;padding-top:90px!important}nav.menu-open{z-index:1003!important}
       .nav-links li{width:100%;margin:0;border-bottom:1px solid rgba(139,71,93,.1)}
       .nav-links a{display:block;padding:12px 10px!important;font-size:14px!important;text-align:center;white-space:normal}
       .cv-button{margin:15px 0 0 0!important;width:100%;text-align:center;padding:12px 16px!important;font-size:13px!important}
@@ -325,7 +326,7 @@
             transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
         }
     /* ── Theme Toggle Button ── */
-    .theme-toggle-wrap { display:flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer; }
+    .theme-toggle-wrap { display:flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer; margin-left:auto; margin-right:35px; }
     .theme-toggle-label { font-family:'Archivo Black',sans-serif; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#8b475d; opacity:0.7; user-select:none; }
     html:not(.light-mode) .theme-toggle-label { color:#e8a0b8 !important; }
     .theme-toggle-track { width:36px; height:20px; background:#c4a0ae; border-radius:10px; position:relative; transition:background 0.3s; }
@@ -336,7 +337,7 @@
     /* ── Dark Mode (default) ── */
     html:not(.light-mode) body { background: #000000 !important; color: #d4c5c8 !important; }
     html:not(.light-mode) .star { background: #2a1a22 !important; opacity: 0.5 !important; }
-    html:not(.light-mode) .announcement-banner { background: linear-gradient(90deg, #2a1520 0%, #24121a 25%, #1e0f16 55%, #2a1520 100%) !important; background-size: 300% 100% !important; }
+    html:not(.light-mode) .announcement-banner { background: linear-gradient(90deg, #4a2537 0%, #40202e 25%, #361a27 55%, #4a2537 100%) !important; background-size: 300% 100% !important; }
     html:not(.light-mode) .banner-inner span { color: #e8a0b8 !important; }
     html:not(.light-mode) nav { background: rgba(30,16,24,0.97) !important; }
     html:not(.light-mode) .logo, html:not(.light-mode) .logo a { color: #e8a0b8 !important; }
@@ -368,11 +369,22 @@
     @media (max-width: 820px) { html:not(.light-mode) .nav-links { background: rgba(0,0,0,1) !important; } }
 
     @media (max-width: 820px) {
-        .theme-toggle-wrap { gap:0 !important; margin-left:auto; margin-right:4px; flex-direction:column !important; align-items:center !important; position:relative !important; }
+        .theme-toggle-wrap { gap:0 !important; flex-direction:column !important; align-items:center !important; position:absolute !important; right:68px !important; top:50% !important; transform:translateY(-50%) !important; margin:0 !important; }
         .theme-toggle-label { font-size:7px !important; letter-spacing:1px !important; position:absolute !important; top:100% !important; left:50% !important; transform:translateX(-50%) !important; margin-top:2px !important; white-space:nowrap !important; }
         .theme-toggle-track { width:30px !important; height:16px !important; }
         .theme-toggle-thumb { width:12px !important; height:12px !important; }
         html.light-mode .theme-toggle-thumb { left:16px !important; }
+    }
+    /* ── iPad / tablet (821px–1380px) ── */
+    @media (min-width: 821px) and (max-width: 1380px) {
+        nav { padding: 16px 30px !important; }
+        .logo { font-size: 18px !important; letter-spacing: 1px !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+        .logo-img { height: 34px !important; }
+        .theme-toggle-wrap { margin-right: 20px !important; }
+        .nav-links { gap: 20px !important; }
+        .nav-links a { font-size: 13px !important; }
+        .cv-button { padding: 7px 13px !important; font-size: 12px !important; margin-left: 0 !important; }
+        .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
   <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
@@ -439,7 +451,7 @@
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
     <ul class="nav-links" id="navLinks">
       <li><a href="graphic-design.html#home">Home</a></li>
-      <li><a href="graphic-design.html#portfolio">Work</a></li>
+      <li><a href="graphic-design.html">Work</a></li>
       <li><a href="graphic-design.html#about">About</a></li>
       <li><a href="graphic-design.html#skills">Skills</a></li>
       <li><a href="graphic-design.html#contact">Contact</a></li>
@@ -505,7 +517,7 @@
     <div class="stack-caption"><h4></h4><p></p></div>
 
     <div class="back-button-container">
-      <a href="graphic-design.html#portfolio" class="back-button">← Back to Portfolio</a>
+      <a href="graphic-design.html" class="back-button">← Back to Portfolio</a>
     </div>
   </section>
 
@@ -520,6 +532,7 @@
       const menuToggle=document.getElementById('menuToggle');
       navLinks.classList.toggle('active');
       menuToggle.textContent=navLinks.classList.contains('active')?'✕':'☰';
+        var nb=document.getElementById('navbar'); if(nb) nb.classList.toggle('menu-open', navLinks.classList.contains('active'));
     }
     document.getElementById('menuToggle').addEventListener('click',toggleMenu);
     document.addEventListener('click',function(e){
@@ -527,7 +540,7 @@
       const navLinks=document.getElementById('navLinks');
       const menuToggle=document.getElementById('menuToggle');
       if(!nav.contains(e.target) && navLinks.classList.contains('active')){
-        navLinks.classList.remove('active'); menuToggle.textContent='☰';
+        navLinks.classList.remove('active'); menuToggle.textContent='☰'; var nb=document.getElementById('navbar'); if(nb) nb.classList.remove('menu-open');
       }
     });
     document.querySelectorAll('.nav-links a').forEach(a=>{

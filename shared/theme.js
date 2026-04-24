@@ -27,10 +27,11 @@ document.addEventListener('DOMContentLoaded', updateThemeUI);
 // Any 'unload' listener makes the page ineligible for bfcache in Safari iOS.
 window.addEventListener('unload', function() {});
 
-// Belt-and-suspenders: if the page is still restored from bfcache (other browsers),
-// force a fresh load using a unique query param to bypass HTTP cache, then clean the URL.
+// Belt-and-suspenders: if the page is still restored from bfcache,
+// mark it as a back-navigation (so the splash doesn't fire), then force a fresh load.
 window.addEventListener('pageshow', function(e) {
     if (e.persisted) {
+        sessionStorage.setItem('_from_back', '1');
         var url = window.location.pathname + '?_cb=' + Date.now() + window.location.hash;
         window.location.replace(url);
     }

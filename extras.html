@@ -67,10 +67,10 @@
     .star30{top:18%;right:16%;width:23px;height:23px;background:#a8c5b5;animation-delay:2.1s;animation-duration:7.9s}
 
     @keyframes gentleFloat{
-      0%,100%{transform:translate(0,0);opacity:.3}
-      25%{transform:translate(10px,-15px);opacity:.5}
-      50%{transform:translate(-5px,-25px);opacity:.4}
-      75%{transform:translate(-15px,-10px);opacity:.6}
+      0%,100%{transform:translate(0,0) scale(1.45);opacity:.3}
+      25%{transform:translate(10px,-15px) scale(1.45);opacity:.5}
+      50%{transform:translate(-5px,-25px) scale(1.45);opacity:.4}
+      75%{transform:translate(-15px,-10px) scale(1.45);opacity:.6}
     }
 
     @keyframes fadeInUp {
@@ -100,7 +100,7 @@
     .logo a{ color:#8b475d; text-decoration:none; display:flex; align-items:center; gap:10px; }
     .logo-img{ height:48px; width:auto; flex-shrink:0; }
     .cv-button{ padding:10px 25px; background:#8b475d; color:white !important; text-decoration:none; border-radius:25px; font-family:'Georgia Custom', Georgia, serif; font-size:16px; transition:all 0.3s ease; margin-left:20px; box-shadow:0 3px 10px rgba(139,71,93,.3); display:inline-block; }
-    .cv-button:hover{ background:#a0617a; transform:translateY(-3px); box-shadow:0 6px 20px rgba(139,71,93,.5); }
+    .cv-button:hover{ background:#a0617a; transform: scale(1.04); box-shadow:0 6px 20px rgba(139,71,93,.5); }
     .cv-button::after{ display:none !important; }
 
     .menu-toggle{
@@ -266,8 +266,8 @@
       .stack-caption h4{ font-size:14px; }
       .stack-caption p{ font-size:11px; }
       .stack-counter{ font-size:10px; margin-bottom:2px; }
-      .logo{ font-size:15px !important; letter-spacing:0.5px; max-width:calc(100% - 60px); }
-      .logo-img{ height:40px !important; }
+      .logo{ font-size:16px !important; letter-spacing:0.5px; max-width:calc(100% - 60px); }
+      .logo-img{ height:43px !important; }
       .announcement-banner{ height:30px !important; }
       .banner-inner span{ font-size:10px !important; }
 
@@ -277,7 +277,8 @@
         flex-direction:column; padding:16px; transition:left .3s ease;
         box-shadow:0 4px 20px rgba(0,0,0,.1); overflow-y:auto; gap:0 !important; z-index:999; align-items:stretch;
       }
-      .nav-links.active{ left:0; }
+      .nav-links.active{ left:0; top:0!important; height:100vh!important; padding-top:90px!important; }
+      nav.menu-open{z-index:1003!important}
       .nav-links li{ width:100%; margin:0; border-bottom:1px solid rgba(139,71,93,.1); }
       .nav-links a{ display:block; padding:12px 10px !important; font-size:14px !important; text-align:center; white-space:normal; }
       .music-nav-link{ margin:8px 0 !important; text-align:center; padding:12px 16px !important; }
@@ -536,7 +537,7 @@
             transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
         }
     /* Theme toggle */
-    .theme-toggle-wrap { display:flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer; }
+    .theme-toggle-wrap { display:flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer; margin-left:auto; margin-right:35px; }
     .theme-toggle-label { font-family:'Archivo Black',sans-serif; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#8b475d; opacity:0.7; user-select:none; }
     html:not(.light-mode) .theme-toggle-label { color:#e8a0b8 !important; }
     .theme-toggle-track { width:36px; height:20px; background:#c4a0ae; border-radius:10px; position:relative; transition:background 0.3s; }
@@ -547,7 +548,7 @@
     /* ═══ DARK MODE (default) ═══ */
     html:not(.light-mode) body { background: #000000 !important; color: #d4c5c8 !important; }
     html:not(.light-mode) .star { background: #2a1a22 !important; opacity: 0.5 !important; }
-    html:not(.light-mode) .announcement-banner { background: linear-gradient(90deg, #2a1520 0%, #24121a 25%, #1e0f16 55%, #2a1520 100%) !important; background-size: 300% 100% !important; }
+    html:not(.light-mode) .announcement-banner { background: linear-gradient(90deg, #4a2537 0%, #40202e 25%, #361a27 55%, #4a2537 100%) !important; background-size: 300% 100% !important; }
     html:not(.light-mode) .banner-inner span { color: #e8a0b8 !important; }
     html:not(.light-mode) nav { background: rgba(30,16,24,0.97) !important; }
     html:not(.light-mode) nav.scrolled { box-shadow: 0 2px 20px rgba(139,71,93,0.15) !important; }
@@ -583,11 +584,22 @@
     }
 
     @media (max-width: 820px) {
-        .theme-toggle-wrap { gap:0 !important; margin-left:auto; margin-right:4px; flex-direction:column !important; align-items:center !important; position:relative !important; }
+        .theme-toggle-wrap { gap:0 !important; flex-direction:column !important; align-items:center !important; position:absolute !important; right:68px !important; top:50% !important; transform:translateY(-50%) !important; margin:0 !important; }
         .theme-toggle-label { font-size:7px !important; letter-spacing:1px !important; position:absolute !important; top:100% !important; left:50% !important; transform:translateX(-50%) !important; margin-top:2px !important; white-space:nowrap !important; }
         .theme-toggle-track { width:30px !important; height:16px !important; }
         .theme-toggle-thumb { width:12px !important; height:12px !important; }
         html.light-mode .theme-toggle-thumb { left:16px !important; }
+    }
+    /* ── iPad / tablet (821px–1380px) ── */
+    @media (min-width: 821px) and (max-width: 1380px) {
+        nav { padding: 16px 30px !important; }
+        .logo { font-size: 18px !important; letter-spacing: 1px !important; white-space: nowrap !important; flex-shrink: 0 !important; }
+        .logo-img { height: 34px !important; }
+        .theme-toggle-wrap { margin-right: 20px !important; }
+        .nav-links { gap: 20px !important; }
+        .nav-links a { font-size: 13px !important; }
+        .cv-button { padding: 7px 13px !important; font-size: 12px !important; margin-left: 0 !important; }
+        .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
   <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
@@ -654,7 +666,7 @@
     <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
     <ul class="nav-links" id="navLinks">
       <li><a href="graphic-design.html#home">Home</a></li>
-      <li><a href="graphic-design.html#portfolio">Work</a></li>
+      <li><a href="graphic-design.html">Work</a></li>
       <li><a href="graphic-design.html#about">About</a></li>
       <li><a href="graphic-design.html#skills">Skills</a></li>
       <li><a href="graphic-design.html#contact">Contact</a></li>
@@ -677,7 +689,8 @@
   <!-- Artist Posters -->
   <section>
     <h2>Artist Posters</h2>
-    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:20px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <p style="text-align:center; font-size:12px; color:#a07080; margin:0 auto 32px; max-width:600px; line-height:1.6; opacity:0.85; font-family: Georgia, serif;">These are unofficial, fan-made design pieces created as personal projects. All artist names, song titles, and associated imagery remain the property of their respective rights holders. Not affiliated with or endorsed by any featured artist — no commercial use intended.</p>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
       <div class="card-stack">
@@ -841,7 +854,7 @@
     <div class="stack-caption"><h4></h4><p></p></div>
 
     <div class="back-button-container">
-      <a href="graphic-design.html#portfolio" class="back-button">← Back to Portfolio</a>
+      <a href="graphic-design.html" class="back-button">← Back to Portfolio</a>
     </div>
   </section>
 
@@ -861,6 +874,7 @@
     menuToggle.addEventListener('click', () => {
       navLinks.classList.toggle('active');
       menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+        var nb=document.getElementById('navbar'); if(nb) nb.classList.toggle('menu-open', navLinks.classList.contains('active'));
     });
     document.addEventListener('click', (e) => {
       const nav = document.getElementById('navbar');
@@ -1041,7 +1055,7 @@
     position: relative;
     max-width: min(400px, 86vw);
     padding: 36px 28px 30px;
-    background: linear-gradient(135deg, rgba(61,26,42,0.38) 0%, rgba(92,42,58,0.38) 100%);
+    background: linear-gradient(135deg, rgba(61,26,42,0.96) 0%, rgba(92,42,58,0.96) 100%);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
     border-radius: 16px;
@@ -1087,34 +1101,100 @@
 }
 #swipe-hint-close:hover { background: rgba(0,0,0,0.8); }
 html.light-mode #swipe-hint-box {
-    background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(245,193,207,0.22) 100%) !important;
-    box-shadow: 0 20px 60px rgba(139,71,93,0.25) !important;
+    background: linear-gradient(135deg, rgba(255,245,248,0.97) 0%, rgba(245,225,232,0.97) 100%) !important;
+    box-shadow: 0 20px 60px rgba(139,71,93,0.3) !important;
 }
-html.light-mode #swipe-hint-box h3 { color: #8b475d !important; }
-html.light-mode #swipe-hint-box p { color: #5a5a5a !important; }
+html.light-mode #swipe-hint-box h3 { color: #4a1a2e !important; }
+html.light-mode #swipe-hint-box p { color: #3a2030 !important; }
 </style>
 
 <script>
 (function() {
-    if (!window.matchMedia('(max-width: 820px)').matches) return;
-
-    var navEntry = performance.getEntriesByType('navigation')[0];
-    var navType = navEntry ? navEntry.type : 'navigate';
-    if (navType === 'reload') sessionStorage.removeItem('swipeHintDismissed');
-    if (sessionStorage.getItem('swipeHintDismissed')) return;
+    if (!window.matchMedia('(max-width: 1380px)').matches) return;
 
     var overlay = document.createElement('div');
     overlay.id = 'swipe-hint-overlay';
     overlay.innerHTML = '<div id="swipe-hint-box"><button id="swipe-hint-close" aria-label="Close">\u00D7</button><h3>Swipe to browse</h3><p>Swipe left or right on the cards to see more artwork.</p></div>';
     document.body.appendChild(overlay);
-    requestAnimationFrame(function() { overlay.classList.add('spotlight-visible'); });
+    setTimeout(function() { overlay.classList.add('spotlight-visible'); }, 1000);
     function dismiss() {
         overlay.classList.remove('spotlight-visible');
         overlay.addEventListener('transitionend', function() { overlay.remove(); }, { once: true });
-        sessionStorage.setItem('swipeHintDismissed', '1');
     }
     document.getElementById('swipe-hint-close').addEventListener('click', dismiss);
     overlay.addEventListener('click', function(e) { if (e.target === overlay) dismiss(); });
+})();
+</script>
+
+<!-- ── $5 Prints slide-out tab ── -->
+<div id="prints-drawer">
+  <button id="prints-tab" aria-label="Toggle $5 Prints preview">
+    <svg id="prints-arrow" width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+    </svg>
+  </button>
+  <div id="prints-panel">
+    <img src="$5Prints.webp" alt="$5 Digital Prints">
+  </div>
+</div>
+
+<style>
+#prints-drawer {
+    position: fixed;
+    right: -360px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 600;
+    display: flex;
+    align-items: center;
+    transition: right 0.38s cubic-bezier(0.4,0,0.2,1);
+    filter: drop-shadow(-4px 0 18px rgba(0,0,0,0.35));
+}
+#prints-drawer.open { right: 0; }
+#prints-tab {
+    width: 22px;
+    height: 44px;
+    background: linear-gradient(180deg, #8b475d 0%, #6d3049 100%);
+    border: none;
+    border-radius: 8px 0 0 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #f5c1cf;
+    flex-shrink: 0;
+    transition: background 0.2s;
+}
+#prints-tab:hover { background: linear-gradient(180deg, #9a4f69 0%, #7a3a55 100%); }
+#prints-arrow { transition: transform 0.38s ease; }
+#prints-drawer.open #prints-arrow { transform: rotate(180deg); }
+#prints-panel {
+    width: 360px;
+    background: #1e0f16;
+    overflow: hidden;
+    border-radius: 6px 0 0 6px;
+}
+#prints-panel img {
+    width: 360px;
+    display: block;
+}
+html.light-mode #prints-tab { background: linear-gradient(180deg, #f5c1cf 0%, #e0a0b8 100%); color: #8b475d; }
+html.light-mode #prints-panel { background: #f5e6ec; }
+</style>
+
+<script>
+(function() {
+    var drawer = document.getElementById('prints-drawer');
+    var tab    = document.getElementById('prints-tab');
+    tab.addEventListener('click', function(e) {
+        e.stopPropagation();
+        drawer.classList.toggle('open');
+    });
+    document.addEventListener('click', function(e) {
+        if (drawer.classList.contains('open') && !drawer.contains(e.target)) {
+            drawer.classList.remove('open');
+        }
+    });
 })();
 </script>
 </body>
