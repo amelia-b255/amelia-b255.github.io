@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿<!-- deploy: 2026-04-24-B -->
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -922,10 +923,19 @@
 
             .hero-content h1 {
                 font-size: 24px !important;
+                text-align: center !important;
             }
 
             .hero-content p {
                 font-size: 13px;
+                text-align: center !important;
+            }
+
+            .hero-content .cta-button {
+                display: block;
+                margin: 0 auto;
+                text-align: center;
+                width: fit-content;
             }
 
             .hero-image {
@@ -1039,9 +1049,10 @@
             }
 
             .business-card-wrap {
-                margin-top: 30px !important;
+                margin-top: 16px !important;
                 flex-direction: column !important;
                 align-items: center !important;
+                gap: 8px !important;
             }
 
             .business-card-img {
@@ -1870,17 +1881,17 @@
             const overlay = document.getElementById('splash-overlay');
             if (!overlay) return;
 
-            // Show splash on fresh open or refresh, but NOT when
-            // navigating back from another page on the same site.
+            // Show splash on every fresh load and refresh.
+            // Hide it only when navigating here from another page on the same site.
             var navEntry = performance.getEntriesByType('navigation')[0];
             var navType = navEntry ? navEntry.type : 'navigate';
 
-            // On refresh → clear the flag so splash shows again
-            if (navType === 'reload') {
+            // Always clear so refresh always shows the splash
+            if (navType === 'reload' || navType === 'navigate') {
                 sessionStorage.removeItem('splashShown');
             }
 
-            // If flag exists → user navigated here from another page
+            // If flag exists → user came from another page on this site
             if (sessionStorage.getItem('splashShown')) {
                 overlay.remove();
                 return;
