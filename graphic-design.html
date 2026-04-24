@@ -1,4 +1,4 @@
-﻿<!-- deploy: 2026-04-24-C -->
+﻿<!-- deploy: 2026-04-24-D -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1534,6 +1534,13 @@
 </head>
 <body>
 
+    <!-- Splash / intro screen -->
+    <div id="splash-overlay">
+        <img src="cover.png" alt="" class="splash-desktop">
+        <img src="cover PHONE.png" alt="" class="splash-mobile">
+        <button id="splash-close" aria-label="Close">&#x2715;</button>
+    </div>
+
     <!-- Announcement banner -->
     <div class="announcement-banner">
         <a href="extras.html" class="banner-link">
@@ -1902,7 +1909,7 @@
             document.getElementById('splash-close').addEventListener('click', function() {
                 // Lock in current opacity before killing animation
                 overlay.style.opacity = '1';
-                overlay.querySelector('img').style.animation = 'none';
+                overlay.querySelectorAll('img').forEach(function(img) { img.style.animation = 'none'; });
                 overlay.style.animation = 'none';
                 // Now transition from 1 → 0
                 overlay.style.transition = 'opacity 1.1s ease';
