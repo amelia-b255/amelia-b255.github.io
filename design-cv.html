@@ -104,7 +104,7 @@
     .nav-links{display:flex;gap:35px;list-style:none;align-items:center}
     .nav-links a{
       color:#8b475d;text-decoration:none;font-size:17px;letter-spacing:.5px;position:relative;
-      transition:all .3s ease;font-weight:500;font-family:Georgia,serif;
+      transition:all .3s ease;font-weight:500;font-family:'Cavalhatriz',serif;
     }
     .nav-links a::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:0;height:2px;background:#8b475d;transition:width .3s ease}
     .nav-links a:hover::after{width:100%}
@@ -339,7 +339,7 @@
         html.light-mode .theme-toggle-thumb { left:16px !important; }
     }
   </style>
-  <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');window.addEventListener('pageshow',function(e){if(e.persisted)window.location.reload()});</script>
+  <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');</script>
 </head>
 <body>
   <!-- Decorative Stars (30) -->
