@@ -1,4 +1,4 @@
-﻿<!-- deploy: 2026-04-24-E -->
+﻿<!-- deploy: 2026-04-24-F -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -417,6 +417,7 @@
             gap: 30px;
             max-width: 1200px;
             margin: 0 auto;
+            scroll-margin-top: 136px; /* banner 38px + nav ~98px */
         }
 
         .portfolio-grid > a {
@@ -961,6 +962,7 @@
             .portfolio-grid {
                 grid-template-columns: repeat(2, 1fr) !important;
                 gap: 12px;
+                scroll-margin-top: 90px !important; /* banner 30px + nav ~60px */
             }
 
             .portfolio-image {
@@ -1162,6 +1164,7 @@
             justify-content: center;
             opacity: 0;
             overflow: hidden;
+            background: #04111f;
             animation: splashFadeIn 3s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards;
         }
 
@@ -1211,11 +1214,13 @@
         }
 
         #splash-overlay img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            max-width: 92vw;
+            max-height: 92vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
             display: block;
-            animation: splashDrift 22s ease-in-out 3s infinite;
+            border-radius: 12px;
         }
 
         .splash-mobile { display: none !important; }
@@ -1530,7 +1535,7 @@
             html.light-mode .nav-links li { border-bottom-color: rgba(139,71,93,0.1) !important; }
         }
     </style>
-    <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');</script>
+    <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 <body>
 
@@ -1616,7 +1621,7 @@
             <div class="hero-content">
                 <h1>Amelia Bobbin</h1>
                 <p>Aspiring graphic designer passionate about combining storytelling and visual design. Skilled in Adobe Creative Suite and creative computing, with experience in branding, digital illustration, and visual communication.</p>
-                <a href="#portfolio" class="cta-button">View My Work</a>
+                <a href="#portfolio-grid" class="cta-button">View My Work</a>
             </div>
             <div class="hero-image">
                 <img src="extras/dogtag1-fullscreen.webp" alt="Dog Tag Freestyle Poster" class="hero-img-dark">
@@ -1627,7 +1632,7 @@
 
     <section id="portfolio">
         <h2>Selected Works</h2>
-        <div class="portfolio-grid">
+        <div class="portfolio-grid" id="portfolio-grid">
             <a href="extras.html" style="text-decoration: none; color: inherit; display: block;">
             <div class="portfolio-item fade-in">
                 <div class="portfolio-image">
@@ -1889,13 +1894,16 @@
             const overlay = document.getElementById('splash-overlay');
             if (!overlay) return;
 
-            // Show splash on fresh open, QR scan, and refresh.
-            // Hide only when the user navigated here from another page on this site.
+            // Show on: refresh, fresh open, QR scan (external).
+            // Hide on: link from another page on this site, back/forward navigation.
+            var navEntry = performance.getEntriesByType('navigation')[0];
+            var navType = navEntry ? navEntry.type : 'navigate';
             var fromSameSite = document.referrer &&
-                document.referrer.indexOf(window.location.hostname) !== -1 &&
-                document.referrer !== document.location.href;
+                document.referrer.indexOf(window.location.hostname) !== -1;
+            var shouldShow = (navType === 'reload') ||
+                             (navType === 'navigate' && !fromSameSite);
 
-            if (fromSameSite) {
+            if (!shouldShow) {
                 overlay.remove();
                 return;
             }

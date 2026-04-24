@@ -425,7 +425,7 @@
         html.light-mode .theme-toggle-thumb { left:16px !important; }
     }
   </style>
-  <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');</script>
+  <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 <body>
   <!-- Decorative Stars -->
