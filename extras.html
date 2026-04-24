@@ -1,0 +1,1121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Posters &amp; Print - Amelia Bobbin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&display=swap" rel="stylesheet">
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/made-sunflower');
+    @font-face { font-family: "Cavalhatriz"; src: url("fonts/Cavalhatriz.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+    @font-face { font-family: "Georgia Custom"; src: url("fonts/georgia.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+    @font-face { font-family: "Georgia Custom"; src: url("fonts/georgiab.ttf") format("truetype"); font-weight: bold; font-style: normal; }
+    @font-face { font-family: "Griffiths"; src: url("fonts/Griffiths.otf") format("opentype"); font-weight: normal; font-style: normal; }
+
+    * { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior:smooth; }
+    html, body { overflow-x:hidden; max-width:100vw; width:100%; }
+
+    body{
+      font-size: 1.1em;
+      font-family:'Cavalhatriz', serif;
+      background: linear-gradient(135deg, #f5c1cf 0%, #fceadb 20%, #e8d5ca 40%, #b4d4c3 60%, #f5e6e8 80%, #d4a5a5 100%);
+      color:#5a5a5a; font-weight:400;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Decorative Stars */
+    .doodle{ position:fixed; pointer-events:none; z-index:1; }
+    .star{
+      width:25px; height:25px; background:#a8c5b5; opacity:.4;
+      clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      animation:gentleFloat 6s infinite ease-in-out;
+    }
+    .star1{top:15%;left:8%;animation-delay:0s;animation-duration:7s}
+    .star2{top:25%;right:12%;width:20px;height:20px;background:#a8c5b5;animation-delay:2s;animation-duration:8s}
+    .star3{bottom:20%;left:15%;animation-delay:4s;animation-duration:6s}
+    .star4{top:60%;right:8%;width:30px;height:30px;animation-delay:3s;animation-duration:9s}
+    .star5{top:45%;left:5%;width:18px;height:18px;background:#f5c1cf;animation-delay:1s}
+    .star6{bottom:35%;right:20%;animation-delay:5s;animation-duration:7s}
+    .star7{top:10%;right:25%;width:35px;height:35px;background:#8b475d;opacity:.3;animation-delay:2.5s}
+    .star8{bottom:40%;left:30%;width:22px;height:22px;background:#a8c5b5;animation-delay:4.5s;animation-duration:8s}
+    .star9{top:70%;left:25%;width:28px;height:28px;background:#f5c1cf;animation-delay:1.5s}
+    .star10{top:35%;right:35%;width:16px;height:16px;background:#a8c5b5;animation-delay:3.5s;animation-duration:9s}
+    .star11{bottom:10%;right:15%;width:20px;height:20px;background:#f5c1cf;animation-delay:2s;animation-duration:6s}
+    .star12{top:80%;left:10%;width:26px;height:26px;background:#fceadb;animation-delay:4s;animation-duration:8s}
+    .star13{top:20%;left:40%;width:19px;height:19px;background:#a8c5b5;animation-delay:3s;animation-duration:7s}
+    .star14{bottom:50%;left:8%;width:32px;height:32px;background:#a8c5b5;animation-delay:.8s;animation-duration:8.2s}
+    .star15{top:40%;right:5%;width:23px;height:23px;background:#f5c1cf;animation-delay:2.2s;animation-duration:7.8s}
+    .star16{top:12%;left:25%;width:21px;height:21px;background:#a8c5b5;animation-delay:1.8s;animation-duration:7.2s}
+    .star17{bottom:25%;right:30%;width:27px;height:27px;background:#f5c1cf;animation-delay:.3s;animation-duration:8.8s}
+    .star18{top:55%;right:18%;width:17px;height:17px;background:#fceadb;animation-delay:2.8s;animation-duration:6.8s}
+    .star19{bottom:15%;left:35%;width:29px;height:29px;background:#a8c5b5;animation-delay:3.2s;animation-duration:7.4s}
+    .star20{top:30%;left:12%;width:24px;height:24px;background:#a8c5b5;animation-delay:1.2s;animation-duration:8.6s}
+    .star21{bottom:40%;right:10%;width:20px;height:20px;background:#f5c1cf;animation-delay:4.2s;animation-duration:6.2s}
+    .star22{top:65%;left:22%;width:33px;height:33px;background:#a8c5b5;animation-delay:.7s;animation-duration:9.2s}
+    .star23{top:8%;right:22%;width:18px;height:18px;background:#fceadb;animation-delay:2.4s;animation-duration:7.6s}
+    .star24{bottom:30%;left:18%;width:25px;height:25px;background:#a8c5b5;animation-delay:3.8s;animation-duration:6.4s}
+    .star25{top:75%;right:25%;width:22px;height:22px;background:#f5c1cf;animation-delay:1.4s;animation-duration:8.4s}
+    .star26{top:42%;left:32%;width:19px;height:19px;background:#a8c5b5;animation-delay:2.6s;animation-duration:7.2s}
+    .star27{bottom:18%;right:8%;width:26px;height:26px;background:#fceadb;animation-delay:.9s;animation-duration:8.9s}
+    .star28{top:52%;right:28%;width:21px;height:21px;background:#a8c5b5;animation-delay:3.6s;animation-duration:6.6s}
+    .star29{bottom:45%;left:28%;width:30px;height:30px;background:#f5c1cf;animation-delay:1.6s;animation-duration:8.2s}
+    .star30{top:18%;right:16%;width:23px;height:23px;background:#a8c5b5;animation-delay:2.1s;animation-duration:7.9s}
+
+    @keyframes gentleFloat{
+      0%,100%{transform:translate(0,0);opacity:.3}
+      25%{transform:translate(10px,-15px);opacity:.5}
+      50%{transform:translate(-5px,-25px);opacity:.4}
+      75%{transform:translate(-15px,-10px);opacity:.6}
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .announcement-banner{position:fixed;top:0;left:0;width:100%;height:38px;background:linear-gradient(90deg, #f5c1cf 0%, #fceadb 25%, #b4d4c3 55%, #f5c1cf 100%);background-size:300% 100%;animation:bannerShift 8s linear infinite;z-index:1002;overflow:hidden;display:flex;align-items:center}
+    .banner-link{display:block;width:100%;overflow:hidden;text-decoration:none;cursor:pointer}
+    .banner-link:hover .banner-inner{animation-play-state:paused}
+    .banner-inner{display:flex;white-space:nowrap;animation:marqueeScroll 28s linear infinite;will-change:transform}
+    .banner-inner span{font-family:'Archivo Black',sans-serif;font-size:12px;color:#8b475d;text-transform:uppercase;letter-spacing:2px;flex-shrink:0;padding-right:10px}
+    @keyframes bannerShift{0%{background-position:0% 0%}100%{background-position:100% 0%}}
+    @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* Navigation */
+    nav{
+      position:fixed; top:38px; width:100%;
+      padding:25px 60px;
+      display:flex; justify-content:space-between; align-items:center;
+      z-index:1000; background:rgba(255,255,255,.85); backdrop-filter:blur(15px);
+      transition:all .4s ease;
+    }
+    nav.scrolled{ padding:20px 60px; box-shadow:0 2px 20px rgba(212,165,165,.1); }
+
+    .logo{ font-family:'Archivo Black',sans-serif; font-size:24px; color:#8b475d; letter-spacing:2px; font-weight:400; text-transform:uppercase; }
+    .logo a{ color:#8b475d; text-decoration:none; display:flex; align-items:center; gap:10px; }
+    .logo-img{ height:48px; width:auto; flex-shrink:0; }
+    .cv-button{ padding:10px 25px; background:#8b475d; color:white !important; text-decoration:none; border-radius:25px; font-family:'Georgia Custom', Georgia, serif; font-size:16px; transition:all 0.3s ease; margin-left:20px; box-shadow:0 3px 10px rgba(139,71,93,.3); display:inline-block; }
+    .cv-button:hover{ background:#a0617a; transform:translateY(-3px); box-shadow:0 6px 20px rgba(139,71,93,.5); }
+    .cv-button::after{ display:none !important; }
+
+    .menu-toggle{
+      display:none; background:none; border:none; font-size:32px; color:#8b475d;
+      cursor:pointer; padding:10px; z-index:1001; min-width:44px; min-height:44px;
+    }
+
+    .nav-links{ display:flex; gap:35px; list-style:none; align-items:center; }
+    .nav-links a{
+      color:#8b475d; text-decoration:none; font-size:17px; letter-spacing:.5px; position:relative;
+      transition:all .3s ease; font-weight:500; font-family:'Georgia Custom',Georgia,serif;
+    }
+    .nav-links a::after{
+      content:''; position:absolute; bottom:-5px; left:50%; transform:translateX(-50%);
+      width:0; height:2px; background:#8b475d; transition:width .3s ease;
+    }
+    .nav-links a:hover::after{ width:100%; }
+
+    .music-nav-link{
+      background:linear-gradient(135deg,#f5c1cf,#a8c5b5);
+      padding:10px 20px !important; border-radius:20px; font-weight:600 !important; transition:all .3s ease;
+    }
+    .music-nav-link::after{ display:none !important; }
+
+    /* Hero */
+    .hero{
+      min-height:50vh;
+      display:flex; align-items:center; justify-content:center;
+      text-align:center; padding:160px 40px 70px;
+    }
+    .hero-content h1{
+      font-family:'MADE Sunflower',sans-serif; font-weight:400;
+      font-size:58px; color:#8b475d; margin-bottom:16px; line-height:1.2;
+      animation: fadeInUp 1s ease;
+    }
+    .hero-content p{
+      font-size:17px; color:#a0617a; line-height:1.7; max-width:700px;
+      margin:0 auto; font-family:'Georgia Custom',Georgia,serif; font-style:normal; font-weight:400;
+      letter-spacing:0; animation: fadeInUp 1s ease 0.3s backwards;
+    }
+
+    /* Sections */
+    section{ padding:60px 50px; position:relative; z-index:10; }
+
+    h2{
+      font-family:'Archivo Black',sans-serif; font-size:38px; text-align:center;
+      color:#8b475d; margin-bottom:40px; letter-spacing:2px; position:relative;
+      text-transform:uppercase; animation: fadeInUp 0.8s ease 0.1s backwards;
+    }
+    h2::after{
+      content:''; position:absolute; bottom:-12px; left:50%; transform:translateX(-50%);
+      width:80px; height:2px; background:#f5c1cf;
+    }
+    h3{
+      font-family:'MADE Sunflower',sans-serif; font-weight:400; font-size:26px;
+      color:#8b475d; margin-bottom:32px; text-align:center;
+      animation: fadeInUp 0.8s ease 0.15s backwards;
+    }
+
+    /* Grids */
+    .work-grid-1{ display:grid; grid-template-columns:1fr; gap:28px; max-width:520px; margin:0 auto 56px; }
+    .work-grid-1 .work-image{ min-height: unset; height:70vh; max-height:70vh; }
+    .work-grid-1 .work-image img{ max-height:100%; }
+    .work-grid-3{ display:flex; flex-wrap:wrap; justify-content:center; gap:28px; max-width:1000px; margin:0 auto 56px; }
+    .work-grid-3 > .work-item{ flex: 0 0 360px; }
+    .work-grid-landscape > .work-item{ flex: 0 0 460px; }
+    .work-grid-landscape{ max-width:980px; }
+
+    .work-item{
+      background:transparent; border-radius:0; overflow:visible;
+      box-shadow:none; transition:all .4s ease;
+    }
+    .work-item:hover{ transform:translateY(-8px); }
+
+    .work-item.with-bg{
+      background:white; border-radius:16px; overflow:hidden;
+      box-shadow:8px 8px 24px rgba(139,71,93,.1);
+    }
+    .work-item.with-bg:hover{ box-shadow:12px 12px 32px rgba(139,71,93,.15); }
+
+    .work-image{
+      width:100%; aspect-ratio:1/1.414; overflow:hidden; position:relative; background:transparent;
+      display:flex; align-items:center; justify-content:center; padding:14px;
+      cursor:pointer; text-decoration:none;
+    }
+    a.work-image{ display:flex; }
+    .work-image img{ max-width:100%; max-height:100%; object-fit:contain; transition: transform .5s ease; }
+    .work-item:hover .work-image img{ transform:scale(1.05); }
+
+    .work-caption{ padding:20px; text-align:center; }
+    .work-caption h4{ font-family:'MADE Sunflower',sans-serif; font-size:18px; color:#8b475d; margin-bottom:8px; font-weight:400;}
+    .work-caption p{ font-family:'Georgia Custom',Georgia,serif; font-size:13px; color:#a0617a; font-style:normal; line-height:1.6; letter-spacing:0; }
+
+    /* Magazine layout */
+    .magazine-grid{ display:grid; grid-template-columns:1fr 1fr; grid-template-rows:auto auto; gap:28px; max-width:900px; margin:0 auto 56px; }
+    .magazine-cover{ grid-row:1 / 3; }
+    .magazine-spread{ grid-column:2; }
+    .work-image-landscape{ aspect-ratio:1.414/1; }
+    .magazine-spread .work-image{ padding:8px !important; }
+    .magazine-spread .work-image img{ width:100% !important; max-height:100% !important; object-fit:contain !important; }
+
+    /* Art showcase program */
+    .art-program-grid .work-image{ padding:8px; }
+
+    /* NEW badge */
+    .new-badge {
+      position: absolute; top: 10px; left: 10px; background: #8b475d; color: white;
+      font-family: 'Archivo Black', sans-serif; font-size: 10px; letter-spacing: 2px;
+      text-transform: uppercase; padding: 5px 13px; border-radius: 999px; z-index: 10;
+      box-shadow: 0 2px 8px rgba(139,71,93,.4); pointer-events: none;
+      animation: badgePulse 2.4s ease-in-out infinite;
+    }
+    @keyframes badgePulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 2px 8px rgba(139,71,93,.4); }
+      50%       { transform: scale(1.08); box-shadow: 0 4px 16px rgba(139,71,93,.55); }
+    }
+
+    .full-width-item{ flex: 1 1 100% !important; max-width:650px; margin:0 auto; }
+    .rebus-item{ flex: 0 0 360px; }
+
+    /* Portrait images displayed as landscape via 90-degree rotation */
+    .img-rot90 {
+      position: relative; overflow: hidden;
+      aspect-ratio: 1.414 / 1 !important; min-height: unset !important;
+    }
+    .img-rot90 img {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(90deg) !important;
+      transition: none !important;
+      height: 141% !important; width: auto !important;
+      max-width: none !important; max-height: none !important;
+    }
+    .img-rot-90 {
+      position: relative; overflow: hidden;
+      aspect-ratio: 1.414 / 1 !important; min-height: unset !important;
+    }
+    .img-rot-90 img {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) rotate(-90deg) !important;
+      transition: none !important;
+      height: 141% !important; width: auto !important;
+      max-width: none !important; max-height: none !important;
+    }
+
+    footer{ text-align:center; padding:50px 40px; background:rgba(255,255,255,.5); color:#8b475d; font-size:14px; letter-spacing:0; font-family:'Georgia Custom',Georgia,serif; }
+    .back-button{ display:inline-block; padding:15px 35px; background:#8b475d; color:#fff; text-decoration:none; font-size:16px; letter-spacing:1px; transition:all .4s ease; font-family:'Archivo Black',sans-serif; text-transform:uppercase; border-radius:5px; box-shadow:0 3px 10px rgba(139,71,93,.3); margin-top:40px; }
+    .back-button:hover{ transform:translateY(-3px); box-shadow:0 8px 25px rgba(139,71,93,.4); background:#a0617a; }
+    .back-button-container{ text-align:center; margin-top:60px; }
+
+    /* Mobile */
+    @media (max-width: 968px){
+      .menu-toggle{ display:block; }
+      .hero{ padding:140px 16px 16px; min-height:auto; align-items:flex-start; }
+      .hero-content h1{ font-size:24px; }
+      .hero-content p{ font-size:13px; }
+      .hero [style*="padding:15px"]{ padding:8px 12px !important; font-size:11px !important; }
+      h2{ font-size:20px; letter-spacing:0px; word-break:break-word; margin-bottom:24px !important; }
+      h2::after{ bottom:-6px !important; width:60px !important; }
+      h3{ font-size:16px; margin-bottom:10px !important; }
+      nav{ padding:10px 16px !important; top: 30px !important; }
+      section{ padding:20px 14px; }
+      .stack-caption{ padding:0 10px 14px; min-height:36px; }
+      .stack-caption h4{ font-size:14px; }
+      .stack-caption p{ font-size:11px; }
+      .stack-counter{ font-size:10px; margin-bottom:2px; }
+      .logo{ font-size:15px !important; letter-spacing:0.5px; max-width:calc(100% - 60px); }
+      .logo-img{ height:40px !important; }
+      .announcement-banner{ height:30px !important; }
+      .banner-inner span{ font-size:10px !important; }
+
+      .nav-links{
+        position:fixed; top:72px; left:-100%; width:100%; height:calc(100vh - 72px);
+        background:rgba(255,255,255,1); backdrop-filter:blur(15px);
+        flex-direction:column; padding:16px; transition:left .3s ease;
+        box-shadow:0 4px 20px rgba(0,0,0,.1); overflow-y:auto; gap:0 !important; z-index:999; align-items:stretch;
+      }
+      .nav-links.active{ left:0; }
+      .nav-links li{ width:100%; margin:0; border-bottom:1px solid rgba(139,71,93,.1); }
+      .nav-links a{ display:block; padding:12px 10px !important; font-size:14px !important; text-align:center; white-space:normal; }
+      .music-nav-link{ margin:8px 0 !important; text-align:center; padding:12px 16px !important; }
+      .cv-button{ margin:8px 0 0 0 !important; width:100%; text-align:center; padding:12px 16px !important; font-size:13px !important; }
+
+      .work-grid-3 > .work-item{ flex: 1 1 100%; }
+      .work-image{ padding:8px; }
+
+      .magazine-grid{ grid-template-columns:1fr; grid-template-rows:auto; }
+      .magazine-cover{ grid-row:auto; }
+      .magazine-spread{ grid-column:auto; }
+      .magazine-spread .work-image{ padding:4px !important; }
+
+      .art-program-grid .work-image{ padding:4px; }
+
+      .star{ width:10px !important; height:10px !important; opacity:.3; }
+      footer{ padding:20px 14px; font-size:10px; }
+
+      /* Year subtitle under headings */
+      section > p[style*="font-style:italic"]{ font-size:13px !important; margin-bottom:16px !important; margin-top:-8px !important; }
+    }
+
+    @media (max-width:480px){
+      .hero{ padding:140px 12px 12px !important; min-height:auto !important; }
+      .hero-content h1{ font-size:22px !important; }
+      .hero-content p{ font-size:12px !important; }
+      h2{ font-size:17px !important; letter-spacing:0px; word-break:break-word; }
+      h3{ font-size:14px !important; }
+      section{ padding:16px 10px !important; }
+      .work-image{ padding:6px; }
+      .magazine-spread .work-image{ padding:3px !important; }
+      .art-program-grid .work-image{ padding:3px; }
+      .star{ width:8px !important; height:8px !important; opacity:.25; }
+      .back-button{ font-size:11px; padding:8px 18px !important; }
+      footer{ padding:16px 12px; font-size:9px; }
+    }
+
+    /* ===== CARD STACK ===== */
+    .stack-scene {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 48px;
+      margin: 0 auto 16px;
+    }
+    .card-stack {
+      position: relative;
+      width: 340px;
+      height: 481px;
+      flex-shrink: 0;
+    }
+    .stack-card {
+      position: absolute;
+      inset: 0;
+      display: block;
+      border-radius: 0;
+      overflow: hidden;
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), filter 0.4s ease, opacity 0.4s ease;
+      will-change: transform;
+      cursor: pointer;
+      text-decoration: none;
+      background: transparent;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.55);
+    }
+    .stack-card[data-orient="landscape"] img { object-fit: contain; }
+    .stack-card[data-orient="square"] img { object-fit: contain; }
+    .stack-card[data-orient="landscape"],
+    .stack-card[data-orient="square"] { box-shadow: none; }
+    .stack-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
+    }
+    /* Per-card scale overrides (legacy, kept for reference) */
+    .stack-card[data-tight="strong"] img { transform: scale(0.78); }
+    .stack-card[data-tight="light"] img { transform: scale(0.88); }
+    .stack-card[data-tight="subtle"] img { transform: scale(0.94); }
+    .stack-card[data-tight="medium"] img { transform: scale(0.91); }
+    .stack-card[data-loose="light"] img { transform: scale(1.07); }
+    .stack-caption {
+      text-align: center;
+      padding: 0 20px 40px;
+      min-height: 64px;
+    }
+    .stack-caption h4 {
+      font-family: 'MADE Sunflower', sans-serif;
+      font-size: 20px;
+      color: #8b475d;
+      margin-bottom: 6px;
+      font-weight: 400;
+    }
+    .stack-caption p {
+      font-family: 'Georgia Custom', Georgia, serif;
+      font-size: 14px;
+      color: #a0617a;
+      font-style: normal;
+      letter-spacing: 0;
+    }
+    .stack-nav {
+      background: rgba(255,255,255,0.35);
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #8b475d;
+      opacity: 0.75;
+      transition: opacity 0.2s, transform 0.15s;
+      padding: 0;
+      flex-shrink: 0;
+      line-height: 0;
+      position: relative;
+      z-index: 50;
+    }
+    .stack-nav:hover { opacity: 1; transform: scale(1.15); }
+    .stack-counter {
+      font-family: 'Georgia Custom', Georgia, serif;
+      font-size: 13px;
+      color: #a0617a;
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+    @media (max-width: 968px) {
+      .card-stack { width: 340px; height: 481px; }
+      .stack-scene { gap: 8px; position: relative; }
+      .stack-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 50; background: rgba(255,255,255,0.55); width: 36px; height: 36px; }
+      .stack-nav svg { width: 28px; height: 28px; }
+      .stack-nav:hover { transform: translateY(-50%) scale(1.15); }
+      .stack-prev { left: 6px; }
+      .stack-next { right: 6px; }
+    }
+    @media (max-width: 480px) {
+      .card-stack { width: 300px; height: 424px; }
+      .stack-scene { gap: 4px; }
+      .stack-nav { width: 32px; height: 32px; }
+      .stack-nav svg { width: 24px; height: 24px; }
+      .stack-prev { left: 4px; }
+      .stack-next { right: 4px; }
+    }
+
+        /* ── Animation enhancements ── */
+
+        /* More dramatic fade-in with subtle scale + blur */
+        .fade-in {
+            transform: translateY(60px) scale(0.94) !important;
+            filter: blur(3px);
+            transition: opacity 2.5s ease, transform 2.5s cubic-bezier(0.22, 1, 0.36, 1), filter 2s ease !important;
+        }
+        .fade-in.visible {
+            transform: translateY(0) scale(1) !important;
+            filter: blur(0px);
+        }
+
+        /* Fade-in from left for odd items, right for even */
+        .fade-in:nth-child(odd) {
+            transform: translateY(50px) translateX(-30px) scale(0.94) !important;
+        }
+        .fade-in:nth-child(even) {
+            transform: translateY(50px) translateX(30px) scale(0.94) !important;
+        }
+        .fade-in.visible:nth-child(odd),
+        .fade-in.visible:nth-child(even) {
+            transform: translateY(0) translateX(0) scale(1) !important;
+        }
+
+        /* h2 headings slide up + underline draws in */
+        h2.will-animate {
+            opacity: 0;
+            transform: translateY(40px) scale(0.92);
+            filter: blur(4px);
+            transition: opacity 2.2s ease, transform 2.2s cubic-bezier(0.22, 1, 0.36, 1), filter 1.8s ease;
+        }
+        h2.will-animate.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
+        h2.will-animate::after {
+            width: 0 !important;
+            transition: width 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s !important;
+        }
+        h2.will-animate.visible::after {
+            width: 100px !important;
+        }
+
+        /* Section divider shimmer on h2 underline */
+        h2.will-animate.visible::after {
+            background: linear-gradient(90deg, #f5c1cf, #a8c5b5, #f5c1cf) !important;
+            background-size: 200% 100% !important;
+            animation: underlineShimmer 6s ease-in-out infinite !important;
+        }
+        @keyframes underlineShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Shimmer sweep across buttons on hover */
+        .cta-button, .cv-button {
+            overflow: hidden !important;
+        }
+        .cta-button::before, .cv-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+            pointer-events: none;
+            transition: left 1.2s ease;
+        }
+        .cta-button:hover::before, .cv-button:hover::before {
+            left: 160%;
+        }
+
+        /* Skill/stack card pop-in bounce on hover */
+        .skill-card {
+            transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 1s ease !important;
+        }
+        .skill-card:hover {
+            transform: translateY(-12px) scale(1.04) !important;
+            box-shadow: 12px 18px 40px rgba(139, 71, 93, 0.18) !important;
+        }
+
+        /* Navigation link colour transition */
+        .nav-links a {
+            transition: color 0.7s ease, letter-spacing 0.7s ease !important;
+        }
+        .nav-links a:hover {
+            letter-spacing: 1.5px !important;
+        }
+
+        /* Contact form focus glow */
+        input:focus, textarea:focus {
+            box-shadow: 0 0 0 3px rgba(168, 197, 181, 0.4), 0 0 20px rgba(168, 197, 181, 0.15) !important;
+            transform: scale(1.01);
+            transition: all 0.8s ease !important;
+        }
+
+        /* Stack nav arrow bounce */
+        .stack-prev, .stack-next {
+            transition: transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.6s ease !important;
+        }
+        .stack-prev:hover, .stack-next:hover {
+            transform: scale(1.22) !important;
+        }
+
+        /* Decorative star smooth transitions */
+        .doodle {
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+    /* Theme toggle */
+    .theme-toggle-wrap { display:flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer; }
+    .theme-toggle-label { font-family:'Archivo Black',sans-serif; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#8b475d; opacity:0.7; user-select:none; }
+    html:not(.light-mode) .theme-toggle-label { color:#e8a0b8 !important; }
+    .theme-toggle-track { width:36px; height:20px; background:#c4a0ae; border-radius:10px; position:relative; transition:background 0.3s; }
+    html:not(.light-mode) .theme-toggle-track { background:#3a2a32 !important; }
+    .theme-toggle-thumb { width:16px; height:16px; background:#8b475d; border-radius:50%; position:absolute; top:2px; left:18px; transition:left 0.3s, background 0.3s; }
+    html:not(.light-mode) .theme-toggle-thumb { left:2px !important; background:#e8a0b8 !important; }
+
+    /* ═══ DARK MODE (default) ═══ */
+    html:not(.light-mode) body { background: #000000 !important; color: #d4c5c8 !important; }
+    html:not(.light-mode) .star { background: #2a1a22 !important; opacity: 0.5 !important; }
+    html:not(.light-mode) .announcement-banner { background: linear-gradient(90deg, #2a1520 0%, #24121a 25%, #1e0f16 55%, #2a1520 100%) !important; background-size: 300% 100% !important; }
+    html:not(.light-mode) .banner-inner span { color: #e8a0b8 !important; }
+    html:not(.light-mode) nav { background: rgba(30,16,24,0.97) !important; }
+    html:not(.light-mode) nav.scrolled { box-shadow: 0 2px 20px rgba(139,71,93,0.15) !important; }
+    html:not(.light-mode) .logo, html:not(.light-mode) .logo a { color: #e8a0b8 !important; }
+    html:not(.light-mode) .menu-toggle { color: #e8a0b8 !important; }
+    html:not(.light-mode) .nav-links a { color: #e8a0b8 !important; }
+    html:not(.light-mode) .music-nav-link { background: linear-gradient(135deg, #5c2a3a, #3d1a2a) !important; }
+    html:not(.light-mode) h1 { color: #e8a0b8 !important; }
+    html:not(.light-mode) h2 { color: #e8a0b8 !important; }
+    html:not(.light-mode) h3 { color: #e8a0b8 !important; }
+    html:not(.light-mode) h4 { color: #e8a0b8 !important; }
+    html:not(.light-mode) h2::after { background: linear-gradient(90deg, #f5c1cf, #e8a0b8, #f5c1cf) !important; }
+    html:not(.light-mode) h2.will-animate.visible::after { background: linear-gradient(90deg, #f5c1cf, #e8a0b8, #f5c1cf) !important; }
+    html:not(.light-mode) section p { color: #d4c5c8 !important; }
+    html:not(.light-mode) .hero p, html:not(.light-mode) .hero-content p { color: #d4899e !important; }
+    html:not(.light-mode) .stack-caption h4 { color: #e8a0b8 !important; }
+    html:not(.light-mode) .stack-caption p { color: #d4899e !important; }
+    html:not(.light-mode) .stack-counter { color: #d4899e !important; }
+    html:not(.light-mode) .stack-nav { background: rgba(255,255,255,0.15) !important; color: #e8a0b8 !important; }
+    html:not(.light-mode) .back-button { color: #e8a0b8 !important; background: #2a1520 !important; border-color: rgba(232,160,184,0.3) !important; }
+    html:not(.light-mode) .back-button:hover { background: #3a1d2c !important; }
+    html:not(.light-mode) footer { background: rgba(0,0,0,0.5) !important; }
+    html:not(.light-mode) footer p { color: #e8a0b8 !important; }
+    html:not(.light-mode) span[style*="color:#8b475d"] { color: #e8a0b8 !important; }
+    html:not(.light-mode) p[style*="color:#8b475d"] { color: #e8a0b8 !important; }
+    html:not(.light-mode) p[style*="color:#a0617a"] { color: #d4899e !important; }
+    html:not(.light-mode) div[style*="background:rgba(139,71,93,0.1)"] { background: rgba(232,160,184,0.15) !important; }
+    html:not(.light-mode) div[style*="border-left:3px solid #8b475d"] { border-left-color: #e8a0b8 !important; }
+    html:not(.light-mode) input:focus, html:not(.light-mode) textarea:focus { box-shadow: 0 0 0 3px rgba(232,160,184,0.4), 0 0 20px rgba(232,160,184,0.15) !important; }
+    @media (max-width: 820px) {
+        html:not(.light-mode) .nav-links { background: rgba(0,0,0,1) !important; }
+        html:not(.light-mode) .nav-links li { border-bottom-color: rgba(232,160,184,0.1) !important; }
+    }
+
+    @media (max-width: 820px) {
+        .theme-toggle-wrap { gap:0 !important; margin-left:auto; margin-right:4px; flex-direction:column !important; align-items:center !important; position:relative !important; }
+        .theme-toggle-label { font-size:7px !important; letter-spacing:1px !important; position:absolute !important; top:100% !important; left:50% !important; transform:translateX(-50%) !important; margin-top:2px !important; white-space:nowrap !important; }
+        .theme-toggle-track { width:30px !important; height:16px !important; }
+        .theme-toggle-thumb { width:12px !important; height:12px !important; }
+        html.light-mode .theme-toggle-thumb { left:16px !important; }
+    }
+  </style>
+  <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');window.addEventListener('pageshow',function(e){if(e.persisted)window.location.reload()});</script>
+</head>
+<body>
+  <!-- Decorative Stars -->
+  <div class="doodle star star1"></div>
+  <div class="doodle star star2"></div>
+  <div class="doodle star star3"></div>
+  <div class="doodle star star4"></div>
+  <div class="doodle star star5"></div>
+  <div class="doodle star star6"></div>
+  <div class="doodle star star7"></div>
+  <div class="doodle star star8"></div>
+  <div class="doodle star star9"></div>
+  <div class="doodle star star10"></div>
+  <div class="doodle star star11"></div>
+  <div class="doodle star star12"></div>
+  <div class="doodle star star13"></div>
+  <div class="doodle star star14"></div>
+  <div class="doodle star star15"></div>
+  <div class="doodle star star16"></div>
+  <div class="doodle star star17"></div>
+  <div class="doodle star star18"></div>
+  <div class="doodle star star19"></div>
+  <div class="doodle star star20"></div>
+  <div class="doodle star star21"></div>
+  <div class="doodle star star22"></div>
+  <div class="doodle star star23"></div>
+  <div class="doodle star star24"></div>
+  <div class="doodle star star25"></div>
+  <div class="doodle star star26"></div>
+  <div class="doodle star star27"></div>
+  <div class="doodle star star28"></div>
+  <div class="doodle star star29"></div>
+  <div class="doodle star star30"></div>
+
+  <!-- Announcement banner -->
+  <div class="announcement-banner">
+    <a href="extras.html" class="banner-link">
+      <div class="banner-inner">
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </a>
+  </div>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="logo"><a href="graphic-design.html"><img src="shared/AB logo light.png" alt="AB" class="logo-img">AMELIA'S PORTFOLIO</a></div>
+    <div class="theme-toggle-wrap" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-toggle-label" id="themeLabel">Light</span>
+            <div class="theme-toggle-track"><div class="theme-toggle-thumb"></div></div>
+        </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="graphic-design.html#home">Home</a></li>
+      <li><a href="graphic-design.html#portfolio">Work</a></li>
+      <li><a href="graphic-design.html#about">About</a></li>
+      <li><a href="graphic-design.html#skills">Skills</a></li>
+      <li><a href="graphic-design.html#contact">Contact</a></li>
+      <li><a href="music.html" class="music-nav-link">Music</a></li>
+      <li><a href="design-cv.html" class="cv-button">View Design CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Posters &amp; Print</h1>
+      <p>Poster series, magazine layouts, packaging design, and other print work.</p>
+      <div style="margin-top:25px; padding:15px 25px; background:rgba(139,71,93,0.1); border-radius:12px; border-left:3px solid #8b475d; animation:fadeInUp 1s ease 0.6s backwards; display:inline-block;">
+        <p style="font-size:14px; color:#8b475d; margin:0; font-style:normal;">💡 <strong>Tip:</strong> Tap or click any image for fullscreen view</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Artist Posters -->
+  <section>
+    <h2>Artist Posters</h2>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="extras/dogtag2-fullscreen.webp" target="_blank" class="stack-card" data-title="Dog Tag freestyle (Light)" data-desc="bassvicitm's Dog Tag freestyle song design poster. Using typography elements and image graphics."><img src="extras/dogtag2-fullscreen.webp" alt="Dog Tag Poster Light"></a>
+        <a href="extras/dogtag1-fullscreen.webp" target="_blank" class="stack-card" data-title="Dog Tag freestyle (Dark)" data-desc="bassvicitm's Dog Tag freestyle song design poster. Using typography elements and image graphics."><img src="extras/dogtag1-fullscreen.webp" alt="Dog Tag Poster Dark"></a>
+        <a href="extras/sunday-fullscreen.webp" target="_blank" class="stack-card" data-title="Sunday (1994)" data-desc="Artist poster for Sunday (1994)'s new album, Devotion. Using bitmap cybersigilism, overlay images and micro graphics."><img src="extras/sunday-fullscreen.webp" alt="Sunday Poster"></a>
+        <a href="extras/bjork-fullscreen.webp" target="_blank" class="stack-card" data-title="Venus as a Boy" data-desc="Bjork's Venus as a Boy song design poster. Using traced cybersigilism and typography elements."><img src="extras/bjork-fullscreen.webp" alt="Björk Venus as a Boy Poster"></a>
+        <a href="extras/pit-fullscreen.webp" target="_blank" class="stack-card" data-title="27a Pitfield St" data-desc="bassvicitm's 27a Pitfiled St song design poster. Using traced cybersigilism and outlined graphics."><img src="extras/pit-fullscreen.webp" alt="27a Pitfield St Poster"></a>
+        <a href="extras/sometimesibeliveingod-fullscreen.webp" target="_blank" class="stack-card" data-title="Sometimes I believe in God (Sometimes I believe in Me)" data-desc="bassvicitm's Sometimes I believe in God song design poster. Using typography elements and traced, outlined graphics."><img src="extras/sometimesibeliveingod-fullscreen.webp" alt="Sometimes I Believe in God Poster"></a>
+        <a href="extras/whywaitforthebest-fullscreen.webp" target="_blank" class="stack-card" data-title="Why wait for the best, when I could have you?" data-desc="Lana Del Rey's Norman fucking Rockwell song design poster. Using traced images (coffee latte art) and bitmap typography elements."><img src="extras/whywaitforthebest-fullscreen.webp" alt="Lana Del Rey NFR Poster"></a>
+        <a href="extras/allisfulloflove-fullscreen.webp" target="_blank" class="stack-card" data-title="All is Full of Love" data-desc="Bjork's All is Full of Love song design poster. Using traced images (coffee latte art) and typography elements."><img src="extras/allisfulloflove-fullscreen.webp" alt="Björk Poster"></a>
+        <a href="extras/pinkpantheress-fullscreen.webp" target="_blank" class="stack-card" data-title="PinkPantheress" data-desc="Artist poster for PinkPantheress. Image traced photo from Melbourne Laneway 2026."><img src="extras/pinkpantheress-fullscreen.webp" alt="PinkPantheress Poster"></a>
+        <a href="extras/poppies-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Poppies" data-desc="Marcy Playground's Poppies song design poster. Using traced cybersigilism and traced image graphics."><img src="extras/poppies-fullscreen.webp" alt="Poppies Poster"></a>
+        <a href="extras/wacotexas-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Waco Texas" data-desc="Ethel Cain's Waco Texas song design poster. Using traced cybersigilism, typography elements and traced images (coffee latte art)."><img src="extras/wacotexas-fullscreen.webp" alt="Waco Texas Poster"></a>
+        <a href="extras/movies-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Movies" data-desc="Weyes Blood's Movies song design poster. Using hand written and cursive typography elements."><img src="extras/movies-fullscreen.webp" alt="Movies Poster"></a>
+        <a href="extras/bangbangkisskiss-fullscreen.webp" target="_blank" class="stack-card" data-title="Bang Bang kiss Kiss" data-desc="Lana Del Rey's Venice Bitch song design poster. Using bitmap image graphics and typography elements."><img src="extras/bangbangkisskiss-fullscreen.webp" alt="Bang Bang Kiss Kiss"></a>
+        <a href="extras/joost-fullscreen.webp" target="_blank" class="stack-card" data-title="Joost Klein" data-desc="Artist poster for Joost Klein, featuring new album Kleinkunst. Using bitmap cybersigilism, textured graphics and typography elements."><img src="extras/joost-fullscreen.webp" alt="Joost Klein Poster 1"></a>
+        <a href="extras/joost2-fullscreen.webp" target="_blank" class="stack-card" data-title="Luchtballon" data-desc="Joost Klein's Luchtballon song and album design poster. Using bitmap cybersigilism and layout design."><img src="extras/joost2-fullscreen.webp" alt="Joost Klein Poster 2"></a>
+        <a href="extras/language-fullscreen.webp" target="_blank" class="stack-card" data-title="Language" data-desc="Spirit Blue's Language song design poster. Using textured and bitmap graphics and typography elements."><img src="extras/language-fullscreen.webp" alt="Language Poster"></a>
+        <a href="extras/oklou-fullscreen.webp" target="_blank" class="stack-card" data-title="Harvest Sky" data-desc="Oklou's Harvest Sky song design poster. Image traced photo from Melbourne Laneway 2026."><img src="extras/oklou-fullscreen.webp" alt="Oklou Poster"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+  </section>
+
+  <!-- Posters -->
+  <section>
+    <h2>Posters</h2>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="extras/euphoria.webp" target="_blank" class="stack-card" data-title="Euphoria" data-desc="Experimenting with image overlays and blending."><img src="extras/euphoria.webp" alt="Euphoria Poster"></a>
+        <a href="extras/luminosity.webp" target="_blank" class="stack-card" data-title="Luminosity" data-desc="Experimenting with image overlays and blending."><img src="extras/luminosity.webp" alt="Luminosity Poster"></a>
+        <a href="extras/serendipity.webp" target="_blank" class="stack-card" data-title="Serendipity" data-desc="Experimenting with image overlays and blending."><img src="extras/serendipity.webp" alt="Serendipity Poster"></a>
+        <a href="extras/thorns-fullscreen.webp" target="_blank" class="stack-card" data-title="Thorns" data-desc="Experimenting with Photoshop shapes and effects. Using texture and simple typography elements."><img src="extras/thorns-fullscreen.webp" alt="Thorns Poster"></a>
+        <a href="extras/RADIANCE poster.webp" target="_blank" class="stack-card" data-title="Radiance" data-desc="Drawing elements in Photoshop, Using glow effects and micro graphics."><img src="extras/RADIANCE poster.webp" alt="Radiance Poster"></a>
+        <a href="extras/backrooms-fullscreen.webp" target="_blank" class="stack-card" data-title="Backrooms" data-desc="Movie poster for A24's new Backrooms movie. Using traced cybersigilism, typography elements and micrographics."><img src="extras/backrooms-fullscreen.webp" alt="Backrooms Poster"></a>
+        <a href="extras/reverie-fullscreen.webp" target="_blank" class="stack-card" data-title="Reverie" data-desc="Experimenting with image overlays and blending. Using micro graphics, typography elements and layout design."><img src="extras/reverie-fullscreen.webp" alt="Reverie Poster"></a>
+        <a href="extras/feelinglucky-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Feeling Lucky" data-desc="Typography experimentation. Using bitmap image graphics and layout design."><img src="extras/feelinglucky-fullscreen.webp" alt="Feeling Lucky"></a>
+        <a href="extras/itiswhatitis-fullscreen.webp" target="_blank" class="stack-card" data-title="It Is What It Is" data-desc="Experimenting with chrome design and 3D materials."><img src="extras/itiswhatitis-fullscreen.webp" alt="It Is What It Is"></a>
+        <a href="extras/starart-fullscreen.webp" target="_blank" class="stack-card" data-title="Star" data-desc="Experimenting with 3D materials. Using traced cybersigilism and typography elements."><img src="extras/starart-fullscreen.webp" alt="Star Poster"></a>
+        <a href="extras/stargirl-fullscreen.webp?v=2" target="_blank" class="stack-card" data-title="Star Girl" data-desc="Illustration poster design. Using 3D elements, overlay text and typography elements."><img src="extras/stargirl-fullscreen.webp" alt="Star Girl Poster"></a>
+        <a href="extras/koifishart-fullscreen.webp" target="_blank" class="stack-card" data-title="Nishikigoi" data-desc="Koi fish poster design. Using 3D elements, illustration and layout design."><img src="extras/koifishart-fullscreen.webp" alt="Koi Fish poster design"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+  </section>
+
+  <!-- Orchid Posters -->
+  <section>
+    <h2>Orchidaceae</h2>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="extras/orchidposterart-fullscreen.webp" target="_blank" class="stack-card" data-title="Orchid Poster I" data-desc="Botanical orchid poster. Using illustration, typography elements and layout design."><img src="extras/orchidposterart-fullscreen.webp" alt="Orchid Poster Trio Layout"></a>
+        <a href="extras/orchidposter2-fullscreen.webp" target="_blank" class="stack-card" data-title="Orchid Poster II" data-desc="Botanical orchid poster. Using illustration, typography elements and layout design."><img src="extras/orchidposter2-fullscreen.webp" alt="Orchid Poster on Burgundy Background"></a>
+        <a href="extras/landscapeorchid-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Landscape Poster" data-desc="Botanical orchid poster. Using illustration, typography elements and layout design."><img src="extras/landscapeorchid-fullscreen.webp" alt="Rotated Orchid Poster Layout"></a>
+        <a href="extras/greenorchidart-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Green Orchid" data-desc="Orchid close up illustration poster."><img src="extras/greenorchidart-fullscreen.webp" alt="Green Orchid Design"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+  </section>
+
+  <!-- Magazine Project -->
+  <section>
+    <h2>Magazine Design</h2>
+    <p class="section-year" data-default="2024" style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <h3>Covers &amp; Spreads</h3>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="extras/magazinecover-fullscreen.webp" target="_blank" class="stack-card" data-title="Augustine" data-desc="Magazine cover using illustration, typography elements and layout design."><img src="extras/magazinecover-fullscreen.webp" alt="Augustine Magazine Cover"></a>
+        <a href="extras/magazinespread-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Augustine" data-desc="Magazine spread using illustration and layout design."><img src="extras/magazinespread-fullscreen.webp" alt="We Never Go Out of Style Spread"></a>
+        <a href="extras/magazinedrafts-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Augustine sketches" data-desc="Magazine illustration concepts and drafts."><img src="extras/magazinedrafts-fullscreen.webp" alt="Magazine Drafts"></a>
+        <a href="extras/poemspread-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-year="2026" data-title="Drunk in Chinatown" data-desc="Melina Liu's Drunk in Chinatown poem magazine spread. Using traced image graphics (coffee latte art), typography elements and layout design."><img src="extras/poemspread-fullscreen.webp" alt="Magazine Spread"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+  </section>
+
+  <!-- Packaging Design -->
+  <section>
+    <h2>Packaging Design</h2>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <h3>Sugar Blooms</h3>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="extras/packaging design full screen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Sugar Blooms" data-desc="Dieline design"><img src="extras/packaging design full screen.webp" alt="Packaging Design"></a>
+        <a href="extras/sugar bloom full screen image1.webp" target="_blank" class="stack-card" data-title="Sugar Blooms" data-desc="3D packaging design for Sugar Blooms confectionery brand"><img src="extras/sugar bloom full screen image1.webp" alt="Sugar Blooms Packaging 1"></a>
+        <a href="extras/sugar bloom full screen image2.webp" target="_blank" class="stack-card" data-title="Sugar Blooms" data-desc="3D packaging design for Sugar Blooms confectionery brand"><img src="extras/sugar bloom full screen image2.webp" alt="Sugar Blooms Packaging 2"></a>
+        <a href="extras/sugar bloom full screen image3.webp" target="_blank" class="stack-card" data-title="Sugar Blooms" data-desc="3D packaging design for Sugar Blooms confectionery brand"><img src="extras/sugar bloom full screen image3.webp" alt="Sugar Blooms Packaging 3"></a>
+        <a href="extras/sugar bloom full screen image4.webp" target="_blank" class="stack-card" data-title="Sugar Blooms" data-desc="3D packaging design for Sugar Blooms confectionery brand"><img src="extras/sugar bloom full screen image4.webp" alt="Sugar Blooms Packaging 4"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+  </section>
+
+  <!-- Art Showcase poster & program -->
+  <section>
+    <h2>Art Showcase Design</h2>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2025</p>
+    <h3>Dickson College Art Showcase</h3>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="extras/artshowcaseposter-fullscreen.webp" target="_blank" class="stack-card" data-title="Event Poster" data-desc="Promotional poster for the Dickson College Art Showcase"><img src="extras/artshowcaseposter-fullscreen.webp" alt="Art Showcase Poster"></a>
+        <a href="extras/menuart-fullscreen.png" target="_blank" class="stack-card" data-title="Menu" data-desc="Event menu items"><img src="extras/menuart-fullscreen.png" alt="Art Showcase Artwork Detail"></a>
+        <a href="extras/artshowcaseoutside-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Program – Outside Spread" data-desc="Front and back of the program"><img src="extras/artshowcaseoutside-fullscreen.webp" alt="Art Showcase Programme Outside Spread"></a>
+        <a href="extras/artshowcaseinside-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Program – Inside Spread" data-desc="Overview, timings and menu"><img src="extras/artshowcaseinside-fullscreen.webp" alt="Art Showcase Programme Inside Spread"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+  </section>
+
+  <!-- Musical Posters -->
+  <section>
+    <h2>Musical Posters</h2>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2023</p>
+    <h3>The Wizard of Oz</h3>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="theatre/dorothy.webp" target="_blank" class="stack-card" data-title="Dorothy" data-desc="Illustrated character poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/dorothy.webp" alt="Dorothy Character Poster"></a>
+        <a href="theatre/glinda.webp" target="_blank" class="stack-card" data-title="Glinda the Good" data-desc="Illustrated character poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/glinda.webp" alt="Glinda Character Poster"></a>
+        <a href="theatre/witch.webp" target="_blank" class="stack-card" data-title="Wicked Witch" data-desc="Illustrated character poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/witch.webp" alt="Wicked Witch Poster"></a>
+        <a href="theatre/wizardofoz.webp" target="_blank" class="stack-card" data-title="The Wizard of Oz I" data-desc="Illustrated promotional poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/wizardofoz.webp" alt="Rainbow Cast Poster"></a>
+        <a href="theatre/white.webp" target="_blank" class="stack-card" data-title="The Wizard of Oz II" data-desc="Illustrated promotional poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/white.webp" alt="School Production Poster"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:50px; margin-bottom:0; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <h3 style="margin-top:8px;">Love &amp; Information</h3>
+    <div class="stack-scene">
+      <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+      <div class="card-stack">
+        <a href="theatre/loveandinformation1.png" target="_blank" class="stack-card" data-title="Love &amp; Information I" data-desc="Promotional poster design for Dickson College's 2024 Love &amp; Information play."><img src="theatre/loveandinformation1.png" alt="Love and Information Light Poster"></a>
+        <a href="theatre/loveandinformation2.png" target="_blank" class="stack-card" data-title="Love &amp; Information II" data-desc="Promotional poster design for Dickson College's 2024 Love &amp; Information play."><img src="theatre/loveandinformation2.png" alt="Love and Information Dark Poster"></a>
+        <a href="theatre/loveandinfo.webp" target="_blank" class="stack-card" data-title="Love &amp; Information III" data-desc="Promotional poster design for Dickson College's 2024 Love &amp; Information play."><img src="theatre/loveandinfo.webp" alt="Love and Information Darker Draft"></a>
+      </div>
+      <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+    </div>
+    <div class="stack-counter"></div>
+    <div class="stack-caption"><h4></h4><p></p></div>
+
+    <div class="back-button-container">
+      <a href="graphic-design.html#portfolio" class="back-button">← Back to Portfolio</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Amelia Bobbin</p>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+
+    const navLinks = document.getElementById('navLinks');
+    const menuToggle = document.getElementById('menuToggle');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('navbar');
+      if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        menuToggle.textContent = '☰';
+      }
+    });
+    document.querySelectorAll('.nav-links a').forEach(a=>{
+      a.addEventListener('click',()=>{
+        navLinks.classList.remove('active');
+        menuToggle.textContent='☰';
+      });
+    });
+
+    let ticking = false;
+    document.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 820 || ticking) return;
+      window.requestAnimationFrame(() => {
+        document.querySelectorAll('.star').forEach((star, i) => {
+          const speed = (i + 1) * 0.015;
+          const x = (e.clientX * speed) / 50;
+          const y = (e.clientY * speed) / 50;
+          star.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    });
+
+    // Card Stacks
+    document.querySelectorAll('.card-stack').forEach(stackEl => {
+      const cards = [...stackEl.querySelectorAll('.stack-card')];
+      const n = cards.length;
+      if (n === 0) return;
+      const rots = [0, -6, 4, -5, 5, -2, 6, -4, 3, -5, 4];
+      // Find caption/counter as next siblings of the stack-scene (in case of multiple stacks in one section)
+      const sceneEl = stackEl.closest('.stack-scene');
+      let captionEl = null, counterEl = null;
+      let sib = sceneEl ? sceneEl.nextElementSibling : null;
+      while (sib) {
+        if (!counterEl && sib.classList && sib.classList.contains('stack-counter')) counterEl = sib;
+        if (!captionEl && sib.classList && sib.classList.contains('stack-caption')) captionEl = sib;
+        if (captionEl && counterEl) break;
+        if (sib.classList && sib.classList.contains('stack-scene')) break; // reached next stack
+        sib = sib.nextElementSibling;
+      }
+      const yearEl = stackEl.closest('section').querySelector('.section-year');
+      let front = 0;
+
+      let busy = false;
+
+      function update() {
+        cards.forEach((card, i) => {
+          const pos = (i - front + n) % n;
+          let rot = rots[Math.min(pos, rots.length - 1)];
+          if (pos === 0 && card.dataset.frontRot) rot = parseFloat(card.dataset.frontRot);
+          const isLandscape = card.dataset.orient === 'landscape';
+          const landscapeBoost = window.matchMedia('(max-width: 820px)').matches ? 1.18 : 1.35;
+          const scale = (1 - Math.min(pos, 5) * 0.03) * (isLandscape ? landscapeBoost : 1);
+          card._baseTransform = `rotate(${rot}deg) scale(${scale})`;
+          card.style.zIndex = n - pos;
+          card.style.transform = card._baseTransform;
+          card.style.filter = pos === 0 ? 'drop-shadow(0 20px 40px rgba(0,0,0,0.32))' : 'none';
+          card.style.opacity = pos < 5 ? 1 : 0;
+          card.style.pointerEvents = pos === 0 ? 'auto' : 'none';
+        });
+        if (counterEl) counterEl.textContent = (front + 1) + ' / ' + n;
+        if (captionEl) {
+          const fc = cards[front];
+          captionEl.querySelector('h4').textContent = fc.dataset.title || '';
+          captionEl.querySelector('p').textContent = fc.dataset.desc || '';
+        }
+        if (yearEl) {
+          const fc = cards[front];
+          yearEl.textContent = fc.dataset.year || yearEl.dataset.default || yearEl.textContent;
+        }
+      }
+
+      function go(dir) {
+        if (busy) return;
+        busy = true;
+        front = (front + dir + n) % n;
+        update();
+        setTimeout(() => { busy = false; }, 650);
+      }
+
+      stackEl.closest('.stack-scene').querySelector('.stack-prev').addEventListener('click', () => go(-1));
+      stackEl.closest('.stack-scene').querySelector('.stack-next').addEventListener('click', () => go(1));
+
+      // Touch swipe support — lock gesture to horizontal or vertical early
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var swipeAxis = null;
+      var scene = stackEl.closest('.stack-scene');
+      scene.addEventListener('touchstart', function(e) {
+        touchStartX = e.touches[0].clientX;
+        touchStartY = e.touches[0].clientY;
+        swipeAxis = null;
+      }, { passive: true });
+      scene.addEventListener('touchmove', function(e) {
+        if (swipeAxis === 'x') { e.preventDefault(); return; }
+        if (swipeAxis === 'y') return;
+        var dx = e.touches[0].clientX - touchStartX;
+        var dy = e.touches[0].clientY - touchStartY;
+        var ax = Math.abs(dx), ay = Math.abs(dy);
+        if (ax > 8 || ay > 8) {
+          swipeAxis = (ax > ay * 1.2) ? 'x' : 'y';
+          if (swipeAxis === 'x') e.preventDefault();
+        }
+      }, { passive: false });
+      scene.addEventListener('touchend', function(e) {
+        if (swipeAxis !== 'x') return;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+      });
+
+      cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+          if (card.style.pointerEvents === 'none') return;
+          const base = card._baseTransform || '';
+          card.style.transform = base.replace(/scale\(([^)]+)\)/, (_, s) => `scale(${parseFloat(s) * 1.04})`) + ' translateY(-7px)';
+        });
+        card.addEventListener('mouseleave', () => {
+          if (card._baseTransform) card.style.transform = card._baseTransform;
+        });
+      });
+
+      update();
+    });
+  </script>
+  <script src="shared/lightbox.js?v=5"></script>
+<script>
+    // Scroll-triggered animations
+    (function() {
+        var opts = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, opts);
+
+        // Observe fade-in elements
+        document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+
+        // Observe h2 headings and give them the animated class
+        document.querySelectorAll('h2').forEach(function(h2) {
+            h2.classList.add('will-animate');
+            observer.observe(h2);
+        });
+
+        // Stagger fade-in siblings
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            var siblings = Array.from(el.parentElement.children).filter(function(c) {
+                return c.classList.contains('fade-in');
+            });
+            var idx = siblings.indexOf(el);
+            if (idx > 0) el.style.transitionDelay = (idx * 0.11) + 's';
+        });
+    })();
+</script>
+<script src="shared/theme.js?v=3"></script>
+
+<style>
+#swipe-hint-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+#swipe-hint-overlay.spotlight-visible { opacity: 1; }
+#swipe-hint-box {
+    position: relative;
+    max-width: min(400px, 86vw);
+    padding: 36px 28px 30px;
+    background: linear-gradient(135deg, rgba(61,26,42,0.38) 0%, rgba(92,42,58,0.38) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    transition: transform 0.5s ease;
+    text-align: center;
+    color: #fff;
+    font-family: 'Georgia Custom', Georgia, serif;
+}
+#swipe-hint-overlay.spotlight-visible #swipe-hint-box { transform: scale(1); }
+#swipe-hint-box h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #f5c1cf;
+    margin: 0 0 10px;
+}
+#swipe-hint-box p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    color: #fde0e3;
+}
+#swipe-hint-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+#swipe-hint-close:hover { background: rgba(0,0,0,0.8); }
+html.light-mode #swipe-hint-box {
+    background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(245,193,207,0.22) 100%) !important;
+    box-shadow: 0 20px 60px rgba(139,71,93,0.25) !important;
+}
+html.light-mode #swipe-hint-box h3 { color: #8b475d !important; }
+html.light-mode #swipe-hint-box p { color: #5a5a5a !important; }
+</style>
+
+<script>
+(function() {
+    if (!window.matchMedia('(max-width: 820px)').matches) return;
+
+    var navEntry = performance.getEntriesByType('navigation')[0];
+    var navType = navEntry ? navEntry.type : 'navigate';
+    if (navType === 'reload') sessionStorage.removeItem('swipeHintDismissed');
+    if (sessionStorage.getItem('swipeHintDismissed')) return;
+
+    var overlay = document.createElement('div');
+    overlay.id = 'swipe-hint-overlay';
+    overlay.innerHTML = '<div id="swipe-hint-box"><button id="swipe-hint-close" aria-label="Close">\u00D7</button><h3>Swipe to browse</h3><p>Swipe left or right on the cards to see more artwork.</p></div>';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(function() { overlay.classList.add('spotlight-visible'); });
+    function dismiss() {
+        overlay.classList.remove('spotlight-visible');
+        overlay.addEventListener('transitionend', function() { overlay.remove(); }, { once: true });
+        sessionStorage.setItem('swipeHintDismissed', '1');
+    }
+    document.getElementById('swipe-hint-close').addEventListener('click', dismiss);
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) dismiss(); });
+})();
+</script>
+</body>
+</html>

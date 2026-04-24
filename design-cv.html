@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Amelia Bobbin - Design CV</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&display=swap" rel="stylesheet" />
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/made-sunflower');
+    @font-face { font-family: "Cavalhatriz"; src: url("fonts/Cavalhatriz.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+    @font-face { font-family: "Georgia Custom"; src: url("fonts/georgia.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+    @font-face { font-family: "Georgia Custom"; src: url("fonts/georgiab.ttf") format("truetype"); font-weight: bold; font-style: normal; }
+    @font-face { font-family: "Griffiths"; src: url("fonts/Griffiths.otf") format("opentype"); font-weight: normal; font-style: normal; }
+
+    *{margin:0;padding:0;box-sizing:border-box}
+
+    html { scroll-behavior: smooth; }
+    body{
+      background:linear-gradient(135deg, #f5c1cf 0%, #fceadb 20%, #e8d5ca 40%, #b4d4c3 60%, #f5e6e8 80%, #d4a5a5 100%);
+      color:#5a5a5a;overflow-x:hidden;font-weight:400;
+      -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+    }
+
+    /* Decorative stars (behind content) */
+    .doodle{position:fixed;pointer-events:none;z-index:1}
+    .star{
+      width:25px;height:25px;background:#a8c5b5;opacity:.4;
+      clip-path:polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);
+      animation:gentleFloat 6s infinite ease-in-out;
+    }
+    @keyframes gentleFloat{
+      0%,100%{transform:translate(0,0);opacity:.3}
+      25%{transform:translate(10px,-15px);opacity:.5}
+      50%{transform:translate(-5px,-25px);opacity:.4}
+      75%{transform:translate(-15px,-10px);opacity:.6}
+    }
+    /* original 10 */
+    .star1{top:15%;left:8%;animation-delay:0s;animation-duration:7s}
+    .star2{top:25%;right:12%;animation-delay:2s;animation-duration:8s;width:20px;height:20px;background:#a8c5b5}
+    .star3{bottom:20%;left:15%;animation-delay:4s;animation-duration:6s}
+    .star4{top:60%;right:8%;animation-delay:3s;animation-duration:9s;width:30px;height:30px}
+    .star5{top:45%;left:5%;animation-delay:1s;width:18px;height:18px;background:#f5c1cf}
+    .star6{bottom:35%;right:20%;animation-delay:5s;animation-duration:7s}
+    .star7{top:10%;right:25%;animation-delay:2.5s;width:35px;height:35px;background:#8b475d;opacity:.3}
+    .star8{bottom:40%;left:30%;animation-delay:4.5s;width:22px;height:22px;background:#a8c5b5;animation-duration:8s}
+    .star9{top:70%;left:25%;animation-delay:1.5s;width:28px;height:28px;background:#f5c1cf}
+    .star10{top:35%;right:35%;animation-delay:3.5s;width:16px;height:16px;background:#a8c5b5;animation-duration:9s}
+    /* 20 more for a fuller sky */
+    .star11{top:12%;left:30%;width:18px;height:18px;background:#f5c1cf;animation-delay:.8s}
+    .star12{top:18%;right:28%;width:24px;height:24px;background:#a8c5b5;animation-delay:1.6s}
+    .star13{top:28%;left:18%;width:14px;height:14px;background:#a8c5b5;animation-delay:2.2s}
+    .star14{top:52%;left:10%;width:26px;height:26px;background:#8b475d;opacity:.25;animation-delay:1.1s}
+    .star15{top:75%;right:12%;width:20px;height:20px;background:#f5c1cf;animation-delay:2.9s}
+    .star16{bottom:10%;left:8%;width:22px;height:22px;background:#a8c5b5;animation-delay:.3s}
+    .star17{bottom:28%;left:32%;width:16px;height:16px;background:#a8c5b5;animation-delay:3.1s}
+    .star18{bottom:48%;right:30%;width:18px;height:18px;background:#f5c1cf;animation-delay:1.9s}
+    .star19{top:38%;right:18%;width:22px;height:22px;background:#a8c5b5;animation-delay:.6s}
+    .star20{top:8%;left:55%;width:12px;height:12px;background:#a8c5b5;animation-delay:2.4s}
+    .star21{top:66%;left:42%;width:26px;height:26px;background:#8b475d;opacity:.25;animation-delay:1.4s}
+    .star22{bottom:22%;right:8%;width:18px;height:18px;background:#f5c1cf;animation-delay:2.1s}
+    .star23{top:82%;left:18%;width:16px;height:16px;background:#a8c5b5;animation-delay:.7s}
+    .star24{top:46%;right:48%;width:14px;height:14px;background:#a8c5b5;animation-delay:2.7s}
+    .star25{top:22%;left:75%;width:24px;height:24px;background:#f5c1cf;animation-delay:1.2s}
+    .star26{bottom:12%;right:40%;width:20px;height:20px;background:#a8c5b5;animation-delay:3.3s}
+    .star27{top:58%;left:62%;width:18px;height:18px;background:#a8c5b5;animation-delay:.4s}
+    .star28{bottom:60%;right:12%;width:15px;height:15px;background:#f5c1cf;animation-delay:2.6s}
+    .star29{top:32%;left:44%;width:21px;height:21px;background:#a8c5b5;animation-delay:1.8s}
+    .star30{bottom:72%;left:6%;width:13px;height:13px;background:#a8c5b5;animation-delay:.9s}
+
+    .announcement-banner{position:fixed;top:0;left:0;width:100%;height:38px;background:linear-gradient(90deg, #f5c1cf 0%, #fceadb 25%, #b4d4c3 55%, #f5c1cf 100%);background-size:300% 100%;animation:bannerShift 8s linear infinite;z-index:1002;overflow:hidden;display:flex;align-items:center}
+    .banner-link{display:block;width:100%;overflow:hidden;text-decoration:none;cursor:pointer}
+    .banner-link:hover .banner-inner{animation-play-state:paused}
+    .banner-inner{display:flex;white-space:nowrap;animation:marqueeScroll 28s linear infinite;will-change:transform}
+    .banner-inner span{font-family:'Archivo Black',sans-serif;font-size:12px;color:#8b475d;text-transform:uppercase;letter-spacing:2px;flex-shrink:0;padding-right:10px}
+    @keyframes bannerShift{0%{background-position:0% 0%}100%{background-position:100% 0%}}
+    @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* Navigation (desktop) */
+    nav{
+      position:fixed;top:38px;width:100%;
+      padding:25px 60px;display:flex;justify-content:space-between;align-items:center;
+      z-index:1000;background:rgba(255,255,255,.85);backdrop-filter:blur(15px);transition:all .4s ease;
+    }
+    nav.scrolled{padding:20px 60px;box-shadow:0 2px 20px rgba(212,165,165,.1)}
+
+    .logo{
+      font-family:'Archivo Black',sans-serif;font-size:24px;color:#8b475d;letter-spacing:2px;
+      transition:all .3s ease;font-weight:400;text-transform:uppercase;flex-shrink:0;white-space:nowrap;
+    }
+    .logo a{color:#8b475d;text-decoration:none;display:flex;align-items:center;gap:10px}
+    .logo-img{height:48px;width:auto;flex-shrink:0}
+    .cv-button{padding:10px 25px;background:#8b475d;color:white!important;text-decoration:none;border-radius:25px;font-family:'Georgia Custom',Georgia,serif;font-size:16px;transition:all 0.3s ease;margin-left:20px;box-shadow:0 3px 10px rgba(139,71,93,.3);display:inline-block}
+    .cv-button:hover{background:#a0617a;transform:translateY(-3px);box-shadow:0 6px 20px rgba(139,71,93,.5)}
+    .cv-button::after{display:none!important}
+
+    .menu-toggle{
+      display:none;background:none;border:none;font-size:32px;color:#8b475d;cursor:pointer;
+      padding:10px;z-index:1001;min-width:44px;min-height:44px;flex-shrink:0;
+    }
+
+    .nav-links{display:flex;gap:35px;list-style:none;align-items:center}
+    .nav-links a{
+      color:#8b475d;text-decoration:none;font-size:17px;letter-spacing:.5px;position:relative;
+      transition:all .3s ease;font-weight:500;font-family:Georgia,serif;
+    }
+    .nav-links a::after{content:'';position:absolute;bottom:-5px;left:50%;transform:translateX(-50%);width:0;height:2px;background:#8b475d;transition:width .3s ease}
+    .nav-links a:hover::after{width:100%}
+    .music-nav-link{background:linear-gradient(135deg,#f5c1cf,#a8c5b5);padding:10px 20px!important;border-radius:20px;font-weight:600!important;transition:all .3s ease}
+    .music-nav-link:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(139,71,93,.3)}
+    .music-nav-link::after{display:none!important}
+
+    /* Hero */
+    .hero{min-height:40vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:150px 40px 60px;position:relative;z-index:10}
+    .hero-content h1{font-family:'MADE Sunflower',sans-serif;font-size:58px;color:#8b475d;margin-bottom:20px;line-height:1.2;animation:fadeInUp 1s ease;font-weight:400;}
+    .hero-content p{font-size:17px;color:#a0617a;line-height:1.7;max-width:700px;margin:0 auto;font-family:'Georgia Custom',Georgia,serif;font-style:normal;letter-spacing:0}
+
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+    /* CV section */
+    section{position:relative;z-index:10}
+    .cv-section{padding:60px 40px 100px}
+    .cv-container{
+      max-width:820px;margin:0 auto;animation:fadeInUp 1s ease .3s backwards
+    }
+    .cv-content{
+      width:100%;display:flex;align-items:center;justify-content:center;
+    }
+    .cv-content img{max-width:100%;height:auto;display:block;margin:0 auto;filter:drop-shadow(13px 13px 14px rgba(0,0,0,0.85))}
+    .cv-content embed,.cv-content iframe{width:100%;height:1000px;border:none}
+
+    .download-button-container{display:flex;justify-content:center;margin-top:40px;animation:fadeInUp 1s ease .5s backwards}
+    .download-button{
+      display:inline-block;padding:18px 45px;background:#8b475d;color:#fff;text-decoration:none;font-size:16px;letter-spacing:2px;
+      transition:all .4s ease;position:relative;overflow:hidden;font-family:'Archivo Black',sans-serif;text-transform:uppercase;border-radius:5px;box-shadow:0 3px 10px rgba(139,71,93,.3)
+    }
+    .download-button::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);transition:left .5s ease}
+    .download-button:hover::before{left:100%}
+    .download-button:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(139,71,93,.4);background:#a0617a}
+
+    footer{text-align:center;padding:50px 40px;background:rgba(255,255,255,.5);color:#8b475d;font-size:14px;letter-spacing:0;font-family:'Georgia Custom',Georgia,serif}
+
+    /* Mobile nav + mobile tuning */
+    @media (max-width:820px){
+      .menu-toggle{display:block!important}
+      nav{padding:10px 16px!important;top:30px!important}
+      .logo{font-size:15px!important;letter-spacing:0.5px;max-width:calc(100% - 60px)}
+      .logo-img{height:40px}
+      .nav-links{
+        position:fixed;top:50px;left:-100%;width:100%;height:calc(100vh - 50px);
+        background:rgba(255,255,255,1);backdrop-filter:blur(15px);
+        flex-direction:column;padding:30px 20px;transition:left .3s ease;
+        box-shadow:0 4px 20px rgba(0,0,0,.1);overflow-y:auto;gap:0!important;z-index:999;align-items:stretch;
+      }
+      .nav-links.active{left:0}
+      .nav-links li{width:100%;margin:0;border-bottom:1px solid rgba(139,71,93,.1)}
+      .nav-links a{display:block;padding:12px 10px!important;font-size:14px!important;text-align:center;white-space:normal}
+      .music-nav-link{margin:15px 0!important;text-align:center;padding:12px 16px!important}
+      .announcement-banner{height:30px}
+      .banner-inner span{font-size:10px}
+      .star{width:10px!important;height:10px!important;opacity:0.3}
+      footer{padding:20px 14px;font-size:10px}
+    }
+
+    /* General responsive tweaks */
+    @media (max-width:968px){
+      .hero-content h1{font-size:26px}
+      .hero-content p{font-size:14px}
+      h2{font-size:20px;letter-spacing:0px;word-break:break-word;margin-bottom:14px}
+      h2::after{bottom:-6px!important;width:60px!important}
+      h3{font-size:16px}
+      section{padding:0 0}
+      .cv-section{padding:20px 14px 60px}
+      .cv-content{padding:20px;min-height:auto}
+      .cv-content img{width:100%;height:auto}
+    }
+
+    @media (max-width:480px){
+      .hero-content h1{font-size:22px}
+      h2{font-size:17px;margin-bottom:12px}
+      .cv-section{padding:16px 10px 40px}
+      .star{width:8px!important;height:8px!important;opacity:0.25}
+    }
+
+        /* ── Animation enhancements ── */
+
+        /* More dramatic fade-in with subtle scale + blur */
+        .fade-in {
+            transform: translateY(60px) scale(0.94) !important;
+            filter: blur(3px);
+            transition: opacity 2.5s ease, transform 2.5s cubic-bezier(0.22, 1, 0.36, 1), filter 2s ease !important;
+        }
+        .fade-in.visible {
+            transform: translateY(0) scale(1) !important;
+            filter: blur(0px);
+        }
+
+        /* Fade-in from left for odd items, right for even */
+        .fade-in:nth-child(odd) {
+            transform: translateY(50px) translateX(-30px) scale(0.94) !important;
+        }
+        .fade-in:nth-child(even) {
+            transform: translateY(50px) translateX(30px) scale(0.94) !important;
+        }
+        .fade-in.visible:nth-child(odd),
+        .fade-in.visible:nth-child(even) {
+            transform: translateY(0) translateX(0) scale(1) !important;
+        }
+
+        /* h2 headings slide up + underline draws in */
+        h2.will-animate {
+            opacity: 0;
+            transform: translateY(40px) scale(0.92);
+            filter: blur(4px);
+            transition: opacity 2.2s ease, transform 2.2s cubic-bezier(0.22, 1, 0.36, 1), filter 1.8s ease;
+        }
+        h2.will-animate.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
+        h2.will-animate::after {
+            width: 0 !important;
+            transition: width 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s !important;
+        }
+        h2.will-animate.visible::after {
+            width: 100px !important;
+        }
+
+        /* Section divider shimmer on h2 underline */
+        h2.will-animate.visible::after {
+            background: linear-gradient(90deg, #f5c1cf, #a8c5b5, #f5c1cf) !important;
+            background-size: 200% 100% !important;
+            animation: underlineShimmer 6s ease-in-out infinite !important;
+        }
+        @keyframes underlineShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Shimmer sweep across buttons on hover */
+        .cta-button, .cv-button {
+            overflow: hidden !important;
+        }
+        .cta-button::before, .cv-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+            pointer-events: none;
+            transition: left 1.2s ease;
+        }
+        .cta-button:hover::before, .cv-button:hover::before {
+            left: 160%;
+        }
+
+        /* Skill/stack card pop-in bounce on hover */
+        .skill-card {
+            transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 1s ease !important;
+        }
+        .skill-card:hover {
+            transform: translateY(-12px) scale(1.04) !important;
+            box-shadow: 12px 18px 40px rgba(139, 71, 93, 0.18) !important;
+        }
+
+        /* Navigation link colour transition */
+        .nav-links a {
+            transition: color 0.7s ease, letter-spacing 0.7s ease !important;
+        }
+        .nav-links a:hover {
+            letter-spacing: 1.5px !important;
+        }
+
+        /* Contact form focus glow */
+        input:focus, textarea:focus {
+            box-shadow: 0 0 0 3px rgba(168, 197, 181, 0.4), 0 0 20px rgba(168, 197, 181, 0.15) !important;
+            transform: scale(1.01);
+            transition: all 0.8s ease !important;
+        }
+
+        /* Stack nav arrow bounce */
+        .stack-prev, .stack-next {
+            transition: transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.6s ease !important;
+        }
+        .stack-prev:hover, .stack-next:hover {
+            transform: scale(1.22) !important;
+        }
+
+        /* Decorative star smooth transitions */
+        .doodle {
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+    /* ── Dark mode (default) ── */
+    .theme-toggle-wrap { display:flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer; }
+    .theme-toggle-label { font-family:'Archivo Black',sans-serif; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#8b475d; opacity:0.7; user-select:none; }
+    html:not(.light-mode) .theme-toggle-label { color:#e8a0b8 !important; }
+    .theme-toggle-track { width:36px; height:20px; background:#c4a0ae; border-radius:10px; position:relative; transition:background 0.3s; }
+    html:not(.light-mode) .theme-toggle-track { background:#3a2a32 !important; }
+    .theme-toggle-thumb { width:16px; height:16px; background:#8b475d; border-radius:50%; position:absolute; top:2px; left:18px; transition:left 0.3s, background 0.3s; }
+    html:not(.light-mode) .theme-toggle-thumb { left:2px !important; background:#e8a0b8 !important; }
+
+    html:not(.light-mode) body { background: #000000 !important; color: #d4c5c8 !important; }
+    html:not(.light-mode) .star { background: #2a1a22 !important; opacity: 0.5 !important; }
+    html:not(.light-mode) .announcement-banner { background: linear-gradient(90deg, #2a1520 0%, #24121a 25%, #1e0f16 55%, #2a1520 100%) !important; background-size: 300% 100% !important; }
+    html:not(.light-mode) .banner-inner span { color: #e8a0b8 !important; }
+    html:not(.light-mode) nav { background: rgba(30,16,24,0.97) !important; }
+    html:not(.light-mode) .logo, html:not(.light-mode) .logo a { color: #e8a0b8 !important; }
+    html:not(.light-mode) .menu-toggle { color: #e8a0b8 !important; }
+    html:not(.light-mode) .nav-links a { color: #e8a0b8 !important; }
+    html:not(.light-mode) .music-nav-link { background: linear-gradient(135deg, #5c2a3a, #3d1a2a) !important; }
+    html:not(.light-mode) h1, html:not(.light-mode) h2, html:not(.light-mode) h3, html:not(.light-mode) h4 { color: #e8a0b8 !important; }
+    html:not(.light-mode) h2::after { background: linear-gradient(90deg, #f5c1cf, #e8a0b8, #f5c1cf) !important; }
+    html:not(.light-mode) section p { color: #d4c5c8 !important; }
+    html:not(.light-mode) .hero p { color: #d4899e !important; }
+    html:not(.light-mode) footer { background: rgba(0,0,0,0.5) !important; }
+    html:not(.light-mode) footer p { color: #e8a0b8 !important; }
+    html:not(.light-mode) span[style*="color:#8b475d"] { color: #e8a0b8 !important; }
+    html:not(.light-mode) p[style*="color:#8b475d"] { color: #e8a0b8 !important; }
+    html:not(.light-mode) div[style*="background:rgba(139,71,93,0.1)"] { background: rgba(232,160,184,0.15) !important; }
+    @media (max-width: 820px) { html:not(.light-mode) .nav-links { background: rgba(0,0,0,1) !important; } }
+
+    /* Page-specific dark overrides */
+    html:not(.light-mode) .cv-content img { filter: drop-shadow(13px 13px 14px rgba(0,0,0,0.5)) !important; }
+    html:not(.light-mode) .download-button { background: #8b475d !important; }
+    html:not(.light-mode) .download-button:hover { background: #a0617a !important; }
+    html:not(.light-mode) .cv-button { background: #8b475d !important; }
+    html:not(.light-mode) .back-button { color: #e8a0b8 !important; background: rgba(255,255,255,0.06) !important; }
+
+    @media (max-width: 820px) {
+        .theme-toggle-wrap { gap:0 !important; margin-left:auto; margin-right:4px; flex-direction:column !important; align-items:center !important; position:relative !important; }
+        .theme-toggle-label { font-size:7px !important; letter-spacing:1px !important; position:absolute !important; top:100% !important; left:50% !important; transform:translateX(-50%) !important; margin-top:2px !important; white-space:nowrap !important; }
+        .theme-toggle-track { width:30px !important; height:16px !important; }
+        .theme-toggle-thumb { width:12px !important; height:12px !important; }
+        html.light-mode .theme-toggle-thumb { left:16px !important; }
+    }
+  </style>
+  <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');window.addEventListener('pageshow',function(e){if(e.persisted)window.location.reload()});</script>
+</head>
+<body>
+  <!-- Decorative Stars (30) -->
+  <div class="doodle star star1"></div>
+  <div class="doodle star star2"></div>
+  <div class="doodle star star3"></div>
+  <div class="doodle star star4"></div>
+  <div class="doodle star star5"></div>
+  <div class="doodle star star6"></div>
+  <div class="doodle star star7"></div>
+  <div class="doodle star star8"></div>
+  <div class="doodle star star9"></div>
+  <div class="doodle star star10"></div>
+  <div class="doodle star star11"></div>
+  <div class="doodle star star12"></div>
+  <div class="doodle star star13"></div>
+  <div class="doodle star star14"></div>
+  <div class="doodle star star15"></div>
+  <div class="doodle star star16"></div>
+  <div class="doodle star star17"></div>
+  <div class="doodle star star18"></div>
+  <div class="doodle star star19"></div>
+  <div class="doodle star star20"></div>
+  <div class="doodle star star21"></div>
+  <div class="doodle star star22"></div>
+  <div class="doodle star star23"></div>
+  <div class="doodle star star24"></div>
+  <div class="doodle star star25"></div>
+  <div class="doodle star star26"></div>
+  <div class="doodle star star27"></div>
+  <div class="doodle star star28"></div>
+  <div class="doodle star star29"></div>
+  <div class="doodle star star30"></div>
+
+  <!-- Announcement banner -->
+  <div class="announcement-banner">
+    <a href="extras.html" class="banner-link">
+      <div class="banner-inner">
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </a>
+  </div>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="logo"><a href="graphic-design.html"><img src="shared/AB logo light.png" alt="AB" class="logo-img">AMELIA'S PORTFOLIO</a></div>
+    <div class="theme-toggle-wrap" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-toggle-label" id="themeLabel">Light</span>
+            <div class="theme-toggle-track"><div class="theme-toggle-thumb"></div></div>
+        </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="graphic-design.html#home">Home</a></li>
+      <li><a href="graphic-design.html#portfolio">Work</a></li>
+      <li><a href="graphic-design.html#about">About</a></li>
+      <li><a href="graphic-design.html#skills">Skills</a></li>
+      <li><a href="graphic-design.html#contact">Contact</a></li>
+      <li><a href="music.html" class="music-nav-link">Music</a></li>
+      <li><a href="design-cv.html" class="cv-button">View Design CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Design CV</h1>
+      <p>My creative journey, skills, and experience in graphic design, visual storytelling, and digital media.</p>
+    </div>
+  </section>
+
+  <!-- CV Section -->
+  <section class="cv-section">
+    <div class="cv-container">
+      <div class="cv-content">
+        <!-- Use either the image or embed a PDF; the image scales perfectly on mobile -->
+        <img src="cv/cv.png" alt="Amelia Bobbin Design CV">
+      </div>
+    </div>
+
+    <div class="download-button-container">
+      <!-- If the apostrophe in the filename causes issues on some servers, rename the file without it -->
+      <a href="cv/amelia's-graphic-design-cv.pdf" class="download-button" download>Download PDF</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Amelia Bobbin</p>
+  </footer>
+
+  <script>
+    // Burger menu behaviour
+    function toggleMenu(){
+      const navLinks=document.getElementById('navLinks');
+      const menuToggle=document.getElementById('menuToggle');
+      navLinks.classList.toggle('active');
+      menuToggle.textContent=navLinks.classList.contains('active')?'✕':'☰';
+    }
+    document.getElementById('menuToggle').addEventListener('click',toggleMenu);
+    document.addEventListener('click',function(e){
+      const nav=document.getElementById('navbar');
+      const navLinks=document.getElementById('navLinks');
+      const menuToggle=document.getElementById('menuToggle');
+      if(!nav.contains(e.target) && navLinks.classList.contains('active')){
+        navLinks.classList.remove('active'); menuToggle.textContent='☰';
+      }
+    });
+    document.querySelectorAll('.nav-links a').forEach(a=>{
+      a.addEventListener('click',()=>{document.getElementById('navLinks').classList.remove('active');document.getElementById('menuToggle').textContent='☰';});
+    });
+
+    // Navbar scroll effect
+    const navbar=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>{ if(window.scrollY>50) navbar.classList.add('scrolled'); else navbar.classList.remove('scrolled'); });
+
+    // Parallax stars
+    let ticking=false;
+    document.addEventListener('mousemove',(e)=>{
+      if(!ticking){
+        window.requestAnimationFrame(()=>{
+          document.querySelectorAll('.star').forEach((star,i)=>{
+            const speed=(i+1)*0.015;
+            const x=(e.clientX*speed)/50;
+            const y=(e.clientY*speed)/50;
+            star.style.transform=`translate(${x}px, ${y}px)`;
+          });
+          ticking=false;
+        });
+        ticking=true;
+      }
+    });
+  </script>
+<script>
+    // Scroll-triggered animations
+    (function() {
+        var opts = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, opts);
+
+        // Observe fade-in elements
+        document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+
+        // Observe h2 headings and give them the animated class
+        document.querySelectorAll('h2').forEach(function(h2) {
+            h2.classList.add('will-animate');
+            observer.observe(h2);
+        });
+
+        // Stagger fade-in siblings
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            var siblings = Array.from(el.parentElement.children).filter(function(c) {
+                return c.classList.contains('fade-in');
+            });
+            var idx = siblings.indexOf(el);
+            if (idx > 0) el.style.transitionDelay = (idx * 0.11) + 's';
+        });
+    })();
+</script>
+<script src="shared/theme.js?v=3"></script>
+</body>
+</html>

@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Coding Projects - Amelia Bobbin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+  <style>
+    @import url('https://fonts.cdnfonts.com/css/made-sunflower');
+    @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&display=swap');
+    @font-face { font-family: "Cavalhatriz"; src: url("fonts/Cavalhatriz.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+    @font-face { font-family: "Georgia Custom"; src: url("fonts/georgia.ttf") format("truetype"); font-weight: normal; font-style: normal; }
+    @font-face { font-family: "Georgia Custom"; src: url("fonts/georgiab.ttf") format("truetype"); font-weight: bold; font-style: normal; }
+    @font-face { font-family: "Griffiths"; src: url("fonts/Griffiths.otf") format("opentype"); font-weight: normal; font-style: normal; }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+    html, body {
+      overflow-x: hidden;
+      max-width: 100vw;
+      width: 100%;
+    }
+
+    body {
+      font-size: 1.1em;
+      font-family: 'Georgia Custom', Georgia, serif;
+      letter-spacing: 0;
+      background: linear-gradient(135deg, #f5c1cf 0%, #fceadb 20%, #e8d5ca 40%, #b4d4c3 60%, #f5e6e8 80%, #d4a5a5 100%);
+      color: #5a5a5a;
+      font-weight: 400;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Decorative Stars */
+    .doodle { position: fixed; pointer-events: none; z-index: 0; }
+    .star {
+      width: 25px; height: 25px; background: #a8c5b5;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: gentleFloat 6s infinite ease-in-out;
+      opacity: 0.5;
+    }
+    .star1{top:15%;left:8%;animation-delay:0s;animation-duration:7s}
+    .star2{top:25%;right:12%;animation-delay:2s;animation-duration:8s;width:20px;height:20px;background:#a8c5b5}
+    .star3{bottom:20%;left:15%;animation-delay:4s;animation-duration:6s}
+    .star4{top:60%;right:8%;animation-delay:3s;animation-duration:9s;width:30px;height:30px}
+    .star5{top:45%;left:5%;animation-delay:1s;width:18px;height:18px;background:#f5c1cf}
+    .star6{top:35%;right:25%;animation-delay:1.5s;animation-duration:7.5s;width:22px;height:22px;background:#fceadb}
+    .star7{top:70%;left:30%;animation-delay:2.5s;animation-duration:6.5s;width:28px;height:28px;background:#f5c1cf}
+    .star8{top:10%;right:35%;animation-delay:0.5s;animation-duration:8.5s;width:16px;height:16px;background:#a8c5b5}
+    .star9{bottom:35%;right:20%;animation-delay:3.5s;animation-duration:7s;width:24px;height:24px;background:#a8c5b5}
+    .star10{top:50%;left:20%;animation-delay:1s;animation-duration:9s;width:35px;height:35px;background:#a8c5b5}
+    .star11{bottom:10%;right:15%;animation-delay:2s;animation-duration:6s;width:20px;height:20px;background:#f5c1cf}
+    .star12{top:80%;left:10%;animation-delay:4s;animation-duration:8s;width:26px;height:26px;background:#fceadb}
+    .star13{top:20%;left:40%;animation-delay:3s;animation-duration:7s;width:19px;height:19px;background:#a8c5b5}
+    .star14{bottom:50%;left:8%;animation-delay:0.8s;animation-duration:8.2s;width:32px;height:32px;background:#a8c5b5}
+    .star15{top:40%;right:5%;animation-delay:2.2s;animation-duration:7.8s;width:23px;height:23px;background:#f5c1cf}
+    .star16{top:12%;left:25%;animation-delay:1.8s;animation-duration:7.2s;width:21px;height:21px;background:#a8c5b5}
+    .star17{bottom:25%;right:30%;animation-delay:0.3s;animation-duration:8.8s;width:27px;height:27px;background:#f5c1cf}
+    .star18{top:55%;right:18%;animation-delay:2.8s;animation-duration:6.8s;width:17px;height:17px;background:#fceadb}
+    .star19{bottom:15%;left:35%;animation-delay:3.2s;animation-duration:7.4s;width:29px;height:29px;background:#a8c5b5}
+    .star20{top:30%;left:12%;animation-delay:1.2s;animation-duration:8.6s;width:24px;height:24px;background:#a8c5b5}
+    .star21{bottom:40%;right:10%;animation-delay:4.2s;animation-duration:6.2s;width:20px;height:20px;background:#f5c1cf}
+    .star22{top:65%;left:22%;animation-delay:0.7s;animation-duration:9.2s;width:33px;height:33px;background:#a8c5b5}
+    .star23{top:8%;right:22%;animation-delay:2.4s;animation-duration:7.6s;width:18px;height:18px;background:#fceadb}
+    .star24{bottom:30%;left:18%;animation-delay:3.8s;animation-duration:6.4s;width:25px;height:25px;background:#a8c5b5}
+    .star25{top:75%;right:25%;animation-delay:1.4s;animation-duration:8.4s;width:22px;height:22px;background:#f5c1cf}
+    .star26{top:42%;left:32%;animation-delay:2.6s;animation-duration:7.2s;width:19px;height:19px;background:#a8c5b5}
+    .star27{bottom:18%;right:8%;animation-delay:0.9s;animation-duration:8.9s;width:26px;height:26px;background:#fceadb}
+    .star28{top:52%;right:28%;animation-delay:3.6s;animation-duration:6.6s;width:21px;height:21px;background:#a8c5b5}
+    .star29{bottom:45%;left:28%;animation-delay:1.6s;animation-duration:8.2s;width:30px;height:30px;background:#f5c1cf}
+    .star30{top:18%;right:16%;animation-delay:2.1s;animation-duration:7.9s;width:23px;height:23px;background:#a8c5b5}
+
+    @keyframes gentleFloat {
+      0%, 100% { transform: translate(0, 0); opacity: 0.4; }
+      25% { transform: translate(10px, -15px); opacity: 0.6; }
+      50% { transform: translate(-5px, -25px); opacity: 0.5; }
+      75% { transform: translate(-15px, -10px); opacity: 0.7; }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .announcement-banner{position:fixed;top:0;left:0;width:100%;height:38px;background:linear-gradient(90deg, #f5c1cf 0%, #fceadb 25%, #b4d4c3 55%, #f5c1cf 100%);background-size:300% 100%;animation:bannerShift 8s linear infinite;z-index:1002;overflow:hidden;display:flex;align-items:center}
+    .banner-link{display:block;width:100%;overflow:hidden;text-decoration:none;cursor:pointer}
+    .banner-link:hover .banner-inner{animation-play-state:paused}
+    .banner-inner{display:flex;white-space:nowrap;animation:marqueeScroll 28s linear infinite;will-change:transform}
+    .banner-inner span{font-family:'Archivo Black',sans-serif;font-size:12px;color:#8b475d;text-transform:uppercase;letter-spacing:2px;flex-shrink:0;padding-right:10px}
+    @keyframes bannerShift{0%{background-position:0% 0%}100%{background-position:100% 0%}}
+    @keyframes marqueeScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+    /* Navigation */
+    nav {
+      position: fixed; top: 38px; width: 100%;
+      padding: 25px 60px; display: flex; justify-content: space-between; align-items: center;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(15px);
+      transition: all 0.4s ease;
+    }
+    nav.scrolled { padding: 20px 60px; box-shadow: 0 2px 20px rgba(168, 197, 181, 0.1); }
+    .logo {
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 24px; color: #8b475d; letter-spacing: 2px;
+      text-transform: uppercase; font-weight: 400;
+    }
+    .logo a { color: #8b475d; text-decoration: none; display:flex; align-items:center; gap:10px; }
+    .logo-img { height:38px; width:auto; flex-shrink:0; }
+    .cv-button { padding:10px 25px; background:#8b475d; color:white !important; text-decoration:none; border-radius:25px; font-family:'Georgia Custom', Georgia, serif; font-size:16px; transition:all 0.3s ease; margin-left:20px; box-shadow:0 3px 10px rgba(139,71,93,.3); display:inline-block; }
+    .cv-button:hover { background:#a0617a; transform:translateY(-3px); box-shadow:0 6px 20px rgba(139,71,93,.5); }
+    .cv-button::after { display:none !important; }
+    .menu-toggle {
+      display: none; background: none; border: none; font-size: 32px; color: #8b475d;
+      cursor: pointer; padding: 10px; z-index: 1001;
+      min-width: 44px; min-height: 44px; flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 35px; list-style: none; align-items: center; }
+    .nav-links a {
+      color: #8b475d; text-decoration: none; font-size: 17px; letter-spacing: 0.5px;
+      position: relative; transition: all 0.3s ease; font-weight: 500; font-family: 'Georgia Custom', Georgia, serif;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -5px; left: 50%; transform: translateX(-50%);
+      width: 0; height: 2px; background: #8b475d; transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+    .music-nav-link {
+      background: linear-gradient(135deg, #f5c1cf, #a8c5b5);
+      padding: 10px 20px !important; border-radius: 20px;
+      font-weight: 600 !important; transition: all 0.3s ease;
+    }
+    .music-nav-link:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(139, 71, 93, 0.3); }
+    .music-nav-link::after { display: none !important; }
+
+    /* Hero */
+    .hero {
+      min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 150px 40px 100px; position: relative; z-index: 10;
+    }
+    .hero-content h1 {
+      font-family: 'MADE Sunflower', sans-serif; font-size: 58px; color: #8b475d; font-weight: 400;
+      margin-bottom: 20px; line-height: 1.2; font-weight: 400;
+      animation: fadeInUp 1s ease;
+    }
+    .hero-content p {
+      font-size: 17px; color: #a0617a; line-height: 1.7; max-width: 800px; margin: 0 auto;
+      font-family: 'Georgia Custom', Georgia, serif; font-style: normal; font-weight: 400; letter-spacing: 0;
+      animation: fadeInUp 1s ease 0.3s backwards;
+    }
+    .tech-badge {
+      display: inline-block; background: linear-gradient(135deg, #f5c1cf, #a8c5b5);
+      padding: 12px 30px; border-radius: 30px; font-family: 'Archivo Black', sans-serif;
+      font-size: 16px; color: #8b475d; letter-spacing: 1px; margin-bottom: 25px;
+      animation: fadeInUp 1s ease 0.2s backwards; text-transform: uppercase;
+    }
+
+    /* Sections */
+    section { padding: 60px 50px; position: relative; z-index: 10; }
+    h2 {
+      font-family: 'Archivo Black', sans-serif; font-size: 38px; text-align: center; color: #8b475d;
+      margin-bottom: 50px; letter-spacing: 2px; position: relative; text-transform: uppercase;
+    }
+    h2::after {
+      content: ''; position: absolute; bottom: -15px; left: 50%; transform: translateX(-50%);
+      width: 100px; height: 3px; background: #f5c1cf;
+    }
+
+    /* Project Cards */
+    .projects-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 60px;
+    }
+
+    .project-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
+      transition: all 0.4s ease;
+    }
+
+    .project-card:hover {
+      box-shadow: 15px 15px 40px rgba(139, 71, 93, 0.15);
+    }
+
+    .project-header {
+      padding: 30px 40px;
+      border-bottom: 1px solid rgba(139, 71, 93, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .project-info h3 {
+      font-family: 'MADE Sunflower', sans-serif; font-weight: 400;
+      font-size: 26px;
+      color: #8b475d;
+      margin-bottom: 8px;
+      font-weight: 400;
+    }
+
+    .project-info p {
+      font-family: 'Georgia Custom', Georgia, serif;
+      font-size: 16px;
+      color: #a0617a;
+      font-style: normal;
+      letter-spacing: 0;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: #fceadb;
+      padding: 6px 14px;
+      border-radius: 15px;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      color: #8b475d;
+    }
+
+    /* View Toggle */
+    .view-toggle-container {
+      padding: 20px 40px;
+      background: #fafafa;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .view-toggle {
+      display: flex;
+      gap: 0;
+      background: #f5e6e8;
+      border-radius: 25px;
+      padding: 5px;
+    }
+
+    .toggle-btn {
+      padding: 10px 25px;
+      border: none;
+      background: transparent;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 14px;
+      color: #8b475d;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .toggle-btn.active {
+      background: linear-gradient(135deg, #f5c1cf, #a8c5b5);
+      color: #8b475d;
+      box-shadow: 0 3px 10px rgba(139, 71, 93, 0.2);
+    }
+
+    .toggle-btn:hover:not(.active) {
+      background: rgba(139, 71, 93, 0.1);
+    }
+
+    /* Fullscreen button */
+    .fullscreen-btn {
+      padding: 8px 18px;
+      border: 2px solid #8b475d;
+      background: transparent;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 12px;
+      color: #8b475d;
+      cursor: pointer;
+      border-radius: 20px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .fullscreen-btn:hover {
+      background: #8b475d;
+      color: white;
+    }
+
+    /* Project Content */
+    .project-content {
+      position: relative;
+      min-height: 500px;
+    }
+
+    .view-panel {
+      display: none;
+      width: 100%;
+    }
+
+    .view-panel.active {
+      display: block;
+    }
+
+    /* Demo View */
+    .demo-view {
+      background: #1a1a2e;
+      min-height: 500px;
+      position: relative;
+    }
+
+    .demo-view iframe {
+      width: 100%;
+      height: 500px;
+      border: none;
+      display: block;
+    }
+
+    .demo-controls {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px 15px;
+      border-radius: 10px;
+      color: white;
+      font-family: 'Fira Code', monospace;
+      font-size: 12px;
+      z-index: 10;
+    }
+
+    .demo-controls span {
+      opacity: 0.7;
+    }
+
+    /* Code View */
+    .code-view {
+      background: #2d2d2d;
+      max-height: 500px;
+      overflow-y: auto;
+    }
+
+    .code-view pre {
+      margin: 0;
+      padding: 30px;
+      font-family: 'Fira Code', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      overflow-x: auto;
+    }
+
+    .code-view code {
+      font-family: 'Fira Code', monospace;
+    }
+
+    /* Custom scrollbar for code */
+    .code-view::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    .code-view::-webkit-scrollbar-track {
+      background: #1a1a1a;
+    }
+
+    .code-view::-webkit-scrollbar-thumb {
+      background: #f5c1cf;
+      border-radius: 4px;
+    }
+
+    .code-view::-webkit-scrollbar-thumb:hover {
+      background: #a8c5b5;
+    }
+
+    /* Artist Statement View */
+    .statement-view {
+      background: linear-gradient(135deg, #faf8f5, #f5f0eb);
+      max-height: 500px;
+      overflow-y: auto;
+      padding: 40px;
+    }
+
+    .statement-view h3 {
+      font-family: 'MADE Sunflower', sans-serif; font-weight: 400;
+      font-size: 28px;
+      color: #8b475d;
+      margin-bottom: 25px;
+      border-bottom: 2px solid #f5c1cf;
+      padding-bottom: 15px;
+      font-weight: 400;
+    }
+
+    .statement-view h4 {
+      font-family: 'MADE Sunflower', sans-serif; font-weight: 400;
+      font-size: 20px;
+      color: #8b475d;
+      margin: 25px 0 15px 0;
+      font-weight: 400;
+    }
+
+    .statement-view p {
+      font-family: 'Georgia Custom', Georgia, serif;
+      font-size: 15px;
+      color: #5a5a5a;
+      line-height: 1.9;
+      margin-bottom: 18px;
+      text-align: justify;
+      letter-spacing: 0;
+    }
+
+    .statement-view .credits {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(139, 71, 93, 0.2);
+      font-style: normal;
+      font-size: 13px;
+      color: #888;
+    }
+
+    .statement-view::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .statement-view::-webkit-scrollbar-track {
+      background: #f5f0eb;
+    }
+
+    .statement-view::-webkit-scrollbar-thumb {
+      background: #a8c5b5;
+      border-radius: 4px;
+    }
+
+    /* Project Description */
+    .project-description {
+      padding: 30px 40px;
+      background: #fafafa;
+      border-top: 1px solid rgba(139, 71, 93, 0.1);
+    }
+
+    .project-description h4 {
+      font-family: 'MADE Sunflower', sans-serif; font-weight: 400;
+      font-size: 20px;
+      color: #8b475d;
+      margin-bottom: 15px;
+      font-weight: 400;
+    }
+
+    .project-description p {
+      font-family: 'Georgia Custom', Georgia, serif;
+      font-size: 15px;
+      color: #5a5a5a;
+      line-height: 1.8;
+      letter-spacing: 0;
+    }
+
+    .project-description ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 15px;
+    }
+
+    .project-description li {
+      font-family: 'Georgia Custom', Georgia, serif;
+      font-size: 15px;
+      color: #5a5a5a;
+      line-height: 1.8;
+      padding-left: 25px;
+      letter-spacing: 0;
+      position: relative;
+      margin-bottom: 8px;
+    }
+
+    .project-description li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #f5c1cf;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 50px 40px;
+      background: rgba(255, 255, 255, 0.5);
+      color: #8b475d;
+      font-size: 14px;
+      letter-spacing: 0;
+      font-family: 'Georgia Custom', Georgia, serif;
+    }
+
+    .back-button {
+      display: inline-block;
+      padding: 15px 35px;
+      background: #8b475d;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      letter-spacing: 1px;
+      transition: all 0.4s ease;
+      font-family: 'Archivo Black', sans-serif;
+      text-transform: uppercase;
+      border-radius: 5px;
+      box-shadow: 0 3px 10px rgba(139, 71, 93, 0.3);
+      margin-top: 40px;
+    }
+
+    .back-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(139, 71, 93, 0.4);
+      background: #a0617a;
+    }
+
+    .back-button-container {
+      text-align: center;
+      margin-top: 60px;
+    }
+
+    /* Responsive */
+    @media (max-width: 820px) {
+      .menu-toggle { display: block !important; }
+      nav { padding: 10px 16px !important; top: 30px !important; }
+      .logo { font-size: 15px !important; letter-spacing: 0.5px; max-width: calc(100% - 60px); }
+      .logo-img { height: 40px; }
+      .nav-links {
+        position: fixed; top: 50px; left: -100%; width: 100%; height: calc(100vh - 50px);
+        background: rgba(255, 255, 255, 1); backdrop-filter: blur(15px);
+        flex-direction: column; padding: 30px 20px; transition: left 0.3s ease;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1); overflow-y: auto; gap: 0 !important;
+        z-index: 999; align-items: stretch;
+      }
+      .nav-links.active { left: 0; }
+      .nav-links li { width: 100%; margin: 0; border-bottom: 1px solid rgba(139, 71, 93, 0.1); }
+      .nav-links a { display: block; padding: 12px 10px !important; font-size: 14px !important; text-align: center; }
+      .music-nav-link { margin: 15px 0 !important; text-align: center; padding: 12px 16px !important; }
+      .announcement-banner { height: 30px; }
+      .banner-inner span { font-size: 10px; }
+      .hero { padding: 140px 20px 60px; }
+      .hero-content h1 { font-size: 26px; }
+      .hero-content p { font-size: 14px; }
+      h2 { font-size: 20px; letter-spacing: 0px; word-break: break-word; margin-bottom: 14px; }
+      h2::after { bottom: -6px !important; width: 60px !important; }
+      h3 { font-size: 16px; }
+      section { padding: 20px 14px; }
+      .project-header { flex-direction: column; align-items: flex-start; padding: 20px; }
+      .view-toggle-container { flex-direction: column; align-items: stretch; }
+      .view-toggle { width: 100%; justify-content: center; }
+      .fullscreen-btn { width: 100%; text-align: center; }
+      .toggle-btn { padding: 10px 20px; font-size: 12px; }
+      .code-view pre { padding: 20px; font-size: 11px; }
+      .project-description { padding: 20px; }
+      .demo-view { min-height: 350px; }
+      .demo-view iframe { height: 350px; }
+      .demo-controls { display: none; }
+      .star { width: 10px !important; height: 10px !important; opacity: 0.3; }
+      footer { padding: 20px 14px; font-size: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content h1 { font-size: 22px !important; }
+      h2 { font-size: 17px !important; margin-bottom: 12px; }
+      section { padding: 16px 10px; }
+      .project-info h3 { font-size: 16px; }
+      .tag { font-size: 10px; padding: 4px 10px; }
+      .star { width: 8px !important; height: 8px !important; opacity: 0.25; }
+    }
+
+        /* ── Animation enhancements ── */
+
+        /* More dramatic fade-in with subtle scale + blur */
+        .fade-in {
+            transform: translateY(60px) scale(0.94) !important;
+            filter: blur(3px);
+            transition: opacity 2.5s ease, transform 2.5s cubic-bezier(0.22, 1, 0.36, 1), filter 2s ease !important;
+        }
+        .fade-in.visible {
+            transform: translateY(0) scale(1) !important;
+            filter: blur(0px);
+        }
+
+        /* Fade-in from left for odd items, right for even */
+        .fade-in:nth-child(odd) {
+            transform: translateY(50px) translateX(-30px) scale(0.94) !important;
+        }
+        .fade-in:nth-child(even) {
+            transform: translateY(50px) translateX(30px) scale(0.94) !important;
+        }
+        .fade-in.visible:nth-child(odd),
+        .fade-in.visible:nth-child(even) {
+            transform: translateY(0) translateX(0) scale(1) !important;
+        }
+
+        /* h2 headings slide up + underline draws in */
+        h2.will-animate {
+            opacity: 0;
+            transform: translateY(40px) scale(0.92);
+            filter: blur(4px);
+            transition: opacity 2.2s ease, transform 2.2s cubic-bezier(0.22, 1, 0.36, 1), filter 1.8s ease;
+        }
+        h2.will-animate.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            filter: blur(0px);
+        }
+        h2.will-animate::after {
+            width: 0 !important;
+            transition: width 2.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.6s !important;
+        }
+        h2.will-animate.visible::after {
+            width: 100px !important;
+        }
+
+        /* Section divider shimmer on h2 underline */
+        h2.will-animate.visible::after {
+            background: linear-gradient(90deg, #f5c1cf, #a8c5b5, #f5c1cf) !important;
+            background-size: 200% 100% !important;
+            animation: underlineShimmer 6s ease-in-out infinite !important;
+        }
+        @keyframes underlineShimmer {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Shimmer sweep across buttons on hover */
+        .cta-button, .cv-button {
+            overflow: hidden !important;
+        }
+        .cta-button::before, .cv-button::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+            pointer-events: none;
+            transition: left 1.2s ease;
+        }
+        .cta-button:hover::before, .cv-button:hover::before {
+            left: 160%;
+        }
+
+        /* Skill/stack card pop-in bounce on hover */
+        .skill-card {
+            transition: transform 1s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 1s ease !important;
+        }
+        .skill-card:hover {
+            transform: translateY(-12px) scale(1.04) !important;
+            box-shadow: 12px 18px 40px rgba(139, 71, 93, 0.18) !important;
+        }
+
+        /* Navigation link colour transition */
+        .nav-links a {
+            transition: color 0.7s ease, letter-spacing 0.7s ease !important;
+        }
+        .nav-links a:hover {
+            letter-spacing: 1.5px !important;
+        }
+
+        /* Contact form focus glow */
+        input:focus, textarea:focus {
+            box-shadow: 0 0 0 3px rgba(168, 197, 181, 0.4), 0 0 20px rgba(168, 197, 181, 0.15) !important;
+            transform: scale(1.01);
+            transition: all 0.8s ease !important;
+        }
+
+        /* Stack nav arrow bounce */
+        .stack-prev, .stack-next {
+            transition: transform 0.85s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.6s ease !important;
+        }
+        .stack-prev:hover, .stack-next:hover {
+            transform: scale(1.22) !important;
+        }
+
+        /* Decorative star smooth transitions */
+        .doodle {
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) !important;
+        }
+    /* ── Dark Mode (default) ── */
+    .theme-toggle-wrap { display:flex; align-items:center; gap:8px; flex-shrink:0; cursor:pointer; }
+    .theme-toggle-label { font-family:'Archivo Black',sans-serif; font-size:10px; letter-spacing:1.5px; text-transform:uppercase; color:#8b475d; opacity:0.7; user-select:none; }
+    html:not(.light-mode) .theme-toggle-label { color:#e8a0b8 !important; }
+    .theme-toggle-track { width:36px; height:20px; background:#c4a0ae; border-radius:10px; position:relative; transition:background 0.3s; }
+    html:not(.light-mode) .theme-toggle-track { background:#3a2a32 !important; }
+    .theme-toggle-thumb { width:16px; height:16px; background:#8b475d; border-radius:50%; position:absolute; top:2px; left:18px; transition:left 0.3s, background 0.3s; }
+    html:not(.light-mode) .theme-toggle-thumb { left:2px !important; background:#e8a0b8 !important; }
+
+    html:not(.light-mode) body { background: #000000 !important; color: #d4c5c8 !important; }
+    html:not(.light-mode) .star { background: #2a1a22 !important; opacity: 0.5 !important; }
+    html:not(.light-mode) .announcement-banner { background: linear-gradient(90deg, #2a1520 0%, #24121a 25%, #1e0f16 55%, #2a1520 100%) !important; background-size: 300% 100% !important; }
+    html:not(.light-mode) .banner-inner span { color: #e8a0b8 !important; }
+    html:not(.light-mode) nav { background: rgba(30,16,24,0.97) !important; }
+    html:not(.light-mode) .logo, html:not(.light-mode) .logo a { color: #e8a0b8 !important; }
+    html:not(.light-mode) .menu-toggle { color: #e8a0b8 !important; }
+    html:not(.light-mode) .nav-links a { color: #e8a0b8 !important; }
+    html:not(.light-mode) .music-nav-link { background: linear-gradient(135deg, #5c2a3a, #3d1a2a) !important; }
+    html:not(.light-mode) h1, html:not(.light-mode) h2, html:not(.light-mode) h3, html:not(.light-mode) h4 { color: #e8a0b8 !important; }
+    html:not(.light-mode) h2::after { background: linear-gradient(90deg, #f5c1cf, #e8a0b8, #f5c1cf) !important; }
+    html:not(.light-mode) h2.will-animate.visible::after { background: linear-gradient(90deg, #f5c1cf, #e8a0b8, #f5c1cf) !important; }
+    html:not(.light-mode) section p { color: #d4c5c8 !important; }
+    html:not(.light-mode) .hero p, html:not(.light-mode) .hero-content p { color: #d4899e !important; }
+    html:not(.light-mode) .project-info p, html:not(.light-mode) .project-info li { color: #d4c5c8 !important; }
+    html:not(.light-mode) .stack-caption h4 { color: #e8a0b8 !important; }
+    html:not(.light-mode) .stack-caption p { color: #d4899e !important; }
+    html:not(.light-mode) .stack-counter { color: #d4899e !important; }
+    html:not(.light-mode) .stack-nav { background: rgba(255,255,255,0.15) !important; color: #e8a0b8 !important; }
+    html:not(.light-mode) .back-button { color: #e8a0b8 !important; background: #2a1520 !important; border-color: rgba(232,160,184,0.3) !important; }
+    html:not(.light-mode) .back-button:hover { background: #3a1d2c !important; }
+    html:not(.light-mode) footer { background: rgba(0,0,0,0.5) !important; }
+    html:not(.light-mode) footer p { color: #e8a0b8 !important; }
+    html:not(.light-mode) span[style*="color:#8b475d"] { color: #e8a0b8 !important; }
+    html:not(.light-mode) p[style*="color:#8b475d"] { color: #e8a0b8 !important; }
+    html:not(.light-mode) p[style*="color:#a0617a"] { color: #d4899e !important; }
+    html:not(.light-mode) div[style*="background:rgba(139,71,93,0.1)"] { background: rgba(232,160,184,0.15) !important; }
+    html:not(.light-mode) div[style*="border-left:3px solid #8b475d"] { border-left-color: #e8a0b8 !important; }
+    @media (max-width: 820px) { html:not(.light-mode) .nav-links { background: rgba(0,0,0,1) !important; } html:not(.light-mode) .nav-links li { border-bottom-color: rgba(232,160,184,0.1) !important; } }
+
+    /* Page-specific dark overrides */
+    html:not(.light-mode) .project-card { background: rgba(255,255,255,0.06) !important; box-shadow: 10px 10px 30px rgba(0,0,0,0.3) !important; }
+    html:not(.light-mode) .project-header { border-bottom-color: rgba(232,160,184,0.15) !important; }
+    html:not(.light-mode) .project-info h3 { color: #e8a0b8 !important; }
+    html:not(.light-mode) .project-info p { color: #d4899e !important; }
+    html:not(.light-mode) .tag { background: rgba(232,160,184,0.15) !important; color: #e8a0b8 !important; }
+    html:not(.light-mode) .view-toggle-container { background: rgba(255,255,255,0.04) !important; }
+    html:not(.light-mode) .view-toggle { background: rgba(255,255,255,0.08) !important; }
+    html:not(.light-mode) .toggle-btn { color: #e8a0b8 !important; }
+    html:not(.light-mode) .toggle-btn.active { background: linear-gradient(135deg, #5c2a3a, #3d1a2a) !important; color: #e8a0b8 !important; }
+    html:not(.light-mode) .toggle-btn:hover:not(.active) { background: rgba(232,160,184,0.1) !important; }
+    html:not(.light-mode) .fullscreen-btn { border-color: #e8a0b8 !important; color: #e8a0b8 !important; }
+    html:not(.light-mode) .fullscreen-btn:hover { background: #e8a0b8 !important; color: #1a0f15 !important; }
+    html:not(.light-mode) .project-description { background: rgba(255,255,255,0.04) !important; border-top-color: rgba(232,160,184,0.15) !important; }
+    html:not(.light-mode) .project-description h4 { color: #e8a0b8 !important; }
+    html:not(.light-mode) .project-description p { color: #d4c5c8 !important; }
+    html:not(.light-mode) .project-description li { color: #d4c5c8 !important; }
+    html:not(.light-mode) .project-description li::before { color: #e8a0b8 !important; }
+    html:not(.light-mode) .tech-badge { background: linear-gradient(135deg, #5c2a3a, #3d1a2a) !important; color: #e8a0b8 !important; }
+    html:not(.light-mode) .statement-view { background: linear-gradient(135deg, #1a0f15, #1c1210) !important; }
+    html:not(.light-mode) .statement-view h3 { color: #e8a0b8 !important; border-bottom-color: rgba(232,160,184,0.3) !important; }
+    html:not(.light-mode) .statement-view h4 { color: #e8a0b8 !important; }
+    html:not(.light-mode) .statement-view p { color: #d4c5c8 !important; }
+    html:not(.light-mode) .statement-view .credits { color: #d4899e !important; border-top-color: rgba(232,160,184,0.15) !important; }
+    html:not(.light-mode) .demo-controls { background: rgba(0,0,0,0.8) !important; }
+    html:not(.light-mode) div[style*="background: linear-gradient(135deg, rgba(245, 193, 207, 0.3)"] { background: rgba(232,160,184,0.1) !important; }
+
+    @media (max-width: 820px) {
+        .theme-toggle-wrap { gap:0 !important; margin-left:auto; margin-right:4px; flex-direction:column !important; align-items:center !important; position:relative !important; }
+        .theme-toggle-label { font-size:7px !important; letter-spacing:1px !important; position:absolute !important; top:100% !important; left:50% !important; transform:translateX(-50%) !important; margin-top:2px !important; white-space:nowrap !important; }
+        .theme-toggle-track { width:30px !important; height:16px !important; }
+        .theme-toggle-thumb { width:12px !important; height:12px !important; }
+        html.light-mode .theme-toggle-thumb { left:16px !important; }
+    }
+  </style>
+  <script>if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');window.addEventListener('pageshow',function(e){if(e.persisted)window.location.reload()});</script>
+</head>
+
+<body>
+  <!-- Decorative Stars -->
+  <div class="doodle star star1"></div>
+  <div class="doodle star star2"></div>
+  <div class="doodle star star3"></div>
+  <div class="doodle star star4"></div>
+  <div class="doodle star star5"></div>
+  <div class="doodle star star6"></div>
+  <div class="doodle star star7"></div>
+  <div class="doodle star star8"></div>
+  <div class="doodle star star9"></div>
+  <div class="doodle star star10"></div>
+  <div class="doodle star star11"></div>
+  <div class="doodle star star12"></div>
+  <div class="doodle star star13"></div>
+  <div class="doodle star star14"></div>
+  <div class="doodle star star15"></div>
+  <div class="doodle star star16"></div>
+  <div class="doodle star star17"></div>
+  <div class="doodle star star18"></div>
+  <div class="doodle star star19"></div>
+  <div class="doodle star star20"></div>
+  <div class="doodle star star21"></div>
+  <div class="doodle star star22"></div>
+  <div class="doodle star star23"></div>
+  <div class="doodle star star24"></div>
+  <div class="doodle star star25"></div>
+  <div class="doodle star star26"></div>
+  <div class="doodle star star27"></div>
+  <div class="doodle star star28"></div>
+  <div class="doodle star star29"></div>
+  <div class="doodle star star30"></div>
+
+  <!-- Announcement banner -->
+  <div class="announcement-banner">
+    <a href="extras.html" class="banner-link">
+      <div class="banner-inner">
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+        <span>✦ NEW artworks in Posters &amp; Print &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      </div>
+    </a>
+  </div>
+  <!-- Navigation -->
+  <nav id="navbar">
+    <div class="logo"><a href="graphic-design.html"><img src="shared/AB logo light.png" alt="AB" class="logo-img">AMELIA'S PORTFOLIO</a></div>
+    <div class="theme-toggle-wrap" onclick="toggleTheme()" id="themeToggle" aria-label="Toggle theme">
+            <span class="theme-toggle-label" id="themeLabel">Light</span>
+            <div class="theme-toggle-track"><div class="theme-toggle-thumb"></div></div>
+        </div>
+    <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">☰</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="graphic-design.html#home">Home</a></li>
+      <li><a href="graphic-design.html#portfolio">Work</a></li>
+      <li><a href="graphic-design.html#about">About</a></li>
+      <li><a href="graphic-design.html#skills">Skills</a></li>
+      <li><a href="graphic-design.html#contact">Contact</a></li>
+      <li><a href="music.html" class="music-nav-link">Music</a></li>
+      <li><a href="design-cv.html" class="cv-button">View Design CV</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="tech-badge">💻 Creative Coding</div>
+      <h1>Coding Projects</h1>
+      <p>Interactive experiments exploring the intersection of art and technology through creative coding.</p>
+      <span style="font-size:17px; color:#8b475d; font-style:italic; margin-top:20px; display:block; letter-spacing:1px; font-family: 'Cavalhatriz', serif; animation:fadeInUp 1s ease 0.5s backwards;">2025</span>
+    </div>
+  </section>
+
+  <!-- Projects Section -->
+  <section>
+    <h2>Interactive Projects</h2>
+    <div style="text-align: center; margin-bottom: 40px; padding: 20px 30px; background: linear-gradient(135deg, rgba(245, 193, 207, 0.3), rgba(168, 197, 179, 0.3)); border-radius: 15px; max-width: 600px; margin-left: auto; margin-right: auto;">
+      <span style="font-size: 24px; margin-right: 10px;">💡</span>
+      <span style="font-family: 'MADE Sunflower', sans-serif; font-size: 18px; color: #8b475d; font-weight: 500;">
+        Open demos in fullscreen for the smoothest experience!
+      </span>
+    </div>
+    <div class="projects-container">
+
+      <!-- Project 1: Hand Tracking Neural Network -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-info">
+            <h3>Neural Network Hand Tracking</h3>
+            <p>Real-time hand detection with signal propagation visualisation</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">p5.js</span>
+            <span class="tag">ml5.js</span>
+            <span class="tag">WebGL</span>
+          </div>
+        </div>
+        <div class="view-toggle-container">
+          <div class="view-toggle">
+            <button class="toggle-btn active" data-view="demo" data-project="1">Demo</button>
+            <button class="toggle-btn" data-view="code" data-project="1">Code</button>
+            <button class="toggle-btn" data-view="statement" data-project="1">Statement</button>
+          </div>
+          <button class="fullscreen-btn" onclick="openFullscreen('projects/hand-tracking/index.html')">⛶ Fullscreen</button>
+        </div>
+        <div class="project-content">
+          <div class="view-panel demo-view active" id="demo-1">
+            <iframe src="projects/hand-tracking/index.html" allow="camera; microphone" loading="lazy" id="hand-tracking-iframe"></iframe>
+            <div class="demo-controls">
+              <button onclick="enableCamera()" style="background: linear-gradient(135deg, #f5c1cf, #a8c5b5); border: none; padding: 10px 20px; border-radius: 20px; color: #8b475d; font-weight: bold; cursor: pointer; margin-right: 10px;">📷 Enable Camera</button>
+              <span>Move your hand in front of the webcam to trigger signals</span>
+            </div>
+          </div>
+          <div class="view-panel code-view" id="code-1">
+            <pre><code class="language-javascript" id="code-content-1">Loading code...</code></pre>
+          </div>
+          <div class="view-panel statement-view" id="statement-1">
+            <h3>Artist Statement</h3>
+            <p>My project explores the natural intelligence that fungal mycelial networks use, utilising these biological systems as nature's original neural networks. Through interactive hand gesture visualisation, I conveyed how fungi demonstrate complex communication, decision making, and learning behaviours that challenge our human understanding of intelligence.</p>
+            <p>My work is inspired from mycorrhizal research, which reveals how these organisms create large underground networks that can extend for kilometres, using chemical communication between plants and coordinating ecosystem-wide responses. Like biological neural networks, mycelial networks process information, make decisions and adapt to environmental changes through distributed intelligence rather than centralised control structures. I was also inspired by the Mycelium Network artwork shown at Enlighten in 2025.</p>
+            <p>My visualisation uses hand movements to create signals that move through a network of interconnected 'nodes', mimicking how chemical messages travel through fungal hyphae. The user's hand gestures become the tool for triggering the neural-like activity, where signals will decay over time and trigger new responses throughout the network, showing how fungi uses chemical messengers like peptides, alcohols, and volatile compounds to coordinate group behaviours.</p>
+            <p>The first variation of code shows a clear representation using white nodes and signals against a black background. This minimalist approach emphasises the technical structure of the network while keeping scientific accuracy. The second variation introduces colour mapping based on hand position, where horizontal movement controls the hue and vertical movement controls the brightness.</p>
+            <p>Both of my variations explore the similarities between human communication and fungal chemical signaling. Just as we use hand movements to convey meaning and intention, fungi utilise complex molecular languages for reproduction, resource allocation, and environmental responses. The real time interaction design creates feedback loops between human movement and digital fungal network, demonstrating how biological learning systems respond to and shape their environments.</p>
+            <p>My work challenges the opposition between natural and artificial intelligence by revealing the computational complexity already seen in biological systems. Through interactive visualisation, my artwork invites viewers to consider how fungi represent a different model of intelligence—one that is based on collaborative networking rather than individual cognition.</p>
+            <p class="credits">Original concept by Amelia Bobbin. Some code elements assisted by AI. Inspired by mycorrhizal fungi research and the Mycelium Network installation at Enlighten 2025.</p>
+          </div>
+        </div>
+        <div class="project-description">
+          <h4>About This Project</h4>
+          <p>An interactive visualisation that combines machine learning hand tracking with a simulated neural network. When your hands are detected by the webcam, signals propagate through a network of interconnected nodes.</p>
+          <ul>
+            <li>Real-time hand detection using ml5.js handPose model</li>
+            <li>Dynamic neural network with 32 interconnected nodes</li>
+            <li>Signal propagation with decay and branching</li>
+            <li>Different colors for left and right hands</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Project 2: Moth Lifecycle -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-info">
+            <h3>Lunar Moth Lifecycle</h3>
+            <p>Interactive hawkmoth simulation tied to moon phases</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">p5.js</span>
+            <span class="tag">WEBGL</span>
+            <span class="tag">Audio</span>
+          </div>
+        </div>
+        <div class="view-toggle-container">
+          <div class="view-toggle">
+            <button class="toggle-btn active" data-view="demo" data-project="2">Demo</button>
+            <button class="toggle-btn" data-view="code" data-project="2">Code</button>
+            <button class="toggle-btn" data-view="statement" data-project="2">Statement</button>
+          </div>
+          <button class="fullscreen-btn" onclick="openFullscreen('projects/moth-lifecycle/index.html')">⛶ Fullscreen</button>
+        </div>
+        <div class="project-content">
+          <div class="view-panel demo-view active" id="demo-2">
+            <iframe src="projects/moth-lifecycle/index.html" allow="autoplay" loading="lazy"></iframe>
+            <div class="demo-controls">
+              <span>Click to start • Move mouse to guide moth • Hover over moons for behaviours</span>
+            </div>
+          </div>
+          <div class="view-panel code-view" id="code-2">
+            <pre><code class="language-javascript" id="code-content-2">Loading code...</code></pre>
+          </div>
+          <div class="view-panel statement-view" id="statement-2">
+            <h3>Follow The Moon — Artist Statement</h3>
+            <h4>Interpretation</h4>
+            <p>My creative artwork Follow The Moon conveys a nocturnal garden where endings and beginnings are displayed as an eternal cycle.</p>
+            <p>My work is centered around the Hawk Moth, a creature whose existence is based around the theme of transformation. As viewers move their cursor across the screen, the moth responds with flight, leaving a luminous trail behind it.</p>
+            <p>The seven phases of the moon serve as both a timekeeper and conductor, keeping the garden's rhythm. When viewers hover the cursor over different lunar phases, they witness how the moth's lifecycle actually works. For instance, under a full moon, the moth lays its eggs because of the brightness and clear visibility. At the waxing crescent caterpillars (larval) develop and under the first quarter the cocoons (pupes) appear. The waxing gibbous is where the moths feed and pollinate the moon flowers, waning gibbous is where they start mating, the third quarter portrays their territorial behaviour, and the waning crescent is where they start their migration patterns. Each phase of the moon triggers each of these behaviours which reveals how moon cycles can guide nature's activities.</p>
+            <p>The moonflowers bloom and close in response to the lunar presence, their petals open and close depending on when the cursor is touching the moon or not. This interactive element creates an active role for the viewer to participate in rather than just observing. The flower's opening sequence is a metaphor for awareness and patience, showing us that real life situations require the right conditions to be able to function properly.</p>
+            <p>The ambient soundscapes of night creatures, rustling leaves, moth wings, amongst the other ambient night sounds creates an even more immersive environment for the viewer that extends beyond the visuals of the sketch. The layered audio overlaps and moves in and out, flowing like breathing, reminding the viewer that even in stillness, life continues to transform.</p>
+            <p>My work suggests the concept that endings are never a final destination, but rather continuous cycles of renewal. The moth's migration under the waning crescent doesn't necessarily signal departure but instead preparation for return. The flower's closing when not in moonlight (at dawn) doesn't signify death but instead gathers strength for the next bloom. In this digital ecosystem, viewers can witness how moments of endings or conclusions are a part of a larger cycle of existence.</p>
+            <p>Through both interaction and observation, Follow The Moon portrays a never ending cycle through a timeline created by a celestial cycle, this serves as a reminder that in nature there is no ending or beginning but rather a continuity of life.</p>
+            <p class="credits">Original concept by Amelia Bobbin. Some code elements by Cursor AI. Ambient audio tracks sourced from Pixabay. Ralsihten font used for interface elements from DaFont.</p>
+          </div>
+        </div>
+        <div class="project-description">
+          <h4>About This Project</h4>
+          <p>A meditative interactive experience featuring a detailed hawkmoth that follows your cursor through a moonlit night scene. Different moon phases trigger various lifecycle behaviours.</p>
+          <ul>
+            <li>Detailed hawkmoth with animated wings and realistic body segments</li>
+            <li>Seven moon phases that trigger different behaviours (laying eggs, mating, migrating, etc.)</li>
+            <li>Ambient audio that fades in and out organically</li>
+            <li>Fireflies, flowers, and glowing particle trails</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Project 3: Otter Aquarium -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-info">
+            <h3>Otter Aquarium</h3>
+            <p>Virtual pet simulation with shader-based water effects</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">p5.js</span>
+            <span class="tag">GLSL Shaders</span>
+            <span class="tag">Simulation</span>
+          </div>
+        </div>
+        <div class="view-toggle-container">
+          <div class="view-toggle">
+            <button class="toggle-btn active" data-view="demo" data-project="3">Demo</button>
+            <button class="toggle-btn" data-view="code" data-project="3">Code</button>
+            <button class="toggle-btn" data-view="statement" data-project="3">Statement</button>
+          </div>
+          <button class="fullscreen-btn" onclick="openFullscreen('projects/otter-aquarium/index.html')">⛶ Fullscreen</button>
+        </div>
+        <div class="project-content">
+          <div class="view-panel demo-view active" id="demo-3">
+            <iframe src="projects/otter-aquarium/index.html" loading="lazy"></iframe>
+            <div class="demo-controls">
+              <span>F = Feed • P = Play • R = Rest • H = Hide instructions</span>
+            </div>
+          </div>
+          <div class="view-panel code-view" id="code-3">
+            <pre><code class="language-javascript" id="code-content-3">Loading code...</code></pre>
+          </div>
+          <div class="view-panel statement-view" id="statement-3">
+            <h3>Rescue Otters — Artist Statement</h3>
+            <p>My interactive artwork 'Rescue Otters' explores how player responsibility mirrors the real world interactions of conservation groups caring for marine life. Players are invited to care for rescue sea otters by providing food, rest, and playtime. This idea was inspired by my visit to the Monterey Aquarium during my travels in America, where I observed their rescue otter rehabilitation programme. I noted how cared for these animals were, often hidden from public view as they rested or fed, rather than being displayed as entertainment.</p>
+            <p>This experience successfully portrays the 'Duty of Care' theme, which I interpret in my work by placing viewers in a position of responsibility. The digital otters, inspired after the ones at Monterey, depend on the viewer's attention and observation to thrive in their environment. Through this artwork, I aim to recognise our role as protectors of marine ecosystems.</p>
+            <p>'Rescue Otter' interprets the theme 'Duty of Care' by giving the viewer full responsibility over the animals. Players must both observe the otters' needs and act appropriately to fulfil their duty of care. The job of the player is to give the otters food, playtime and rest. If the player disregards these duties, then the animals become visibly slower, portraying the physical outcome of neglect. This mirrors real life human ignorance on marine ecosystems and communicates why it is important for conservation groups to help protect marine wildlife.</p>
+            <p>The concept of 'shading' also connects to my 'Rescue Otters' artwork. My implementation of water shaders helps to create a dynamic, protective environment that symbolises the care and shelter these vulnerable animals require. The shader creates gentle, moving patterns that mimic the natural movement of real water. Similar to how rehabilitation centres (like Monterey Aquarium) provide carefully controlled environments for rescue otters, my digital water creates a space where the otters can heal and thrive under the player's care.</p>
+            <p>The colour palette of my sketch design uses cool blues and warm browns to contrast the otters against their environment. This creates visual interest and makes the otters stand out as the main subject of the design. The smooth, rounded shapes of the otters' bodies and fluid movement patterns were designed to mimic the motion of real life otters. The simplified shapes and 2D design give a sense of simplicity and vulnerability.</p>
+            <p>'Duty of Care' is directly illustrated through the interaction of the design by the player being the main source of the otter's survival. Each action (feeding, play, rest) is required to be constantly checked and acted upon to help the otters thrive in their environment. This highlights the importance of having the otters' purpose not purely be entertainment for an audience but to have their main focus be to heal and thrive in their environment.</p>
+            <p class="credits">Original concept by Amelia Bobbin. Inspired by the Monterey Bay Aquarium's otter rehabilitation programme. Some code elements assisted by AI (Claude, Gemini, Cursor).</p>
+          </div>
+        </div>
+        <div class="project-description">
+          <h4>About This Project</h4>
+          <p>A relaxing virtual aquarium featuring cute otters with needs-based AI. Custom GLSL shaders create realistic underwater lighting and caustic effects.</p>
+          <ul>
+            <li>Press F to drop food - otters will swim to catch it</li>
+            <li>Press P to make otters play (uses energy, increases happiness)</li>
+            <li>Press R to let otters rest (restores energy)</li>
+            <li>Watch fish swim, bubbles rise, and seaweed sway</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Project 4: Low Poly Landscape -->
+      <div class="project-card">
+        <div class="project-header">
+          <div class="project-info">
+            <h3>Low Poly Landscape</h3>
+            <p>Procedurally generated 3D terrain with soft pastel colors</p>
+          </div>
+          <div class="project-tags">
+            <span class="tag">p5.js</span>
+            <span class="tag">WEBGL</span>
+            <span class="tag">Procedural</span>
+          </div>
+        </div>
+        <div class="view-toggle-container">
+          <div class="view-toggle">
+            <button class="toggle-btn active" data-view="demo" data-project="4">Demo</button>
+            <button class="toggle-btn" data-view="code" data-project="4">Code</button>
+            <button class="toggle-btn" data-view="statement" data-project="4">Statement</button>
+          </div>
+          <button class="fullscreen-btn" onclick="openFullscreen('projects/low-poly/index.html')">⛶ Fullscreen</button>
+        </div>
+        <div class="project-content">
+          <div class="view-panel demo-view active" id="demo-4">
+            <iframe src="projects/low-poly/index.html" loading="lazy"></iframe>
+            <div class="demo-controls">
+              <span>Use control panel • Drag to rotate • Change color palettes</span>
+            </div>
+          </div>
+          <div class="view-panel code-view" id="code-4">
+            <pre><code class="language-javascript" id="code-content-4">Loading code...</code></pre>
+          </div>
+          <div class="view-panel statement-view" id="statement-4">
+            <h3>Low Poly Landscape — Artist Statement</h3>
+            <p>My artistic response explores the aesthetic and technical foundations of low poly 3D graphics, specifically drawing inspiration from the minimalist geometric style in games such as Monument Valley. This work represents a deliberate style choice to reduce polygon counts not as a technical limitation but as an intentional artistic choice that shows simplicity, abstraction, and clarity.</p>
+            <p>The generated landscapes in this piece demonstrate how low poly techniques can create visually striking environments through a balance of geometric reduction and colour palette selection. Each terrain is made using a limited number of triangular faces, creating a simplified look that still shows recognisable landforms. The soft pastel colour palette directly references Monument Valley's aesthetic approach, using colour variation to create visual interest and depth to compliment the simplified geometry.</p>
+            <p>By incorporating procedural generation and interactive elements, my work reflects the evolution of low poly art from a technical necessity to a deliberate artistic choice. The rotating perspective and regeneration features show how viewers can interact with different viewpoints, showing how our minds naturally fill in missing details through visual psychology concepts like closure and reification. This relates to the Gestalt principles where viewers' minds can complete patterns and recognise images with a simplified style.</p>
+            <p>The mathematical foundation of my landscape relies on Perlin noise to generate natural looking terrain height variations, creating a balance between randomness and coherence that mimics natural geological formations. This connects to the history of early 3D graphics where algorithms were essential for creating environments with limited technical resources. The terrain triangulation method I've used divides the landscape into regular grids that are then transformed into triangular faces.</p>
+            <p>This piece also shows the minimalism aesthetic and the idea that simplicity can enhance artistic designs. Through the deliberate low polygon count, I've created landscapes that focus attention on important elements rather than overwhelming with unnecessary detail.</p>
+            <p>My work conveys how the aesthetic principles of simplicity can create a visually striking work and invites viewers to appreciate the beauty of digital artists embracing limitations as creative opportunities.</p>
+            <p class="credits">Original concept by Amelia Bobbin. Inspired by Monument Valley's visual aesthetic. Created with p5.js and WEBGL.</p>
+          </div>
+        </div>
+        <div class="project-description">
+          <h4>About This Project</h4>
+          <p>A minimalist procedural terrain generator creating soft, dreamlike landscapes. Uses Perlin noise for natural-looking height variation.</p>
+          <ul>
+            <li>Use the control panel to adjust polygon detail</li>
+            <li>Switch between Monument Valley, Sunset, and Arctic palettes</li>
+            <li>Toggle trees and structures on/off</li>
+            <li>Drag to rotate manually or enable auto-rotation</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="back-button-container">
+      <a href="index.html#portfolio" class="back-button">← Back to Portfolio</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Amelia Bobbin</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+  <script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) navbar.classList.add('scrolled');
+      else navbar.classList.remove('scrolled');
+    });
+
+    // Burger menu toggle
+    const navLinks = document.getElementById('navLinks');
+    const menuToggle = document.getElementById('menuToggle');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+      menuToggle.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      const nav = document.getElementById('navbar');
+      if (!nav.contains(e.target) && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        menuToggle.textContent = '☰';
+      }
+    });
+
+    // View toggle functionality
+    document.querySelectorAll('.toggle-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const project = btn.dataset.project;
+        const view = btn.dataset.view;
+        
+        // Update buttons
+        btn.parentElement.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // Update panels - hide all, then show selected
+        const demoPanel = document.getElementById(`demo-${project}`);
+        const codePanel = document.getElementById(`code-${project}`);
+        const statementPanel = document.getElementById(`statement-${project}`);
+        
+        // Hide all panels
+        demoPanel.classList.remove('active');
+        codePanel.classList.remove('active');
+        if (statementPanel) statementPanel.classList.remove('active');
+        
+        // Show selected panel
+        if (view === 'demo') {
+          demoPanel.classList.add('active');
+        } else if (view === 'code') {
+          codePanel.classList.add('active');
+        } else if (view === 'statement' && statementPanel) {
+          statementPanel.classList.add('active');
+        }
+      });
+    });
+
+    // Fullscreen function
+    function openFullscreen(url) {
+      window.open(url, '_blank');
+    }
+
+    // Enable camera for hand tracking
+    function enableCamera() {
+      const iframe = document.getElementById('hand-tracking-iframe');
+      // Reload the iframe to trigger camera permission
+      iframe.src = iframe.src;
+      alert('Camera permission requested! If the browser asks, please click "Allow" to enable hand tracking.');
+    }
+
+    // Parallax effect for stars
+    let ticking = false;
+    document.addEventListener('mousemove', (e) => {
+      if (window.innerWidth <= 820 || ticking) return;
+      window.requestAnimationFrame(() => {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach((star, i) => {
+          const speed = (i + 1) * 0.015;
+          const x = (e.clientX * speed) / 50;
+          const y = (e.clientY * speed) / 50;
+          star.style.transform = `translate(${x}px, ${y}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    });
+
+    // Load actual code from project files
+    async function loadProjectCode(projectNum, filePath) {
+      try {
+        const response = await fetch(filePath);
+        const text = await response.text();
+        // Extract just the JavaScript from between <script> tags
+        const scriptMatch = text.match(/<script>([\s\S]*?)<\/script>/);
+        if (scriptMatch) {
+          document.getElementById(`code-content-${projectNum}`).textContent = scriptMatch[1].trim();
+        } else {
+          document.getElementById(`code-content-${projectNum}`).textContent = text;
+        }
+        Prism.highlightAll();
+      } catch (e) {
+        document.getElementById(`code-content-${projectNum}`).textContent = 'Could not load code. Run a local server to view.';
+      }
+    }
+
+    // Load all project code on page load
+    loadProjectCode(1, 'projects/hand-tracking/index.html');
+    loadProjectCode(2, 'projects/moth-lifecycle/index.html');
+    loadProjectCode(3, 'projects/otter-aquarium/index.html');
+    loadProjectCode(4, 'projects/low-poly/index.html');
+  </script>
+<script>
+    // Scroll-triggered animations
+    (function() {
+        var opts = { threshold: 0.12, rootMargin: '0px 0px -40px 0px' };
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, opts);
+
+        // Observe fade-in elements
+        document.querySelectorAll('.fade-in').forEach(function(el) { observer.observe(el); });
+
+        // Observe h2 headings and give them the animated class
+        document.querySelectorAll('h2').forEach(function(h2) {
+            h2.classList.add('will-animate');
+            observer.observe(h2);
+        });
+
+        // Stagger fade-in siblings
+        document.querySelectorAll('.fade-in').forEach(function(el) {
+            var siblings = Array.from(el.parentElement.children).filter(function(c) {
+                return c.classList.contains('fade-in');
+            });
+            var idx = siblings.indexOf(el);
+            if (idx > 0) el.style.transitionDelay = (idx * 0.11) + 's';
+        });
+    })();
+</script>
+  <script src="shared/theme.js?v=3"></script>
+
+<style>
+#mobile-note-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+#mobile-note-overlay.spotlight-visible { opacity: 1; }
+#mobile-note-box {
+    position: relative;
+    max-width: min(400px, 86vw);
+    padding: 36px 28px 30px;
+    background: linear-gradient(135deg, rgba(61,26,42,0.38) 0%, rgba(92,42,58,0.38) 100%);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    transition: transform 0.5s ease;
+    text-align: center;
+    color: #fff;
+    font-family: 'Georgia Custom', Georgia, serif;
+}
+#mobile-note-overlay.spotlight-visible #mobile-note-box { transform: scale(1); }
+#mobile-note-box h3 {
+    font-family: 'Archivo Black', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #f5c1cf;
+    margin: 0 0 10px;
+}
+#mobile-note-box p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+    color: #fde0e3;
+}
+#mobile-note-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: rgba(0,0,0,0.5);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+#mobile-note-close:hover { background: rgba(0,0,0,0.8); }
+html.light-mode #mobile-note-box {
+    background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(245,193,207,0.22) 100%) !important;
+    box-shadow: 0 20px 60px rgba(139,71,93,0.25) !important;
+}
+html.light-mode #mobile-note-box h3 { color: #8b475d !important; }
+html.light-mode #mobile-note-box p { color: #5a5a5a !important; }
+</style>
+
+<script>
+(function() {
+    if (!window.matchMedia('(max-width: 820px)').matches) return;
+
+    var navEntry = performance.getEntriesByType('navigation')[0];
+    var navType = navEntry ? navEntry.type : 'navigate';
+    if (navType === 'reload') sessionStorage.removeItem('codingNoteDismissed');
+    if (sessionStorage.getItem('codingNoteDismissed')) return;
+
+    var overlay = document.createElement('div');
+    overlay.id = 'mobile-note-overlay';
+    overlay.innerHTML = '<div id="mobile-note-box"><button id="mobile-note-close" aria-label="Close">\u00D7</button><h3>Best on Desktop</h3><p>These interactive projects work best on a computer. Mobile devices may not support all features.</p></div>';
+    document.body.appendChild(overlay);
+    requestAnimationFrame(function() { overlay.classList.add('spotlight-visible'); });
+    function dismiss() {
+        overlay.classList.remove('spotlight-visible');
+        overlay.addEventListener('transitionend', function() { overlay.remove(); }, { once: true });
+        sessionStorage.setItem('codingNoteDismissed', '1');
+    }
+    document.getElementById('mobile-note-close').addEventListener('click', dismiss);
+    overlay.addEventListener('click', function(e) { if (e.target === overlay) dismiss(); });
+})();
+</script>
+</body>
+</html>

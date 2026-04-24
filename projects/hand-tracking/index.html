@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Neural Network Hand Tracking</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { overflow: hidden; background: #000; }
+    canvas { display: block; }
+
+    #camera-prompt {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #000;
+      color: #fff;
+      font-family: Georgia, serif;
+      gap: 28px;
+    }
+
+#camera-prompt p {
+      font-family: Georgia, serif;
+      font-size: 18px;
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      max-width: 340px;
+      line-height: 1.6;
+    }
+
+    #allow-camera-btn {
+      padding: 16px 48px;
+      font-size: 16px;
+      font-family: 'Archivo Black', sans-serif;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: #fff;
+      background: linear-gradient(135deg, #8b475d, #b4697e);
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: all 0.4s ease;
+      box-shadow: 0 4px 20px rgba(139, 71, 93, 0.4);
+    }
+
+    #allow-camera-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(139, 71, 93, 0.6);
+      background: linear-gradient(135deg, #a0566e, #c87a92);
+    }
+
+    #camera-prompt.hiding {
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="camera-prompt">
+    <p>This project uses your camera to track hand movements and create visualisations in real time.</p>
+    <button id="allow-camera-btn">Allow Camera</button>
+  </div>
+
+  <script>
+console.log('ml5 version:', ml5.version);
+
+    let handPose;
+    let video;
+    let hands = [];
+    let nodes = [];
+    let connections = [];
+    let signals = [];
+    let cameraStarted = false;
+const NODE_COUNT = 50;
+const CONNECTION_DISTANCE = 150;
+    const SIGNAL_SPEED = 2;
+    const SIGNAL_DECAY = 0.98;
+
+    function preload() {
+      handPose = ml5.handPose();
+  ml5.setBackend && ml5.setBackend("webgl");
+    }
+
+function setup(){
+      createCanvas(windowWidth, windowHeight);
+  colorMode(HSB, 360, 100, 100, 255);
+      initializeNetwork();
+
+      // Wait for button click before starting camera
+      document.getElementById('allow-camera-btn').addEventListener('click', function() {
+        var prompt = document.getElementById('camera-prompt');
+        prompt.classList.add('hiding');
+        setTimeout(function() { prompt.remove(); }, 600);
+        startCamera();
+      });
+    }
+
+    function startCamera() {
+      video = createCapture(VIDEO);
+      video.size(640, 480);
+      video.hide();
+      handPose.detectStart(video, gotHands);
+      cameraStarted = true;
+    }
+
+    function initializeNetwork() {
+      nodes = [];
+      connections = [];
+      signals = [];
+      for (let i = 0; i < NODE_COUNT; i++) {
+        nodes.push({
+          x: random(width),
+          y: random(height),
+          size: random(5, 15),
+          strength: random(0.5, 1)
+        });
+      }
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          let d = dist(nodes[i].x, nodes[i].y, nodes[j].x, nodes[j].y);
+          if (d < CONNECTION_DISTANCE) {
+            connections.push({
+              from: i,
+              to: j,
+              strength: random(0.3, 1),
+              thickness: random(1, 3)
+            });
+          }
+        }
+      }
+    }
+function draw(){
+  background(0);
+
+  let hue = 0;
+  let brightness = 100;
+  if (cameraStarted && hands.length > 0 && hands[0].keypoints && hands[0].keypoints.length > 0) {
+    let palm = hands[0].keypoints[0];
+    let mirroredX = width - (palm.x * width / video.width);
+    let py = palm.y * height / video.width;
+    hue = map(mirroredX, 0, width, 0, 360);
+    brightness = map(py, 0, height, 100, 40);
+  } else {
+    hue = 0;
+    brightness = 100;
+  }
+  updateSignals(hue, brightness);
+  drawSignals(hue, brightness);
+  drawConnections(hue, brightness);
+  drawNodes(hue, brightness);
+
+  if (!cameraStarted) return;
+
+      for (let i = 0; i < hands.length; i++) {
+        let hand = hands[i];
+        if (hand.handedness === 'Left') {
+      fill(330, 80, 100);
+        } else {
+      fill(340, 40, 100);
+        }
+        noStroke();
+        for (let j = 0; j < hand.keypoints.length; j++) {
+          let keypoint = hand.keypoints[j];
+          let mirroredX = width - (keypoint.x * width / video.width);
+          let y = keypoint.y * height / video.height;
+          circle(mirroredX, y, 10);
+        }
+        triggerNetworkSignals(hand);
+      }
+    }
+function drawNodes(hue, brightness) {
+      noStroke();
+      for (let node of nodes) {
+    fill(hue, 0, brightness, 230);
+        ellipse(node.x, node.y, node.size);
+      }
+    }
+function drawConnections(hue, brightness) {
+  stroke(hue, 0, brightness, 120);
+      for (let conn of connections) {
+        strokeWeight(conn.thickness);
+    line(
+      nodes[conn.from].x,
+      nodes[conn.from].y,
+      nodes[conn.to].x,
+      nodes[conn.to].y
+    );
+      }
+    }
+function updateSignals(hue, brightness) {
+      for (let i = signals.length - 1; i >= 0; i--) {
+        let signal = signals[i];
+        signal.intensity *= SIGNAL_DECAY;
+        if (signal.intensity < 0.01) {
+          signals.splice(i, 1);
+          continue;
+        }
+        let progress = signal.progress + SIGNAL_SPEED * 0.01;
+        if (progress >= 1) {
+          let nextNode = signal.to;
+          for (let conn of connections) {
+            if (conn.from === nextNode || conn.to === nextNode) {
+              let targetNode = conn.from === nextNode ? conn.to : conn.from;
+              signals.push({
+                from: nextNode,
+                to: targetNode,
+                intensity: signal.intensity * 0.8,
+                progress: 0,
+            color: [hue, 80, brightness]
+              });
+            }
+          }
+          signals.splice(i, 1);
+        } else {
+          signal.progress = progress;
+        }
+      }
+    }
+function drawSignals(hue, brightness) {
+      for (let signal of signals) {
+        let fromNode = nodes[signal.from];
+        let toNode = nodes[signal.to];
+        let x = lerp(fromNode.x, toNode.x, signal.progress);
+        let y = lerp(fromNode.y, toNode.y, signal.progress);
+        noStroke();
+    if (signal.color) {
+        fill(signal.color[0], signal.color[1], signal.color[2], signal.intensity * 255);
+    } else {
+      fill(hue, 80, brightness, signal.intensity * 255);
+    }
+        ellipse(x, y, 10);
+      }
+    }
+    function gotHands(results) {
+      hands = results;
+    }
+    function triggerNetworkSignals(hand) {
+      if (hand.keypoints && hand.keypoints.length > 0) {
+        let palm = hand.keypoints[0];
+        let mirroredX = width - (palm.x * width / video.width);
+        let py = palm.y * height / video.height;
+        let closestNode = -1;
+        let minDist = Infinity;
+        for (let i = 0; i < nodes.length; i++) {
+          let d = dist(mirroredX, py, nodes[i].x, nodes[i].y);
+          if (d < minDist) {
+            minDist = d;
+            closestNode = i;
+          }
+        }
+        if (closestNode !== -1) {
+      let color = [random(100, 255), random(100, 255), random(100, 255)];
+          for (let conn of connections) {
+            if (conn.from === closestNode || conn.to === closestNode) {
+              let targetNode = conn.from === closestNode ? conn.to : conn.from;
+              signals.push({
+                from: closestNode,
+                to: targetNode,
+                intensity: 1,
+                progress: 0,
+                color: color
+              });
+            }
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>

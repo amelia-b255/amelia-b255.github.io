@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Otter Aquarium</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { overflow: hidden; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script>
+    let otters = [];
+let tankWidth;
+let tankHeight;
+    let food = [];
+    let plants = [];
+    let rocks = [];
+    let fish = [];
+    let bubbles = [];
+let defaultFont;
+    let showInstructions = true;
+let toggleButton = { x: 0, y: 0, size: 20 };
+let waterShader;
+
+function preload() {
+  defaultFont = loadFont('assets/Arial.ttf');
+  waterShader = loadShader('shader.vert', 'shader.frag');
+}
+
+    function setup() {
+      createCanvas(windowWidth, windowHeight, WEBGL);
+  tankWidth = width;
+  tankHeight = height;
+
+  toggleButton.x = width / 2 - 40;
+  toggleButton.y = -height / 2 + 20;
+
+  //otters
+      for (let i = 0; i < 3; i++) {
+    otters.push(new Otter(random(-width/2 + 100, width/2 - 100), random(-height/2 + 100, height/2 - 150)));
+      }
+
+  //plants, rocks, fish, bubbles
+      createEnvironment();
+    }
+
+    function createEnvironment() {
+  //seaweed
+      for (let i = 0; i < 15; i++) {
+        plants.push({
+      x: random(-width/2 + 50, width/2 - 50),
+      y: height/2 - 50,
+          type: 'seaweed',
+          height: random(50, 400),
+          color: color(random(50, 100), random(150, 200), random(50, 100))
+        });
+      }
+
+  //coral
+      for (let i = 0; i < 12; i++) {
+        plants.push({
+      x: random(-width/2 + 50, width/2 - 50),
+      y: height/2 - 50,
+          type: 'coral',
+          height: random(50, 100),
+          color: color(random(200, 255), random(100, 150), random(100, 150))
+        });
+      }
+
+  //rocks
+      for (let i = 0; i < 10; i++) {
+        rocks.push({
+      x: random(-width/2 + 50, width/2 - 50),
+      y: height/2 - 50,
+          size: random(40, 80),
+          color: color(random(100, 150), random(100, 150), random(100, 150))
+        });
+      }
+
+  //fish
+      for (let i = 0; i < 8; i++) {
+        fish.push({
+      x: random(-width/2 + 50, width/2 - 50),
+      y: random(-height/2 + 50, height/2 - 100),
+          size: random(20, 40),
+          speed: random(0.5, 1.5),
+          direction: random(TWO_PI),
+          color: color(random(100, 255), random(100, 255), random(100, 255))
+        });
+      }
+
+      for (let i = 0; i < 10; i++) {
+        bubbles.push({
+      x: random(-width/2 + 50, width/2 - 50),
+      y: random(height/2 - 50, height/2),
+          size: random(10, 25),
+          speed: random(1, 2)
+        });
+      }
+    }
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  tankWidth = width;
+  tankHeight = height;
+}
+
+function mousePressed() {
+  let mouseXInCanvas = mouseX + width/2;
+  let mouseYInCanvas = mouseY + height/2;
+
+  if (dist(mouseXInCanvas, mouseYInCanvas, toggleButton.x, toggleButton.y) < toggleButton.size) {
+    showInstructions = !showInstructions;
+  }
+}
+
+function keyPressed() {
+  if (key === 'f' || key === 'F') {
+    food.push(new Food(mouseX - width / 2, mouseY - height / 2));
+  } else if (key === 'p' || key === 'P') {
+    for (let otter of otters) {
+      otter.startPlay();
+    }
+  } else if (key === 'r' || key === 'R') {
+    for (let otter of otters) {
+      otter.startRest();
+    }
+  } else if (key === 'h' || key === 'H') {
+    showInstructions = !showInstructions;
+  }
+}
+
+function keyReleased() {
+  if (key === 'p' || key === 'P') {
+    for (let otter of otters) {
+      otter.stopPlay();
+    }
+  } else if (key === 'r' || key === 'R') {
+    for (let otter of otters) {
+      otter.stopRest();
+    }
+  }
+}
+
+function drawBubble(x, y, size) {
+  size = max(size, 2);
+      push();
+  translate(x, y);
+
+  fill(120, 180, 240);
+      noStroke();
+  ellipse(0, 0, size, size);
+
+
+  push();
+  strokeCap(ROUND);
+  noFill();
+  stroke(255);
+  strokeWeight(max(1, size * 0.12));
+  arc(-size * 0.22, -size * 0.22, size * 0.5, size * 0.5, PI + QUARTER_PI * 0.3, PI + HALF_PI + QUARTER_PI * 0.7);
+      pop();
+
+
+  fill(255);
+  noStroke();
+  ellipse(size * 0.25, -size * 0.18, size * 0.12, size * 0.12);
+
+  pop();
+}
+
+function draw() {
+  clear();
+
+  shader(waterShader);
+  waterShader.setUniform('time', millis() / 1000.0);
+  waterShader.setUniform('resolution', [width, height]);
+  noStroke();
+  beginShape();
+
+  vertex(-1, -1, 0.99999);
+  vertex( 1, -1, 0.99999);
+  vertex( 1,  1, 0.99999);
+  vertex(-1,  1, 0.99999);
+  endShape(CLOSE);
+  resetShader();
+
+  // Draw sand
+      fill(210, 180, 140);
+  rect(-width/2, height/2 - 50, width, 50);
+
+  // Draw rocks
+      for (let rock of rocks) {
+        fill(rock.color);
+        noStroke();
+    ellipse(rock.x, rock.y, rock.size, rock.size/2);
+      }
+
+  // Draw plants
+      for (let plant of plants) {
+    if (plant.type === 'seaweed') {
+      drawSeaweed(plant);
+    } else if (plant.type === 'coral') {
+      drawCoral(plant);
+    }
+      }
+
+  //draw fish
+      for (let f of fish) {
+        drawFish(f);
+        f.x += cos(f.direction) * f.speed;
+        f.y += sin(f.direction) * f.speed;
+    if (f.x < -width/2 || f.x > width/2) {
+      f.direction = PI - f.direction;
+    }
+    if (f.y < -height/2 || f.y > height/2 - 50) {
+      f.direction = -f.direction;
+    }
+    if (random(1) < 0.01) {
+      f.direction += random(-0.5, 0.5);
+    }
+      }
+
+  //Draw bubbles
+      for (let i = bubbles.length - 1; i >= 0; i--) {
+        let b = bubbles[i];
+        drawBubble(b.x, b.y, b.size);
+        b.y -= b.speed;
+    if (b.y < -height/2) bubbles.splice(i, 1);
+      }
+
+      if (random(1) < 0.02) {
+        bubbles.push({
+      x: random(-width/2 + 50, width/2 - 50),
+      y: height/2 - 50,
+          size: random(10, 25),
+          speed: random(1, 2)
+        });
+      }
+
+  // Draw Otters
+      for (let otter of otters) {
+        otter.update();
+        otter.display();
+      }
+
+  // Draw Food
+      for (let i = food.length - 1; i >= 0; i--) {
+        food[i].update();
+        food[i].display();
+    if ((food[i].eaten && millis() - food[i].eatenTime > 500) || food[i].y > height/2 - 50) {
+          food.splice(i, 1);
+        }
+      }
+
+      drawUI();
+    }
+
+    function drawUI() {
+  if (defaultFont) {
+    textFont(defaultFont);
+  }
+
+      if (showInstructions) {
+        fill(255, 255, 255, 90);
+        noStroke();
+    rect(-width/2 + 10, -height/2 + 10, 180, 120);
+
+        fill(0);
+        textSize(16);
+        textAlign(LEFT);
+    text("Controls:", -width/2 + 20, -height/2 + 30);
+    text("F - Feed", -width/2 + 20, -height/2 + 50);
+    text("P - Play", -width/2 + 20, -height/2 + 70);
+    text("R - Rest", -width/2 + 20, -height/2 + 90);
+    text("H - hide instructions", -width/2 + 20, -height/2 + 110);
+      }
+
+  //status bars
+      for (let i = 0; i < otters.length; i++) {
+        let otter = otters[i];
+    let yOffset = -height/2 + 180 + (i * 150);
+
+        fill(0);
+    textSize(16);
+        textAlign(LEFT);
+
+    //Energy bar
+    text("Energy:", -width/2 + 20, yOffset);
+    fill(0, 0, 255);
+    rect(-width/2 + 105, yOffset - 15, map(otter.energy, 0, 100, 0, 100), 20);
+
+    fill(0);
+    text("Hunger:", -width/2 + 20, yOffset + 30);
+        fill(255, 165, 0);
+    rect(-width/2 + 105, yOffset + 15, map(otter.hunger, 0, 100, 0, 100), 20);
+
+    fill(0);
+    text("Happiness:", -width/2 + 20, yOffset + 60);
+    fill(0, 255, 0);
+    rect(-width/2 + 105, yOffset + 45, map(otter.happiness, 0, 100, 0, 100), 20);
+      }
+    }
+
+    function drawSeaweed(plant) {
+      push();
+      translate(plant.x, plant.y);
+      fill(plant.color);
+      noStroke();
+
+      beginShape();
+      for (let yDraw = 0; yDraw <= plant.height; yDraw += 10) {
+        let xOffset = sin(frameCount * 0.02 + yDraw * 0.05 + plant.x * 0.1) * 5;
+        vertex(xOffset, -yDraw);
+      }
+      for (let yDraw = plant.height; yDraw >= 0; yDraw -= 10) {
+        let xOffset = sin(frameCount * 0.02 + yDraw * 0.05 + plant.x * 0.1) * 5 + 2;
+        vertex(xOffset, -yDraw);
+      }
+      endShape(CLOSE);
+
+  for (let yDraw = 20; yDraw < plant.height; yDraw += 25) {
+    let xOffset = sin(frameCount * 0.02 + yDraw * 0.05 + plant.x * 0.1) * 5;
+    let leafWidth = 8;
+    let leafHeight = 20;
+    ellipse(xOffset, -yDraw, leafWidth, leafHeight);
+  }
+      pop();
+    }
+
+    function drawCoral(plant) {
+      push();
+      translate(plant.x, plant.y);
+      fill(plant.color);
+      noStroke();
+
+  ellipse(0, 0, plant.height/2, plant.height/3);
+
+      for (let i = 0; i < 5; i++) {
+    let angle = map(i, 0, 5, -PI/4, PI/4);
+    let x = cos(angle) * plant.height/3;
+    let y = sin(angle) * plant.height/3;
+    ellipse(x, y, plant.height/4, plant.height/4);
+      }
+      pop();
+    }
+
+    function drawFish(f) {
+      push();
+      translate(f.x, f.y);
+      rotate(f.direction);
+      fill(f.color);
+      noStroke();
+      ellipse(0, 0, f.size, f.size * 0.5);
+  fill(f.color);
+      triangle(-f.size * 0.5, 0, -f.size * 0.8, -f.size * 0.2, -f.size * 0.8, f.size * 0.2);
+      fill(0);
+      ellipse(f.size * 0.25, -f.size * 0.1, f.size * 0.12, f.size * 0.12);
+      pop();
+    }
+
+    class Food {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = 18;
+        this.eaten = false;
+        this.speed = 1.5;
+        this.eatenTime = 0;
+      }
+
+      update() {
+        this.y += this.speed;
+
+        for (let otter of otters) {
+          let d = dist(this.x, this.y, otter.x, otter.y);
+          if (d < otter.size && !this.eaten) {
+            this.eaten = true;
+            this.eatenTime = millis();
+            otter.hunger = max(0, otter.hunger - 20);
+            break;
+          }
+        }
+      }
+
+      display() {
+        stroke(120, 80, 40);
+        strokeWeight(2);
+        fill(255, 230, 80);
+        ellipse(this.x, this.y, this.size, this.size * 0.8);
+
+    noStroke();
+    fill(180, 140, 60);
+    ellipse(this.x - 3, this.y - 2, 2, 2);
+    ellipse(this.x + 2, this.y + 1, 1.5, 1.5);
+    ellipse(this.x, this.y + 3, 1.2, 1.2);
+      }
+    }
+
+    class Otter {
+      constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = 180;
+        this.speed = 1;
+        this.direction = random(TWO_PI);
+        this.happiness = 50;
+        this.hunger = 50;
+        this.energy = 100;
+        this.isPlaying = false;
+        this.isResting = false;
+        this.restStartTime = 0;
+        this.playStartTime = 0;
+      }
+
+      update() {
+        let closestFood = null;
+        let minDist = 100;
+
+        for (let f of food) {
+          let d = dist(this.x, this.y, f.x, f.y);
+          if (d < minDist) {
+            minDist = d;
+            closestFood = f;
+          }
+        }
+
+        if (closestFood) {
+          let angle = atan2(closestFood.y - this.y, closestFood.x - this.x);
+          this.x += cos(angle) * this.speed;
+          this.y += sin(angle) * this.speed;
+        } else if (this.isPlaying) {
+          if (this.energy < 10) {
+            this.isPlaying = false;
+          } else {
+            this.x += cos(this.direction) * this.speed * 7.0;
+            this.y += sin(this.direction) * this.speed * 7.0;
+
+            let playDuration = (millis() - this.playStartTime) / 1000;
+            this.happiness = min(100, this.happiness + playDuration * 0.1);
+            this.energy = max(0, this.energy - playDuration * 0.05);
+          }
+        } else if (this.isResting) {
+      this.direction = PI;
+          this.x += random(-0.2, 0.2);
+          this.y += sin(frameCount * 0.02) * 0.3;
+
+          let restDuration = (millis() - this.restStartTime) / 1000;
+          this.energy = min(100, this.energy + restDuration * 0.1);
+        } else {
+          this.x += cos(this.direction) * this.speed;
+          this.y += sin(this.direction) * this.speed;
+
+      if (random(1) < 0.02) {
+        this.direction += random(-0.2, 0.2);
+      }
+        }
+
+
+        let halfSize = this.size / 2;
+    if (this.x < -width/2 + halfSize) {
+      this.x = -width/2 + halfSize;
+      this.direction = PI - this.direction;
+    }
+    if (this.x > width/2 - halfSize) {
+      this.x = width/2 - halfSize;
+      this.direction = PI - this.direction;
+    }
+    if (this.y < -height/2 + halfSize) {
+      this.y = -height/2 + halfSize;
+      this.direction = -this.direction;
+    }
+    if (this.y > height/2 - 50 - halfSize) {
+      this.y = height/2 - 50 - halfSize;
+      this.direction = -this.direction;
+    }
+
+        this.hunger = min(100, this.hunger + 0.02);
+    if (!this.isResting) {
+      this.energy = max(0, this.energy - 0.02);
+    }
+    if (!this.isPlaying) {
+      this.happiness = max(0, this.happiness - 0.02);
+      }
+  }
+
+      display() {
+        push();
+        translate(this.x, this.y);
+        rotate(this.direction);
+
+        fill(160, 120, 80);
+        noStroke();
+
+    // Body parts
+    ellipse(0, 0, this.size * 0.8, this.size/3); //Body
+    ellipse(this.size/3, 0, this.size/2, this.size/2); //Head
+
+    //Tail
+        push();
+    translate(-this.size/2, 0);
+        fill(140, 100, 60);
+    noStroke();
+    ellipse(0, 0, this.size/2, this.size/4);
+        pop();
+
+    // Snout
+        fill(180, 140, 100);
+    noStroke();
+    ellipse(this.size/2, 0, this.size/4, this.size/4);
+
+    // Eyes
+        fill(0);
+    noStroke();
+    ellipse(this.size/2 + 8, -8, 8, 8);
+    ellipse(this.size/2 + 8, 8, 8, 8);
+
+    // Eye highlights
+        fill(255);
+    noStroke();
+    ellipse(this.size/2 + 10, -10, 3, 3);
+    ellipse(this.size/2 + 10, 6, 3, 3);
+
+    // Nose
+        push();
+    translate(this.size/2 + 15, 0);
+        rotate(PI / 2);
+        fill(60, 40, 20);
+    noStroke();
+        ellipse(0, 0, 5, 4);
+        pop();
+
+    //Ears
+    fill(140, 100, 60);
+    noStroke();
+    ellipse(this.size/2 - 5, -15, 15, 15);
+    ellipse(this.size/2 - 5, 15, 15, 15);
+
+    // Paws
+        fill(140, 100, 60);
+    noStroke();
+    ellipse(this.size/4, -this.size/6, 35, 25);
+    ellipse(this.size/4, this.size/6, 35, 25);
+    ellipse(-this.size/4, -this.size/6, 35, 25);
+    ellipse(-this.size/4, this.size/6, 35, 25);
+
+        pop();
+      }
+
+      startPlay() {
+        if (this.energy >= 10) {
+          this.isPlaying = true;
+          this.isResting = false;
+          this.playStartTime = millis();
+        }
+      }
+
+  stopPlay() {
+    this.isPlaying = false;
+  }
+
+      startRest() {
+        this.isResting = true;
+        this.isPlaying = false;
+        this.restStartTime = millis();
+      }
+
+  stopRest() {
+    this.isResting = false;
+    }
+    }
+  </script>
+</body>
+</html>

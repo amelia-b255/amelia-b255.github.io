@@ -1,0 +1,33 @@
+/*.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+  Pragma: no-cache
+  Expires: 0
+
+/*.png
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.jpg
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.jpeg
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.JPG
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.gif
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.webp
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.css
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/*.js
+  Cache-Control: public, max-age=3600, must-revalidate

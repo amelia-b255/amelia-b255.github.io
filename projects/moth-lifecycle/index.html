@@ -1,0 +1,1717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lunar Moth Lifecycle</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/addons/p5.sound.min.js"></script>
+  <style>
+    * { margin: 0; padding: 0; }
+    body { overflow: hidden; background: #060c18; }
+    canvas { display: block; }
+  </style>
+</head>
+<body>
+  <script>
+/**
+ * EXTN1019B 2025 - Final Project
+*/
+
+let moth = {
+  x: 0,
+  y: 0,
+  targetX: 0,
+  targetY: 0,
+  wingAngle: 0,
+  wingSpeed: 0.3,
+  wingAmplitude: 20,
+  bodyLength: 100,
+  wingSpan: 160,
+  speed: 1.0, 
+  wobble: 0,
+  wobbleSpeed: 0.02,
+  isLayingEggs: false,
+  eggLayingProgress: 0,
+  currentAngle: 0,
+  targetAngle: 0,
+  targetFlowerIndex: 0,
+  isGrowing: false,
+  growingProgress: 0,
+  isPupating: false,
+  pupatingProgress: 0,
+  isFeeding: false,
+  feedingProgress: 0,
+  isMating: false,
+  matingProgress: 0,
+  isDefending: false,
+  defendingProgress: 0,
+  isMigrating: false,
+  migratingProgress: 0
+};
+let flowerStates = [];
+let flowerOpenProgress = [];
+let caterpillars = [];
+let pupae = [];
+let eggs = [];
+let currentMoonPhase = 'none';
+let prevMouseX = 0;
+let prevMouseY = 0;
+let mothColors = {
+  body: [101, 67, 33], 
+  head: [200, 69, 19], 
+  forewings: [160, 82, 45], 
+  hindwings: [165, 56, 96], 
+  wingPatterns: [101, 67, 33], 
+  antennae: [160, 82, 45], 
+  eyes: [0, 0, 0], 
+  abdomen: [165, 56, 96]
+};
+let trailParticles = [];
+let maxTrailParticles = 1000;
+let trailCreationRate = 0.8;
+let fireflies = [];
+let numFireflies = 12;
+let backgroundMusic;
+let nightSounds1;
+let nightSounds2;
+let deepSouthSounds;
+let mothFlyingSound;
+let audioContextStarted = false;
+let audioTracks = [];
+let fadeTimers = [];
+let currentVolumes = [];
+let targetVolumes = [];
+let fadeSpeeds = [];
+let audioInitialized = false;
+let showAudioPrompt = true;
+let sceneFadeIn = false;
+let sceneFadeProgress = 0;
+let sceneFadeSpeed = 0.005;
+//font
+let ralsihtenFont; 
+
+function preload() {
+  backgroundMusic = loadSound('assets/slow-burner-ambient-184746.mp3');
+  nightSounds1 = loadSound('assets/night-sounds-230343.mp3');
+  nightSounds2 = loadSound('assets/night-sounds-380287.mp3');
+  deepSouthSounds = loadSound('assets/deep_south-night-sounds-115466.mp3');
+  mothFlyingSound = loadSound('assets/flying-moth-1-90806.mp3');
+  ralsihtenFont = loadFont('assets/Ralsihten.otf');
+}
+  
+function setup() {
+  createCanvas(windowWidth, windowHeight, WEBGL);
+  
+  // Setup audio tracks
+  audioTracks = [backgroundMusic, nightSounds1, nightSounds2, deepSouthSounds, mothFlyingSound];
+  fadeTimers = new Array(audioTracks.length);
+  currentVolumes = new Array(audioTracks.length);
+  targetVolumes = new Array(audioTracks.length);
+  fadeSpeeds = new Array(audioTracks.length);
+  
+  moth.x = 0;
+  moth.y = 0;
+  moth.targetX = 0;
+  moth.targetY = 0;
+  
+  prevMouseX = mouseX;
+  prevMouseY = mouseY;
+  
+  for (let i = 0; i < numFireflies; i++) {
+    fireflies.push(new Firefly());
+  }
+  
+}
+function initializeAmbientAudio() {
+  // Start audio
+  if (!audioContextStarted) {
+    getAudioContext().resume();
+    audioContextStarted = true;
+  }
+  
+// audio 
+    let maxVolumes = [0.2, 0.15, 0.15, 0.1, 0.05]; 
+  for (let i = 0; i < audioTracks.length; i++) {
+    if (audioTracks[i]) {
+      audioTracks[i].setVolume(0);
+      audioTracks[i].loop();
+      currentVolumes[i] = 0;
+      targetVolumes[i] = random(0.1, maxVolumes[i]);
+      fadeTimers[i] = random(1000, 3000); 
+      fadeSpeeds[i] = random(0.005, 0.015); 
+    }
+  }
+  
+  audioInitialized = true;
+  showAudioPrompt = false;
+}
+function updateAmbientAudio() {
+  if (!audioInitialized) return;
+  
+  for (let i = 0; i < audioTracks.length; i++) {
+    if (audioTracks[i]) {
+      
+      fadeTimers[i] -= 16; 
+      
+      if (fadeTimers[i] <= 0) {
+        let maxVolumes = [0.2, 0.15, 0.15, 0.1, 0.05]; 
+        targetVolumes[i] = random(0, maxVolumes[i]);
+        fadeTimers[i] = random(3000, 12000); 
+        fadeSpeeds[i] = random(0.001, 0.008); 
+      }
+      
+      if (currentVolumes[i] < targetVolumes[i]) {
+        currentVolumes[i] += fadeSpeeds[i];
+        if (currentVolumes[i] > targetVolumes[i]) {
+          currentVolumes[i] = targetVolumes[i];
+        }
+      } else if (currentVolumes[i] > targetVolumes[i]) {
+        currentVolumes[i] -= fadeSpeeds[i];
+        if (currentVolumes[i] < targetVolumes[i]) {
+          currentVolumes[i] = targetVolumes[i];
+        }
+      }
+      
+      audioTracks[i].setVolume(currentVolumes[i]);
+    }
+  }
+}
+function draw() {
+  background(6, 12, 24);
+  
+  if (sceneFadeIn && sceneFadeProgress < 1.0) {
+    sceneFadeProgress += sceneFadeSpeed;
+    if (sceneFadeProgress > 1.0) {
+      sceneFadeProgress = 1.0;
+    }
+  }
+  
+  updateAmbientAudio();
+  
+  if (showAudioPrompt) {
+    drawAudioPrompt();
+  }
+  
+  if (sceneFadeProgress > 0) {
+    drawFullMoon();
+  }
+  
+  currentMoonPhase = getCurrentMoonPhase();
+  
+  handleMoonPhaseActivities();
+  
+  if (moth.isLayingEggs) {
+    moth.eggLayingProgress += 0.01;
+    
+    if (moth.eggLayingProgress < 1.0) {
+      let flowerCount = 7;
+      let spacing = width / (flowerCount + 1);
+      let targetFlowerX = (moth.targetFlowerIndex + 1) * spacing - width/2;
+      let targetFlowerY = height/2 - 140;
+      
+      moth.x += (targetFlowerX - moth.x) * 0.03; 
+      moth.y += (targetFlowerY - 40 - moth.y) * 0.03; 
+      
+      moth.targetAngle = PI; 
+      moth.currentAngle = PI; 
+    } else {
+      moth.isLayingEggs = false;
+      moth.eggLayingProgress = 0;
+    }
+  } else {
+    if (moth.isMigrating) {
+      // Migration 
+      let time = frameCount * 0.02;
+      moth.targetX = cos(time) * width/3;
+      moth.targetY = sin(time) * height/3;
+    } else if (moth.isDefending) {
+      // Defending 
+      let time = frameCount * 0.05;
+      let flowerCount = 7;
+      let spacing = width / (flowerCount + 1);
+      let targetFlowerIndex = Math.floor(moth.defendingProgress * flowerCount);
+      
+      if (targetFlowerIndex < flowerCount) {
+        let targetFlowerX = (targetFlowerIndex + 1) * spacing - width/2;
+        let targetFlowerY = height/2 - 140;
+        
+        moth.targetX = targetFlowerX + sin(time * 3) * 80;
+        moth.targetY = targetFlowerY + cos(time * 2) * 60;
+      } else {
+        moth.targetX = sin(time * 2) * 100;
+        moth.targetY = sin(time * 3) * 50;
+      }
+    } else if (moth.isMating) {
+      // Mating 
+      let time = frameCount * 0.03;
+      moth.targetX = sin(time) * 100;
+      moth.targetY = sin(time * 2) * 50;
+    } else if (moth.isFeeding) {
+      // Feeding 
+      let flowerCount = 7;
+      let spacing = width / (flowerCount + 1);
+      let targetFlowerIndex = Math.floor(moth.feedingProgress * flowerCount);
+      moth.targetX = (targetFlowerIndex + 1) * spacing - width/2;
+      moth.targetY = height/2 - 180;
+    } else if (moth.isPupating) {
+      // Pupating 
+      let time = frameCount * 0.03;
+      let flowerCount = 7;
+      let spacing = width / (flowerCount + 1);
+      let centerX = (flowerCount + 1) * spacing / 2 - width/2;
+      moth.targetX = centerX + sin(time) * 100; 
+      moth.targetY = height/2 - 250;
+    } else if (moth.isGrowing) {
+      // Growing 
+      let time = frameCount * 0.03;
+      let flowerCount = 7;
+      let spacing = width / (flowerCount + 1);
+      let centerX = (flowerCount + 1) * spacing / 2 - width/2;
+      moth.targetX = centerX + sin(time) * 100; 
+      moth.targetY = height/2 - 250; 
+    } else {
+      // Default - follow mouse
+      moth.targetX = mouseX - width/2;
+      moth.targetY = mouseY - height/2;
+    }
+    
+    moth.x += (moth.targetX - moth.x) * 0.08;
+    moth.y += (moth.targetY - moth.y) * 0.08;
+    
+    let mouseDirX = moth.targetX - moth.x;
+    let mouseDirY = moth.targetY - moth.y;
+    moth.targetAngle = atan2(mouseDirY, mouseDirX);
+    
+    let angleDiff = moth.targetAngle - moth.currentAngle;
+    if (angleDiff > PI) angleDiff -= TWO_PI;
+    if (angleDiff < -PI) angleDiff += TWO_PI;
+    
+    moth.currentAngle += angleDiff * 0.12;
+  }
+  
+  moth.wobble += moth.wobbleSpeed;
+  let wobbleOffset = sin(moth.wobble) * 3;
+  
+  moth.wingAngle += moth.wingSpeed;
+  
+  let mouseDistance = dist(mouseX, mouseY, prevMouseX, prevMouseY);
+  if (mouseDistance > 2) {
+    for (let i = 0; i < 3; i++) {
+      createTrailParticle(moth.x + random(-10, 10), moth.y + wobbleOffset + random(-10, 10));
+    }
+  }
+  
+  updateTrailParticles();
+  
+  if (sceneFadeProgress > 0) {
+    for (let firefly of fireflies) {
+      firefly.update();
+      firefly.display();
+    }
+  }
+  
+  if (sceneFadeProgress > 0) {
+    drawFlower();
+  }
+  
+  drawEggs();
+  
+  drawActivityEffects();
+  
+  prevMouseX = mouseX;
+  prevMouseY = mouseY;
+  
+  drawHawkmoth(moth.x, moth.y + wobbleOffset);
+}
+function createTrailParticle(x, y) {
+  if (trailParticles.length >= maxTrailParticles) {
+    let randomIndex = floor(random(trailParticles.length));
+    trailParticles.splice(randomIndex, 1);
+  }
+  
+  trailParticles.push(new GlowParticle(x, y));
+}
+function updateTrailParticles() {
+  for (let i = trailParticles.length - 1; i >= 0; i--) {
+    let particle = trailParticles[i];
+    particle.update();
+    particle.display();
+    
+    if (!particle.update()) {
+      trailParticles.splice(i, 1);
+    }
+  }
+}
+class GlowParticle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.alpha = 40;
+    this.maxSize = random(6, 25);
+    this.size = this.maxSize;
+    this.maxAlpha = this.alpha;
+  }
+  
+  update() {
+    this.alpha -= 0.3;
+    
+    let ageRatio = this.alpha / this.maxAlpha;
+    this.size = this.maxSize * (0.3 + 0.7 * ageRatio); 
+    
+    return this.alpha > 0;
+  }
+  
+  display() {
+    noStroke();
+    let r = random(0, 30)    
+    let g = random(100, 180)   
+    let b = random(150, 200)   
+    fill(r, g, b, this.alpha);
+    circle(this.x, this.y, this.size);
+  }
+}
+class Firefly {
+  constructor() {
+    this.x = random(-width/2, width/2);
+    this.y = random(-height/2, height/2);
+    this.vx = random(-0.5, 0.5);
+    this.vy = random(-0.5, 0.5);
+    this.size = random(3, 8);
+    this.glowSize = random(8, 15);
+    this.shape = floor(random(3)); 
+    this.pulseSpeed = random(0.05, 0.15);
+    this.pulsePhase = random(TWO_PI);
+    this.alpha = random(120, 200);
+  }
+  
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    
+    this.vx += random(-0.02, 0.02);
+    this.vy += random(-0.02, 0.02);
+    
+    this.vx = constrain(this.vx, -1, 1);
+    this.vy = constrain(this.vy, -1, 1);
+    
+    if (this.x > width/2) this.x = -width/2;
+    if (this.x < -width/2) this.x = width/2;
+    if (this.y > height/2) this.y = -height/2;
+    if (this.y < -height/2) this.y = height/2;
+    
+    this.pulsePhase += this.pulseSpeed;
+  }
+  
+  display() {
+    push();
+    translate(this.x, this.y);
+    
+    let pulse = sin(this.pulsePhase) * 0.3 + 0.7;
+    let currentGlowSize = this.glowSize * pulse;
+    let currentAlpha = this.alpha * pulse * sceneFadeProgress;
+    
+    fill(255, 215, 0, currentAlpha * 0.3);
+    noStroke();
+    ellipse(0, 0, currentGlowSize * 2, currentGlowSize * 2);
+    
+    fill(255, 255, 150, currentAlpha * 0.6);
+    ellipse(0, 0, currentGlowSize, currentGlowSize);
+    
+    fill(255, 215, 0, currentAlpha);
+    noStroke();
+    
+    if (this.shape === 0) {
+      ellipse(0, 0, this.size, this.size);
+    } else if (this.shape === 1) {
+      beginShape();
+      vertex(0, -this.size/2);
+      vertex(this.size/2, 0);
+      vertex(0, this.size/2);
+      vertex(-this.size/2, 0);
+      endShape(CLOSE);
+    } else {
+      // Star
+      beginShape();
+      for (let i = 0; i < 5; i++) {
+        let angle = (i / 5) * TWO_PI;
+        let outerRadius = this.size/2;
+        let innerRadius = this.size/4;
+        
+        let x1 = cos(angle) * outerRadius;
+        let y1 = sin(angle) * outerRadius;
+        let x2 = cos(angle + PI/5) * innerRadius;
+        let y2 = sin(angle + PI/5) * innerRadius;
+        
+        if (i === 0) {
+          vertex(x1, y1);
+        } else {
+          vertex(x1, y1);
+          vertex(x2, y2);
+        }
+      }
+      endShape(CLOSE);
+    }
+    
+    fill(255, 255, 200, currentAlpha);
+    ellipse(0, 0, this.size/3, this.size/3);
+    
+    pop();
+  }
+}
+function drawActivityEffects() {
+  
+  if (moth.isGrowing) {
+    drawGrowingEffect();
+  }
+  
+  if (moth.isPupating) {
+    drawPupatingEffect();
+  }
+  
+  if (moth.isFeeding) {
+    drawFeedingEffect();
+  }
+  
+  if (moth.isMating) {
+    drawMatingEffect();
+  }
+  
+  if (moth.isDefending) {
+    drawDefendingEffect();
+  }
+  
+  if (moth.isMigrating) {
+    drawMigratingEffect();
+  }
+}
+function drawGrowingEffect() {
+  let flowerCount = 7;
+  let spacing = width / (flowerCount + 1);
+  
+  let fadeAlpha = min(moth.growingProgress * 3, 1) * 255;
+  
+  for (let flowerIndex = 0; flowerIndex < flowerCount; flowerIndex++) {
+    let flowerX = (flowerIndex + 1) * spacing - width/2;
+    let flowerY = height/2 - 140;
+    
+    let caterpillarsPerFlower = (flowerIndex % 3 === 0) ? 2 : 1; 
+    
+    for (let caterpillarIndex = 0; caterpillarIndex < caterpillarsPerFlower; caterpillarIndex++) {
+      push();
+      
+      let offsetX, offsetY;
+      if (caterpillarsPerFlower === 1) {
+        offsetX = 0;
+        offsetY = -40; 
+      } else {
+        if (caterpillarIndex === 0) {
+          offsetX = -12; 
+          offsetY = -38;
+        } else {
+          offsetX = 12; 
+          offsetY = -42;
+        }
+      }
+      
+      translate(flowerX + offsetX, flowerY + offsetY);
+      
+      let size = 0.8 + moth.growingProgress * 1.0;
+      scale(size);
+      
+      fill(100, 180, 80, fadeAlpha); 
+      noStroke();
+      
+      let segmentWidth = 9; 
+      let segmentHeight = 6;
+      let curveRadius = 18; 
+      
+      for (let j = 0; j < 5; j++) {
+        let angle = (j - 2) * 0.25; 
+        let x = sin(angle) * curveRadius;
+        let y = -cos(angle) * curveRadius + curveRadius; 
+        
+        ellipse(x, y, segmentWidth, segmentHeight);
+      }
+      
+      fill(120, 200, 100, fadeAlpha);
+      let headAngle = -0.5;
+      let headX = sin(headAngle) * curveRadius;
+      let headY = -cos(headAngle) * curveRadius + curveRadius; 
+      ellipse(headX, headY, 9, 6); 
+      
+      fill(200, 150, 0, fadeAlpha); 
+      let tailAngle = 0.5;
+      let tailX = sin(tailAngle) * curveRadius;
+      let tailY = -cos(tailAngle) * curveRadius + curveRadius; 
+      triangle(tailX, tailY - 3, tailX + 6, tailY - 1, tailX, tailY + 3);
+      
+      pop();
+    }
+  }
+}
+function drawPupatingEffect() {
+  let flowerCount = 7;
+  let spacing = width / (flowerCount + 1);
+  
+  let fadeAlpha = min(moth.pupatingProgress * 3, 1) * 255; 
+  
+  for (let flowerIndex = 0; flowerIndex < flowerCount; flowerIndex++) {
+    let flowerX = (flowerIndex + 1) * spacing - width/2;
+    let flowerY = height/2 - 140;
+    
+    let cocoonsPerFlower = (flowerIndex % 3 === 0) ? 2 : 1; 
+    
+    for (let cocoonIndex = 0; cocoonIndex < cocoonsPerFlower; cocoonIndex++) {
+      push();
+      
+      let offsetX, offsetY;
+      if (cocoonsPerFlower === 1) {
+        offsetX = 0;
+        offsetY = 50; 
+      } else {
+        if (cocoonIndex === 0) {
+          offsetX = -18; 
+          offsetY = 45;
+        } else {
+          offsetX = 18; 
+          offsetY = 55;
+        }
+      }
+      
+      translate(flowerX + offsetX, flowerY + offsetY);
+      
+      let size = 2.5; // Much bigger
+      scale(size);
+      
+       let pupaLength = 28;
+       let pupaWidth = 8;
+       
+       fill(40, 80, 40, fadeAlpha);
+       noStroke();
+       
+  
+       ellipse(0, -8, pupaWidth * 1.2, 6);
+       
+       ellipse(0, -2, pupaWidth * 1.4, 8);
+       ellipse(0, 4, pupaWidth * 1.3, 7);
+       
+       ellipse(0, 10, pupaWidth * 1.1, 6);
+       ellipse(0, 15, pupaWidth * 0.9, 5);
+       
+       fill(80, 50, 30, fadeAlpha); 
+       ellipse(-1, -2, 3, 4); 
+       ellipse(1, 4, 2, 3); 
+       ellipse(0, 10, 2, 2); 
+       
+       fill(30, 70, 30, fadeAlpha);
+       triangle(0, 18, -3, 22, 3, 22);
+       fill(60, 40, 20, fadeAlpha); 
+       triangle(0, 19, -2, 21, 2, 21);
+       
+       stroke(60, 100, 60, fadeAlpha);
+       strokeWeight(1);
+       line(-pupaWidth/2, -5, pupaWidth/2, -5);
+       line(-pupaWidth/2, 2, pupaWidth/2, 2);
+       line(-pupaWidth/2, 8, pupaWidth/2, 8);
+       line(-pupaWidth/2, 13, pupaWidth/2, 13);
+       
+       stroke(80, 120, 80, fadeAlpha);
+       strokeWeight(1.5);
+       noFill();
+       arc(-2, -10, 4, 3, -PI/3, PI/3);
+       arc(2, -10, 4, 3, 2*PI/3, 4*PI/3);
+       
+       fill(70, 45, 25, fadeAlpha);
+       noStroke();
+       ellipse(-2, -10, 2, 1.5);
+       ellipse(2, -10, 2, 1.5);
+       
+       fill(60, 100, 60, fadeAlpha);
+       noStroke();
+       ellipse(-3, 0, 1, 1);
+       ellipse(3, 0, 1, 1);
+       ellipse(-2, 6, 1, 1);
+       ellipse(2, 6, 1, 1);
+      
+      
+      pop();
+    }
+  }
+}
+function drawFeedingEffect() {
+  push();
+  
+  let flowerCount = 7;
+  let spacing = width / (flowerCount + 1);
+  let targetFlowerIndex = Math.floor(moth.feedingProgress * flowerCount);
+  let flowerX = (targetFlowerIndex + 1) * spacing - width/2;
+  let flowerY = height/2 - 140;
+  
+  translate(flowerX, flowerY);
+  
+  for (let i = 0; i < 20; i++) { 
+    let angle = (i / 20) * TWO_PI + frameCount * 0.08;
+    let radius = 25 + sin(frameCount * 0.03 + i) * 15;
+    let x = cos(angle) * radius;
+    let y = sin(angle) * radius;
+    
+    fill(255, 255, 100, 200); 
+    noStroke();
+    ellipse(x, y, 6, 6); 
+    
+    if (i % 3 === 0) {
+      fill(255, 255, 150, 180);
+      ellipse(x, y, 4, 4);
+    }
+  }
+  
+  for (let i = 0; i < 8; i++) {
+    let time = frameCount * 0.02 + i;
+    let x = sin(time) * 40 + cos(time * 0.7) * 20;
+    let y = cos(time * 0.8) * 30 + sin(time * 0.5) * 15;
+    
+    fill(255, 255, 120, 160);
+    noStroke();
+    ellipse(x, y, 5, 5);
+  }
+  
+  pop();
+}
+function drawMatingEffect() {
+  push();
+  translate(moth.x, moth.y);
+  
+  for (let i = 0; i < 12; i++) { 
+    let angle = (i / 12) * TWO_PI + frameCount * 0.02;
+    let radius = 40 + sin(frameCount * 0.03 + i) * 20;
+    let x = cos(angle) * radius;
+    let y = sin(angle) * radius;
+    
+    push();
+    translate(x, y);
+    let heartScale = 0.8 + sin(frameCount * 0.05 + i) * 0.4; 
+    scale(heartScale);
+    
+    fill(255, 50, 100, 220); 
+    noStroke();
+    drawHeart(0, 0, 12); 
+    
+    if (i % 2 === 0) {
+      fill(255, 80, 120, 180);
+      drawHeart(0, 0, 8);
+    }
+    
+    pop();
+  }
+  
+  for (let i = 0; i < 6; i++) {
+    let time = frameCount * 0.015 + i;
+    let x = sin(time) * 60 + cos(time * 0.6) * 30;
+    let y = cos(time * 0.7) * 40 + sin(time * 0.4) * 20;
+    
+    push();
+    translate(x, y);
+    scale(0.6 + sin(time * 2) * 0.2);
+    
+    fill(255, 100, 150, 200);
+    noStroke();
+    drawHeart(0, 0, 10);
+    
+    pop();
+  }
+  
+  pop();
+}
+function drawDefendingEffect() {
+  push();
+  translate(moth.x, moth.y);
+  
+  let time = frameCount * 0.1;
+  for (let i = 0; i < 3; i++) {
+    let radius = 20 + i * 15 + sin(time + i) * 5;
+    let alpha = 100 - i * 30;
+    
+    stroke(255, 100, 100, alpha);
+    strokeWeight(2);
+    noFill();
+    ellipse(0, 0, radius * 2, radius * 2);
+  }
+  
+  for (let i = 0; i < 8; i++) {
+    let angle = (i / 8) * TWO_PI + time;
+    let radius = 40 + sin(time * 2 + i) * 10;
+    let x = cos(angle) * radius;
+    let y = sin(angle) * radius;
+    
+    fill(255, 150, 0, 200);
+    noStroke();
+    ellipse(x, y, 4, 4);
+  }
+  
+  pop();
+}
+function drawMigratingEffect() {
+  push();
+  translate(moth.x, moth.y);
+  
+  stroke(200, 200, 255, 100);
+  strokeWeight(3);
+  noFill();
+  
+  beginShape();
+  for (let i = 0; i < 20; i++) {
+    let t = i / 20;
+    let x = -100 + t * 200;
+    let y = sin(t * PI * 4 + frameCount * 0.02) * 20;
+    vertex(x, y);
+  }
+  endShape();
+  
+  for (let i = 0; i < 5; i++) {
+    let x = -80 + i * 40;
+    let y = sin(frameCount * 0.02 + i) * 15;
+    
+    fill(150, 150, 255, 150);
+    noStroke();
+    ellipse(x, y, 6, 6);
+  }
+  
+  pop();
+}
+function drawHeart(x, y, size) {
+  push();
+  translate(x, y);
+  scale(size / 10);
+  
+  beginShape();
+  vertex(0, 0);
+  bezierVertex(-5, -5, -10, -5, -10, 0);
+  bezierVertex(-10, 5, -5, 10, 0, 15);
+  bezierVertex(5, 10, 10, 5, 10, 0);
+  bezierVertex(10, -5, 5, -5, 0, 0);
+  endShape();
+  
+  pop();
+}
+function drawHawkmoth(x, y) {
+  push();
+  translate(x, y);
+  
+  rotate(moth.currentAngle);
+  
+  let leftWingAngle = sin(moth.wingAngle) * moth.wingAmplitude;
+  let rightWingAngle = sin(moth.wingAngle + PI) * moth.wingAmplitude;
+  
+  push();
+  translate(-moth.wingSpan/12, moth.bodyLength/2); 
+  rotate(radians(leftWingAngle * 0.8));
+  drawHindwing(0, 0, moth.wingSpan/0.7, moth.bodyLength/1.0, true); 
+  pop();
+  
+  push();
+  translate(moth.wingSpan/12, moth.bodyLength/2); 
+  rotate(radians(rightWingAngle * 0.8));
+  drawHindwing(0, 0, moth.wingSpan/0.7, moth.bodyLength/1.0, false); 
+  pop();
+  
+  push();
+  translate(-moth.wingSpan/15, moth.bodyLength/4 - 2); 
+  rotate(radians(leftWingAngle));
+  drawForewing(0, 0, moth.wingSpan/0.9, moth.bodyLength/1.2, true); 
+  pop();
+  
+  push();
+  translate(moth.wingSpan/15, moth.bodyLength/4 - 2); 
+  rotate(radians(rightWingAngle));
+  drawForewing(0, 0, moth.wingSpan/0.9, moth.bodyLength/1.2, false); 
+  pop();
+  
+  drawDetailedBody(0, 0);
+  
+  drawDetailedAntennae(0, 0);
+  
+  pop();
+}
+function drawForewing(x, y, width, height, isLeftWing) {
+  push();
+  translate(x, y);
+  
+  fill(mothColors.forewings[0], mothColors.forewings[1], mothColors.forewings[2]);
+  stroke(mothColors.wingPatterns[0], mothColors.wingPatterns[1], mothColors.wingPatterns[2]);
+  strokeWeight(1);
+  
+  beginShape();
+  vertex(0, 0);
+  if (isLeftWing) {
+    bezierVertex(-width * 0.05, -height * 0.4, -width * 0.25, -height * 0.5, -width * 0.5, -height * 0.3);
+    bezierVertex(-width * 0.7, -height * 0.1, -width * 0.6, height * 0.2, -width * 0.35, height * 0.3);
+    bezierVertex(-width * 0.15, height * 0.2, -width * 0.03, height * 0.1, 0, 0);
+  } else {
+    bezierVertex(width * 0.05, -height * 0.4, width * 0.25, -height * 0.5, width * 0.5, -height * 0.3);
+    bezierVertex(width * 0.7, -height * 0.1, width * 0.6, height * 0.2, width * 0.35, height * 0.3);
+    bezierVertex(width * 0.15, height * 0.2, width * 0.03, height * 0.1, 0, 0);
+  }
+  endShape();
+  
+  stroke(mothColors.wingPatterns[0], mothColors.wingPatterns[1], mothColors.wingPatterns[2], 150);
+  strokeWeight(0.8);
+  
+  if (isLeftWing) {
+    line(0, 0, -width * 0.35, -height * 0.3);
+    line(0, 0, -width * 0.2, height * 0.2);
+    line(-width * 0.1, -height * 0.2, -width * 0.4, height * 0.1);
+  } else {
+    line(0, 0, width * 0.35, -height * 0.3);
+    line(0, 0, width * 0.2, height * 0.2);
+    line(width * 0.1, -height * 0.2, width * 0.4, height * 0.1);
+  }
+  
+  for (let i = 1; i <= 4; i++) {
+    let t = i / 5;
+    if (isLeftWing) {
+      let startX = -width * 0.05 * t;
+      let startY = -height * 0.2 * t;
+      let endX = -width * 0.35 * t;
+      let endY = height * 0.2 * t;
+      line(startX, startY, endX, endY);
+    } else {
+      let startX = width * 0.05 * t;
+      let startY = -height * 0.2 * t;
+      let endX = width * 0.35 * t;
+      let endY = height * 0.2 * t;
+      line(startX, startY, endX, endY);
+    }
+  }
+  
+  stroke(mothColors.wingPatterns[0], mothColors.wingPatterns[1], mothColors.wingPatterns[2], 100);
+  strokeWeight(0.5);
+  for (let i = 1; i <= 3; i++) {
+    let lineY = (height * 0.3) * (i / 4);
+    if (isLeftWing) {
+      line(width * 0.02, lineY, -width * 0.4, lineY - height * 0.1);
+    } else {
+      line(-width * 0.02, lineY, width * 0.4, lineY - height * 0.1);
+    }
+  }
+  
+  pop();
+}
+function drawHindwing(x, y, width, height, isLeftWing) {
+  push();
+  translate(x, y);
+  
+  fill(mothColors.hindwings[0], mothColors.hindwings[1], mothColors.hindwings[2]);
+  stroke(mothColors.wingPatterns[0], mothColors.wingPatterns[1], mothColors.wingPatterns[2]);
+  strokeWeight(1);
+  
+  beginShape();
+  vertex(0, 0);
+  if (isLeftWing) {
+    bezierVertex(-width * 0.15, -height * 0.4, -width * 0.4, -height * 0.5, -width * 0.7, -height * 0.3);
+    bezierVertex(-width * 0.8, height * 0.1, -width * 0.6, height * 0.3, -width * 0.3, height * 0.25);
+    bezierVertex(-width * 0.1, height * 0.15, 0, height * 0.1, 0, 0);
+  } else {
+    bezierVertex(width * 0.15, -height * 0.4, width * 0.4, -height * 0.5, width * 0.7, -height * 0.3);
+    bezierVertex(width * 0.8, height * 0.1, width * 0.6, height * 0.3, width * 0.3, height * 0.25);
+    bezierVertex(width * 0.1, height * 0.15, 0, height * 0.1, 0, 0);
+  }
+  endShape();
+  
+  fill(0, 0, 0);
+  noStroke();
+  
+  if (isLeftWing) {
+    beginShape();
+    vertex(-width * 0.08, -height * 0.2);
+    bezierVertex(-width * 0.25, -height * 0.25, -width * 0.45, -height * 0.3, -width * 0.6, -height * 0.15);
+    bezierVertex(-width * 0.45, height * 0.08, -width * 0.25, height * 0.15, -width * 0.08, height * 0.08);
+    bezierVertex(-width * 0.03, height * 0.03, -width * 0.03, -height * 0.08, -width * 0.08, -height * 0.2);
+    endShape();
+    
+    beginShape();
+    vertex(-width * 0.35, -height * 0.08);
+    bezierVertex(-width * 0.5, -height * 0.15, -width * 0.65, -height * 0.2, -width * 0.75, -height * 0.05);
+    bezierVertex(-width * 0.65, height * 0.12, -width * 0.5, height * 0.18, -width * 0.35, height * 0.12);
+    bezierVertex(-width * 0.2, height * 0.08, -width * 0.2, -height * 0.03, -width * 0.35, -height * 0.08);
+    endShape();
+  } else {
+    beginShape();
+    vertex(width * 0.08, -height * 0.2);
+    bezierVertex(width * 0.25, -height * 0.25, width * 0.45, -height * 0.3, width * 0.6, -height * 0.15);
+    bezierVertex(width * 0.45, height * 0.08, width * 0.25, height * 0.15, width * 0.08, height * 0.08);
+    bezierVertex(width * 0.03, height * 0.03, width * 0.03, -height * 0.08, width * 0.08, -height * 0.2);
+    endShape();
+    
+    beginShape();
+    vertex(width * 0.35, -height * 0.08);
+    bezierVertex(width * 0.5, -height * 0.15, width * 0.65, -height * 0.2, width * 0.75, -height * 0.05);
+    bezierVertex(width * 0.65, height * 0.12, width * 0.5, height * 0.18, width * 0.35, height * 0.12);
+    bezierVertex(width * 0.2, height * 0.08, width * 0.2, -height * 0.03, width * 0.35, -height * 0.08);
+    endShape();
+  }
+  
+  stroke(0, 0, 0);
+  strokeWeight(1.5);
+  noFill();
+  if (isLeftWing) {
+    beginShape();
+    vertex(0, 0);
+    bezierVertex(-width * 0.15, -height * 0.4, -width * 0.4, -height * 0.5, -width * 0.7, -height * 0.3);
+    bezierVertex(-width * 0.8, height * 0.1, -width * 0.6, height * 0.3, -width * 0.3, height * 0.25);
+    bezierVertex(-width * 0.1, height * 0.15, 0, height * 0.1, 0, 0);
+    endShape();
+  } else {
+    beginShape();
+    vertex(0, 0);
+    bezierVertex(width * 0.15, -height * 0.4, width * 0.4, -height * 0.5, width * 0.7, -height * 0.3);
+    bezierVertex(width * 0.8, height * 0.1, width * 0.6, height * 0.3, width * 0.3, height * 0.25);
+    bezierVertex(width * 0.1, height * 0.15, 0, height * 0.1, 0, 0);
+    endShape();
+  }
+  
+  pop();
+}
+function drawDetailedBody(x, y) {
+  push();
+  translate(x, y);
+  
+  fill(mothColors.head[0], mothColors.head[1], mothColors.head[2]);
+  stroke(101, 67, 33);
+  strokeWeight(1);
+  ellipse(0, 0, 14, 12);
+  
+  stroke(139, 69, 19, 100);
+  strokeWeight(0.5);
+  for (let i = 0; i < 6; i++) {
+    let angle = (i / 6) * TWO_PI;
+    let x1 = cos(angle) * 6;
+    let y1 = sin(angle) * 6;
+    let x2 = cos(angle) * 8;
+    let y2 = sin(angle) * 8;
+    line(x1, y1, x2, y2);
+  }
+  
+  fill(mothColors.eyes[0], mothColors.eyes[1], mothColors.eyes[2]);
+  noStroke();
+  ellipse(-4, -1, 3, 3);
+  ellipse(4, -1, 3, 3);
+  
+  fill(255, 255, 255, 150);
+  ellipse(-4.5, -1.5, 1, 1);
+  ellipse(3.5, -1.5, 1, 1);
+  
+  fill(mothColors.body[0], mothColors.body[1], mothColors.body[2]);
+  stroke(101, 67, 33);
+  strokeWeight(1);
+  ellipse(0, moth.bodyLength/4, 18, 20); 
+  
+  stroke(139, 69, 19, 100);
+  strokeWeight(0.5);
+  for (let i = 0; i < 8; i++) {
+    let angle = (i / 8) * TWO_PI;
+    let x1 = cos(angle) * 6;
+    let y1 = sin(angle) * 7.5 + moth.bodyLength/4;
+    let x2 = cos(angle) * 8;
+    let y2 = sin(angle) * 10 + moth.bodyLength/4;
+    line(x1, y1, x2, y2);
+  }
+  
+  for (let i = 0; i < 5; i++) {
+    let segmentY = i * (moth.bodyLength / 6) + moth.bodyLength/6;
+    let segmentWidth = 16 - i * 2; 
+    let segmentHeight = moth.bodyLength / 6; 
+    
+    if (i % 2 === 0) {
+      fill(mothColors.abdomen[0], mothColors.abdomen[1], mothColors.abdomen[2]);
+    } else {
+      fill(0, 0, 0);
+    }
+    
+    stroke(101, 67, 33);
+    strokeWeight(1);
+    ellipse(0, segmentY, segmentWidth, segmentHeight);
+    
+    stroke(101, 67, 33, 150);
+    strokeWeight(0.5);
+    line(-segmentWidth/2, segmentY, segmentWidth/2, segmentY);
+  }
+  
+  pop();
+}
+function drawDetailedAntennae(x, y) {
+  push();
+  translate(x, y);
+  
+  stroke(mothColors.antennae[0], mothColors.antennae[1], mothColors.antennae[2]);
+  strokeWeight(2);
+  noFill();
+  
+  beginShape();
+  vertex(-3, 0);
+  bezierVertex(-8, -8, -15, -12, -20, -18);
+  endShape();
+  
+  beginShape();
+  vertex(3, 0);
+  bezierVertex(8, -8, 15, -12, 20, -18);
+  endShape();
+  
+  fill(mothColors.antennae[0], mothColors.antennae[1], mothColors.antennae[2]);
+  noStroke();
+  ellipse(-8, -8, 2, 2);
+  ellipse(-15, -12, 2, 2);
+  ellipse(8, -8, 2, 2);
+  ellipse(15, -12, 2, 2);
+  
+  ellipse(-20, -18, 3, 3);
+  ellipse(20, -18, 3, 3);
+  
+  pop();
+}
+function drawFullMoon() {
+  push();
+  translate(0, -height/2 + 80); 
+  
+  // Draw left crescent moon (waning crescent)
+  drawCrescentMoon(-500, 60, false);
+  
+  // Draw left half moon (last quarter)
+  drawHalfMoon(-335, 30, false);
+  
+  // Draw left 3/4 moon (waning gibbous)
+  drawThreeQuarterMoon(-170, 15, false);
+  
+  // Draw center full moon
+  drawFullMoonCircle(0, 0);
+  
+  // Draw right 3/4 moon (waxing gibbous)
+  drawThreeQuarterMoon(170, 15, true);
+  
+  // Draw right half moon (first quarter)
+  drawHalfMoon(335, 30, true);
+  
+  // Draw right crescent moon (waxing crescent)
+  drawCrescentMoon(500, 60, true);
+  
+  pop();
+}
+function isMouseOverMoon(moonX, moonY, moonSize) {
+  let mouseXInCanvas = mouseX - width/2;
+  let mouseYInCanvas = mouseY - height/2;
+  let moonYInCanvas = -height/2 + 80 + moonY;
+  
+  let distance = dist(mouseXInCanvas, mouseYInCanvas, moonX, moonYInCanvas);
+  return distance < moonSize/2;
+}
+function isAnyMoonHovered() {
+  let moonPositions = [
+    {x: -500, y: 60}, // Left crescent
+    {x: -335, y: 30}, // Left half
+    {x: -170, y: 15}, // Left 3/4
+    {x: 0, y: 0},     // Full moon
+    {x: 170, y: 15},  // Right 3/4
+    {x: 335, y: 30},  // Right half
+    {x: 500, y: 60}   // Right crescent
+  ];
+  
+  for (let moon of moonPositions) {
+    if (isMouseOverMoon(moon.x, moon.y, 90)) {
+      return true;
+    }
+  }
+  return false;
+}
+function getCurrentMoonPhase() {
+  let moonPositions = [
+    {x: -500, y: 60, phase: 'waning_crescent'}, // Left crescent
+    {x: -335, y: 30, phase: 'third_quarter'}, // Left half
+    {x: -170, y: 15, phase: 'waning_gibbous'}, // Left 3/4
+    {x: 0, y: 0, phase: 'full_moon'},     // Full moon
+    {x: 170, y: 15, phase: 'waxing_gibbous'},  // Right 3/4
+    {x: 335, y: 30, phase: 'first_quarter'},  // Right half
+    {x: 500, y: 60, phase: 'waxing_crescent'}   // Right crescent
+  ];
+  
+  for (let moon of moonPositions) {
+    if (isMouseOverMoon(moon.x, moon.y, 90)) {
+      return moon.phase;
+    }
+  }
+  
+  
+  return 'none';
+}
+function handleMoonPhaseActivities() {
+  if (currentMoonPhase === 'none') {
+    resetAllActivities();
+    return;
+  }
+  
+  switch (currentMoonPhase) {
+    case 'waxing_crescent':
+      // Waxing Crescent - Larval development
+      if (!moth.isGrowing) {
+        moth.isGrowing = true;
+        moth.growingProgress = 0;
+      }
+      break;
+      
+    case 'first_quarter':
+      // First Quarter - Pupae develop
+      if (!moth.isPupating) {
+        moth.isPupating = true;
+        moth.pupatingProgress = 0;
+      }
+      break;
+      
+    case 'waxing_gibbous':
+      // Waxing Gibbous - Moths feed
+      if (!moth.isFeeding) {
+        moth.isFeeding = true;
+        moth.feedingProgress = 0;
+      }
+      break;
+      
+    case 'full_moon':
+      // Full moon - Hawk moths lay eggs
+      if (!moth.isLayingEggs) {
+        moth.isLayingEggs = true;
+        moth.eggLayingProgress = 0;
+        moth.targetFlowerIndex = 3;
+      }
+      break;
+      
+    case 'waning_gibbous':
+      // Waning Gibbous - Mating
+      if (!moth.isMating) {
+        moth.isMating = true;
+        moth.matingProgress = 0;
+      }
+      break;
+      
+    case 'third_quarter':
+      // Third Quarter - Moths defend feeding territories
+      if (!moth.isDefending) {
+        moth.isDefending = true;
+        moth.defendingProgress = 0;
+      }
+      break;
+      
+    case 'waning_crescent':
+      // Waning Crescent - Moths migrate
+      if (!moth.isMigrating) {
+        moth.isMigrating = true;
+        moth.migratingProgress = 0;
+      }
+      break;
+  }
+  
+  updateActivityProgress();
+}
+function resetAllActivities() {
+  moth.isLayingEggs = false;
+  moth.isGrowing = false;
+  moth.isPupating = false;
+  moth.isFeeding = false;
+  moth.isMating = false;
+  moth.isDefending = false;
+  moth.isMigrating = false;
+  
+  // Reset progress
+  moth.eggLayingProgress = 0;
+  moth.growingProgress = 0;
+  moth.pupatingProgress = 0;
+  moth.feedingProgress = 0;
+  moth.matingProgress = 0;
+  moth.defendingProgress = 0;
+  moth.migratingProgress = 0;
+}
+function updateActivityProgress() {
+  if (moth.isLayingEggs) {
+    moth.eggLayingProgress += 0.01;
+    if (moth.eggLayingProgress >= 1.0) {
+      moth.isLayingEggs = false;
+      moth.eggLayingProgress = 0;
+    }
+  }
+  
+  
+  if (moth.isGrowing) {
+    moth.growingProgress += 0.006;
+    if (moth.growingProgress >= 1.0) {
+      moth.isGrowing = false;
+      moth.growingProgress = 0;
+    }
+  }
+  
+  if (moth.isPupating) {
+    moth.pupatingProgress += 0.005;
+    if (moth.pupatingProgress >= 1.0) {
+      moth.isPupating = false;
+      moth.pupatingProgress = 0;
+    }
+  }
+  
+  if (moth.isFeeding) {
+    moth.feedingProgress += 0.007;
+    if (moth.feedingProgress >= 1.0) {
+      moth.isFeeding = false;
+      moth.feedingProgress = 0;
+    }
+  }
+  
+  if (moth.isMating) {
+    moth.matingProgress += 0.009;
+    if (moth.matingProgress >= 1.0) {
+      moth.isMating = false;
+      moth.matingProgress = 0;
+    }
+  }
+  
+  if (moth.isDefending) {
+    moth.defendingProgress += 0.008;
+    if (moth.defendingProgress >= 1.0) {
+      moth.isDefending = false;
+      moth.defendingProgress = 0;
+    }
+  }
+  
+  if (moth.isMigrating) {
+    moth.migratingProgress += 0.004;
+    if (moth.migratingProgress >= 1.0) {
+      moth.isMigrating = false;
+      moth.migratingProgress = 0;
+    }
+  }
+}
+function drawFullMoonCircle(x, y) {
+  push();
+  translate(x, y);
+  
+  let isHovering = isMouseOverMoon(x, y, 90);
+  let scaleFactor = isHovering ? 1.3 : 1.0;
+  
+  scale(scaleFactor);
+  
+  fill(255, 255, 240, 255 * sceneFadeProgress); 
+  noStroke();
+  ellipse(0, 0, 90, 90);
+  
+  for (let i = 1; i <= 3; i++) {
+    fill(255, 255, 240, (30 - i * 8) * sceneFadeProgress);
+    ellipse(0, 0, 90 + i * 15, 90 + i * 15);
+  }
+  
+  fill(240, 240, 230, 40 * sceneFadeProgress);
+  ellipse(-8, -5, 8, 8);
+  ellipse(10, 8, 6, 6);
+  ellipse(-5, 12, 4, 4);
+  ellipse(15, -3, 5, 5);
+  
+  pop();
+}
+function drawThreeQuarterMoon(x, y, isWaxing) {
+  push();
+  translate(x, y);
+  
+  let isHovering = isMouseOverMoon(x, y, 90);
+  let scaleFactor = isHovering ? 1.3 : 1.0;
+  
+  scale(scaleFactor);
+  
+  fill(60, 60, 60, 255 * sceneFadeProgress);
+  noStroke();
+  ellipse(0, 0, 90, 90);
+  
+  fill(255, 255, 240, 255 * sceneFadeProgress);
+  if (isWaxing) {
+    ellipse(11, 0, 68, 90);
+  } else {
+    ellipse(-11, 0, 68, 90);
+  }
+  
+  for (let i = 1; i <= 3; i++) {
+    fill(255, 255, 240, (30 - i * 8) * sceneFadeProgress);
+    ellipse(0, 0, 90 + i * 15, 90 + i * 15);
+  }
+  
+  fill(240, 240, 230, 40 * sceneFadeProgress);
+  ellipse(-8, -5, 8, 8);
+  ellipse(10, 8, 6, 6);
+  ellipse(-5, 12, 4, 4);
+  ellipse(15, -3, 5, 5);
+  
+  pop();
+}
+function drawHalfMoon(x, y, isWaxing) {
+  push();
+  translate(x, y);
+  
+  let isHovering = isMouseOverMoon(x, y, 90);
+  let scaleFactor = isHovering ? 1.3 : 1.0;
+  
+  scale(scaleFactor);
+  
+  fill(60, 60, 60, 255 * sceneFadeProgress);
+  noStroke();
+  ellipse(0, 0, 90, 90);
+  
+  fill(255, 255, 240, 255 * sceneFadeProgress);
+  if (isWaxing) {
+    ellipse(22, 0, 45, 90);
+  } else {
+    ellipse(-22, 0, 45, 90);
+  }
+  
+  for (let i = 1; i <= 3; i++) {
+    fill(255, 255, 240, (30 - i * 8) * sceneFadeProgress);
+    ellipse(0, 0, 90 + i * 15, 90 + i * 15);
+  }
+  
+  fill(240, 240, 230, 40 * sceneFadeProgress);
+  ellipse(-8, -5, 8, 8);
+  ellipse(10, 8, 6, 6);
+  ellipse(-5, 12, 4, 4);
+  ellipse(15, -3, 5, 5);
+  
+  pop();
+}
+function drawCrescentMoon(x, y, isWaxing) {
+  push();
+  translate(x, y);
+  
+  let isHovering = isMouseOverMoon(x, y, 90);
+  let scaleFactor = isHovering ? 1.3 : 1.0;
+  
+  scale(scaleFactor);
+  
+  fill(60, 60, 60, 255 * sceneFadeProgress);
+  noStroke();
+  ellipse(0, 0, 90, 90);
+  
+  fill(255, 255, 240, 255 * sceneFadeProgress);
+  if (isWaxing) {
+    ellipse(30, 0, 30, 90);
+  } else {
+    ellipse(-30, 0, 30, 90);
+  }
+  
+  for (let i = 1; i <= 3; i++) {
+    fill(255, 255, 240, (30 - i * 8) * sceneFadeProgress);
+    ellipse(0, 0, 90 + i * 15, 90 + i * 15);
+  }
+  
+  fill(240, 240, 230, 40 * sceneFadeProgress);
+  ellipse(-8, -5, 8, 8);
+  ellipse(10, 8, 6, 6);
+  ellipse(-5, 12, 4, 4);
+  ellipse(15, -3, 5, 5);
+  
+  pop();
+}
+function drawEggs() {
+  if (moth.isLayingEggs && moth.eggLayingProgress > 0.2) {
+    let flowerCount = 7;
+    let spacing = width / (flowerCount + 1);
+    
+    let flowerX = (moth.targetFlowerIndex + 1) * spacing - width/2;
+    let heightVariation = sin(moth.targetFlowerIndex * 0.8) * 15;
+    let flowerY = height/2 - 140 + heightVariation;
+    
+    push();
+    translate(flowerX, flowerY - 15); 
+    
+    let eggCount = Math.floor(moth.eggLayingProgress * 8); 
+    
+    for (let i = 0; i < eggCount; i++) {
+      let angle = (i / eggCount) * TWO_PI;
+      let radius = 8 + i * 2; 
+      let eggX = cos(angle) * radius;
+      let eggY = sin(angle) * radius;
+      
+      push();
+      translate(eggX, eggY);
+      
+      fill(255, 255, 220); 
+      stroke(180, 180, 150);
+      strokeWeight(2);
+      
+      beginShape();
+      vertex(0, -8);
+      bezierVertex(8, -8, 8, 8, 0, 8);
+      bezierVertex(-8, 8, -8, -8, 0, -8);
+      endShape();
+      
+      fill(255, 255, 255, 150);
+      noStroke();
+      ellipse(2, -2, 4, 4);
+      
+      fill(200, 200, 180, 100);
+      ellipse(-1, 2, 3, 2);
+      
+      pop();
+    }
+    
+    pop();
+  }
+}
+function drawFlower() {
+  let moonHovered = isAnyMoonHovered();
+  
+  if (moonHovered || moth.isLayingEggs) {
+    for (let i = 0; i < flowerOpenProgress.length; i++) {
+      flowerOpenProgress[i] = min(flowerOpenProgress[i] + 0.03, 1.0); 
+    }
+  } else {
+    for (let i = 0; i < flowerOpenProgress.length; i++) {
+      flowerOpenProgress[i] = max(flowerOpenProgress[i] - 0.05, 0.0); 
+    }
+  }
+  
+  let flowerCount = 7;
+  let spacing = width / (flowerCount + 1);
+  
+  if (flowerOpenProgress.length === 0) {
+    for (let i = 0; i < 13; i++) {
+      flowerOpenProgress[i] = 0.0;
+    }
+  }
+  
+  for (let i = 0; i < flowerCount; i++) {
+    let x = (i + 1) * spacing - width/2;
+    let heightVariation = sin(i * 0.8) * 15; 
+    let scaleVariation = 0.9 + (i % 3) * 0.15; 
+    let y = height/2 - 140 + heightVariation;
+    
+    drawSingleFlower(x, y, scaleVariation, flowerOpenProgress[i]);
+  }
+  
+  for (let i = 0; i < flowerCount - 1; i++) {
+    let x = (i + 1.5) * spacing - width/2;
+    let heightVariation = sin(i * 0.8 + 0.5) * 10; 
+    let scaleVariation = 0.5 + (i % 2) * 0.1; 
+    let y = height/2 - 120 + heightVariation; 
+    
+    drawSingleFlower(x, y, scaleVariation, flowerOpenProgress[i + flowerCount]);
+  }
+}
+function drawSingleFlower(x, y, scaleFactor, openProgress) {
+  push();
+  translate(x, y);
+  scale(scaleFactor);
+  
+  stroke(82, 121, 111, 255 * sceneFadeProgress);
+  strokeWeight(3);
+  line(0, 0, 0, height/2);
+  
+  stroke(82, 121, 111, 255 * sceneFadeProgress);
+  strokeWeight(1);
+  line(-1, 0, -1, height/2);
+  line(1, 0, 1, height/2);
+  
+  fill(82, 121, 111, 255 * sceneFadeProgress);
+  noStroke();
+  
+  drawLeaf(-3, 25, 30, 18, -1); // Left-facing leaf
+  drawLeaf(3, 45, 28, 16, 1);   // Right-facing leaf
+  drawLeaf(-2, 35, 24, 14, -1);   // Left-facing leaf
+  drawLeaf(2, 25, 20, 12, 1);    // Right-facing leaf
+  
+  fill(255, 255, 255, 255 * sceneFadeProgress);
+  stroke(240, 240, 240, 255 * sceneFadeProgress);
+  strokeWeight(1);
+  
+  let openAmount = 0;
+  if (openProgress > 0.1) {
+    openAmount = (openProgress - 0.1) / 0.9; 
+  }
+  
+  if (openProgress < 0.1) {
+    fill(255, 255, 240, 255 * sceneFadeProgress);
+    ellipse(0, -10, 15, 20); 
+  } else {
+    
+    beginShape();
+    vertex(0, -10 - 20 * openAmount); 
+    bezierVertex(-25 * openAmount, -10 - 20 * openAmount, -30 * openAmount, -10 * openAmount, -30 * openAmount, -10); // Left curve
+    bezierVertex(-30 * openAmount, -10 + 20 * openAmount, -25 * openAmount, -10 + 35 * openAmount, -15 * openAmount, -10 + 40 * openAmount); // Left bottom
+    bezierVertex(-5 * openAmount, -10 + 45 * openAmount, 5 * openAmount, -10 + 45 * openAmount, 15 * openAmount, -10 + 40 * openAmount); // Bottom curve
+    bezierVertex(25 * openAmount, -10 + 35 * openAmount, 30 * openAmount, -10 + 20 * openAmount, 30 * openAmount, -10); // Right bottom
+    bezierVertex(30 * openAmount, -10 * openAmount, 25 * openAmount, -10 - 20 * openAmount, 0, -10 - 20 * openAmount); // Right curve
+    endShape();
+  }
+  
+  if (openProgress > 0.3) {
+    fill(220, 220, 180, 255 * sceneFadeProgress); 
+    beginShape();
+    vertex(0, -10 - 15 * openAmount);
+    bezierVertex(-20 * openAmount, -10 - 15 * openAmount, -25 * openAmount, -10 + 5 * openAmount, -25 * openAmount, -10);
+    bezierVertex(-25 * openAmount, -10 + 15 * openAmount, -20 * openAmount, -10 + 30 * openAmount, -10 * openAmount, -10 + 35 * openAmount);
+    bezierVertex(-5 * openAmount, -10 + 40 * openAmount, 5 * openAmount, -10 + 40 * openAmount, 10 * openAmount, -10 + 35 * openAmount);
+    bezierVertex(20 * openAmount, -10 + 30 * openAmount, 25 * openAmount, -10 + 15 * openAmount, 25 * openAmount, -10);
+    bezierVertex(25 * openAmount, -10 + 5 * openAmount, 20 * openAmount, -10 - 15 * openAmount, 0, -10 - 15 * openAmount);
+    endShape();
+  }
+  
+  if (openProgress > 0.6) {
+    fill(200, 200, 160, 255 * sceneFadeProgress); 
+    beginShape();
+    vertex(0, -10 - 10 * openAmount);
+    bezierVertex(-15 * openAmount, -10 - 10 * openAmount, -20 * openAmount, -10 + 10 * openAmount, -20 * openAmount, -10);
+    bezierVertex(-20 * openAmount, -10 + 10 * openAmount, -15 * openAmount, -10 + 25 * openAmount, -5 * openAmount, -10 + 30 * openAmount);
+    bezierVertex(-2 * openAmount, -10 + 35 * openAmount, 2 * openAmount, -10 + 35 * openAmount, 5 * openAmount, -10 + 30 * openAmount);
+    bezierVertex(15 * openAmount, -10 + 25 * openAmount, 20 * openAmount, -10 + 10 * openAmount, 20 * openAmount, -10);
+    bezierVertex(20 * openAmount, -10 + 10 * openAmount, 15 * openAmount, -10 - 10 * openAmount, 0, -10 - 10 * openAmount);
+    endShape();
+  }
+  
+  if (openProgress > 0.8) {
+    fill(220, 220, 160, 255 * sceneFadeProgress); 
+    noStroke();
+    ellipse(0, -10 + 15 * openAmount, 8 * openAmount, 8 * openAmount);
+    
+    fill(200, 200, 140, 255 * sceneFadeProgress); 
+    for (let i = 0; i < 6; i++) {
+      let angle = (i / 6) * TWO_PI;
+      let stamenX = cos(angle) * 3 * openAmount;
+      let stamenY = sin(angle) * 3 * openAmount - 10 + 15 * openAmount;
+      ellipse(stamenX, stamenY, 2 * openAmount, 2 * openAmount);
+    }
+  }
+  
+  if (openProgress > 0.4) {
+    stroke(240, 240, 240, 100 * openAmount * sceneFadeProgress);
+    strokeWeight(0.5);
+    for (let i = 0; i < 12; i++) {
+      let angle = (i / 12) * TWO_PI;
+      let startX = cos(angle) * 5 * openAmount;
+      let startY = sin(angle) * 5 * openAmount - 10 + 15 * openAmount;
+      let endX = cos(angle) * 25 * openAmount;
+      let endY = sin(angle) * 25 * openAmount - 10 + 15 * openAmount;
+      line(startX, startY, endX, endY);
+    }
+    
+    stroke(240, 240, 240, 60 * openAmount * sceneFadeProgress);
+    strokeWeight(0.3);
+    for (let i = 0; i < 8; i++) {
+      let angle = (i / 8) * TWO_PI;
+      let startX = cos(angle) * 8 * openAmount;
+      let startY = sin(angle) * 8 * openAmount - 10 + 15 * openAmount;
+      let endX = cos(angle) * 20 * openAmount;
+      let endY = sin(angle) * 20 * openAmount - 10 + 15 * openAmount;
+      line(startX, startY, endX, endY);
+    }
+  }
+  
+  if (openProgress > 0.7) {
+    fill(255, 255, 255, 150 * openAmount * sceneFadeProgress);
+    noStroke();
+    ellipse(-8 * openAmount, -10 + 5 * openAmount, 3 * openAmount, 3 * openAmount);
+    ellipse(12 * openAmount, -10 + 12 * openAmount, 2 * openAmount, 2 * openAmount);
+    ellipse(-5 * openAmount, -10 - 5 * openAmount, 2 * openAmount, 2 * openAmount);
+    ellipse(8 * openAmount, -10, 1.5 * openAmount, 1.5 * openAmount);
+    ellipse(-12 * openAmount, -10 + 15 * openAmount, 2.5 * openAmount, 2.5 * openAmount);
+    ellipse(15 * openAmount, -10 + 8 * openAmount, 1 * openAmount, 1 * openAmount);
+    
+    fill(255, 255, 255, 80 * openAmount * sceneFadeProgress);
+    ellipse(-5 * openAmount, -10 - 10 * openAmount, 6 * openAmount, 6 * openAmount);
+    ellipse(8 * openAmount, -10 - 8 * openAmount, 4 * openAmount, 4 * openAmount);
+  }
+  
+  if (openProgress > 0.2) {
+    for (let i = 1; i <= 3; i++) {
+      fill(255, 255, 200, (20 - i * 5) * openProgress * sceneFadeProgress);
+      noStroke();
+      ellipse(0, -10 + 15 * openAmount, (30 + i * 10) * openAmount, (30 + i * 10) * openAmount);
+    }
+  }
+  
+  pop();
+}
+function drawLeaf(x, y, width, height, direction = 1) {
+  push();
+  translate(x, y);
+  scale(direction, 1); 
+  
+  fill(82, 121, 111, 255 * sceneFadeProgress);
+  noStroke();
+  
+  beginShape();
+  vertex(0, 0);
+  bezierVertex(width/6, -height/4, width/3, -height/2, width/2, -height/3);
+  bezierVertex(width*0.7, -height/4, width*0.8, -height/6, width*0.9, 0);
+  bezierVertex(width*0.8, height/6, width*0.7, height/4, width/2, height/3);
+  bezierVertex(width/3, height/2, width/6, height/4, 0, 0);
+  endShape(CLOSE);
+  
+  stroke(60, 100, 90, 255 * sceneFadeProgress);
+  strokeWeight(1.5);
+  line(0, 0, width*0.9, 0);
+  
+  stroke(70, 110, 100, 255 * sceneFadeProgress);
+  strokeWeight(0.8);
+  
+  line(width/4, -height/8, width/2, -height/3);
+  line(width/2, -height/12, width*0.7, -height/4);
+  line(width*0.6, -height/16, width*0.8, -height/6);
+  
+  line(width/4, height/8, width/2, height/3);
+  line(width/2, height/12, width*0.7, height/4);
+  line(width*0.6, height/16, width*0.8, height/6);
+  
+  stroke(75, 115, 105, 255 * sceneFadeProgress);
+  strokeWeight(0.4);
+  
+  line(width/3, -height/16, width/2.5, -height/5);
+  line(width*0.5, -height/20, width*0.65, -height/8);
+  
+  line(width/3, height/16, width/2.5, height/5);
+  line(width*0.5, height/20, width*0.65, height/8);
+  
+  noStroke();
+  pop();
+}
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
+function drawAudioPrompt() {
+  push();
+  translate(0, 0);
+  
+  
+  fill(6, 12, 24, 150);
+  rect(-width/2, -height/2, width, height);
+  
+  let pulse = sin(frameCount * 0.1) * 0.3 + 0.7;
+  fill(200, 200, 200, 150 * pulse);
+  noStroke();
+  ellipse(0, 0, 20 * pulse, 20 * pulse);
+  
+  if (ralsihtenFont) {
+    textFont(ralsihtenFont);
+    textAlign(CENTER, CENTER);
+    fill(200, 200, 200, 200);
+    textSize(40);
+    text("click to start", 0, 40);
+  }
+  
+  pop();
+}
+function mousePressed() {
+  if (!audioInitialized) {
+    initializeAmbientAudio();
+  }
+  
+  if (!sceneFadeIn) {
+    sceneFadeIn = true;
+  }
+}
+function keyPressed() {
+  if (key === ' ') {
+    trailParticles = [];
+  }
+}
+  </script>
+</body>
+</html>
