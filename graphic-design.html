@@ -1,4 +1,4 @@
-﻿<!-- deploy: 2026-04-24-B -->
+﻿<!-- deploy: 2026-04-24-C -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1057,6 +1057,8 @@
 
             .business-card-img {
                 max-width: 300px !important;
+                height: auto !important;
+                width: 90% !important;
             }
 
             footer {
@@ -1881,24 +1883,16 @@
             const overlay = document.getElementById('splash-overlay');
             if (!overlay) return;
 
-            // Show splash on every fresh load and refresh.
-            // Hide it only when navigating here from another page on the same site.
-            var navEntry = performance.getEntriesByType('navigation')[0];
-            var navType = navEntry ? navEntry.type : 'navigate';
+            // Show splash on fresh open, QR scan, and refresh.
+            // Hide only when the user navigated here from another page on this site.
+            var fromSameSite = document.referrer &&
+                document.referrer.indexOf(window.location.hostname) !== -1 &&
+                document.referrer !== document.location.href;
 
-            // Always clear so refresh always shows the splash
-            if (navType === 'reload' || navType === 'navigate') {
-                sessionStorage.removeItem('splashShown');
-            }
-
-            // If flag exists → user came from another page on this site
-            if (sessionStorage.getItem('splashShown')) {
+            if (fromSameSite) {
                 overlay.remove();
                 return;
             }
-
-            // Mark as shown for this session
-            sessionStorage.setItem('splashShown', '1');
 
             // Lock scroll once the splash is fully visible (~3s)
             setTimeout(function() {
