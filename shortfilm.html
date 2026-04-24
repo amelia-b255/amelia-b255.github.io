@@ -474,7 +474,7 @@
       overflow: hidden !important;
       box-shadow: 0 4px 16px rgba(139,71,93,0.13) !important;
       transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-      background: rgba(255,255,255,0.55) !important;
+      background: transparent !important;
       display: flex !important;
       flex-direction: column !important;
       flex: 0 0 220px !important;
@@ -485,7 +485,7 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 454px !important; width: 454px !important;
+      flex: 0 0 460px !important; width: 460px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -513,16 +513,45 @@
     html:not(.light-mode) body.gallery-mode .stack-card:hover { box-shadow: 0 12px 28px rgba(0,0,0,0.55) !important; }
     html:not(.light-mode) .gallery-card-name { color: #e8a0b8; }
     html:not(.light-mode) .gallery-card-desc { color: #d4899e; }
+    /* ── Gallery mode: production stills ── */
+    body.gallery-mode .stills-nav { display: none !important; }
+    body.gallery-mode .stills-counter { display: none !important; }
+    body.gallery-mode .stills-stack-scene { gap: 0; }
+    body.gallery-mode .stills-card-stack {
+      display: flex !important; flex-wrap: wrap !important;
+      justify-content: center !important; align-items: flex-start !important;
+      gap: 14px !important; width: 100% !important; max-width: 1060px !important;
+      height: auto !important; position: static !important;
+      flex-shrink: unset !important; margin: 0 auto !important;
+    }
+    body.gallery-mode .still-card {
+      position: static !important; transform: none !important;
+      filter: none !important; opacity: 1 !important; pointer-events: auto !important;
+      border-radius: 0 !important; overflow: hidden !important;
+      box-shadow: 0 4px 16px rgba(139,71,93,0.13) !important;
+      transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+      background: transparent !important;
+      flex: 0 0 460px !important; width: 460px !important;
+    }
+    body.gallery-mode .still-card:hover { transform: translateY(-5px) !important; box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important; }
+    body.gallery-mode .still-card img { width: 100% !important; height: auto !important; object-fit: contain !important; transform: none !important; position: static !important; }
+    html:not(.light-mode) body.gallery-mode .still-card { box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important; }
+    html:not(.light-mode) body.gallery-mode .still-card:hover { box-shadow: 0 12px 28px rgba(0,0,0,0.55) !important; }
+
     @media (max-width: 968px) {
       body.gallery-mode .card-stack { gap: 10px !important; }
       body.gallery-mode .stack-card { flex: 0 0 150px !important; width: 150px !important; }
       body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stills-card-stack { gap: 10px !important; }
+      body.gallery-mode .still-card { flex: 0 0 310px !important; width: 310px !important; }
       .view-btn { padding: 6px 14px; font-size: 9px; }
     }
     @media (max-width: 480px) {
       body.gallery-mode .card-stack { gap: 8px !important; }
       body.gallery-mode .stack-card { flex: 0 0 calc(50% - 4px) !important; width: calc(50% - 4px) !important; }
       body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 100% !important; width: 100% !important; }
+      body.gallery-mode .stills-card-stack { gap: 8px !important; }
+      body.gallery-mode .still-card { flex: 0 0 100% !important; width: 100% !important; }
     }
 
     /* ── iPad / tablet (821px–1380px) ── */
@@ -841,7 +870,7 @@
         if (hasDesc) {
           var d = document.createElement('div');
           d.className = 'gallery-card-desc';
-          d.textContent = card.dataset.desc;
+          d.innerHTML = card.dataset.desc;
           wrap.appendChild(d);
         }
         card.appendChild(wrap);
@@ -857,7 +886,6 @@
     viewBtns.forEach(function(btn) {
       btn.addEventListener('click', function() { setView(btn.dataset.view); });
     });
-    try { var sv = localStorage.getItem('poster-view'); if (sv) setView(sv); } catch(e) {}
 
     // Navbar scroll effect
     const navbar = document.getElementById("navbar");

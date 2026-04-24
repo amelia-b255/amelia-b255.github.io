@@ -639,7 +639,7 @@
       overflow: hidden !important;
       box-shadow: 0 4px 16px rgba(139,71,93,0.13) !important;
       transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-      background: rgba(255,255,255,0.55) !important;
+      background: transparent !important;
       display: flex !important;
       flex-direction: column !important;
       flex: 0 0 220px !important;
@@ -650,7 +650,7 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 454px !important; width: 454px !important;
+      flex: 0 0 460px !important; width: 460px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -689,6 +689,12 @@
       body.gallery-mode .stack-card { flex: 0 0 calc(50% - 4px) !important; width: calc(50% - 4px) !important; }
       body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 100% !important; width: 100% !important; }
     }
+
+    /* gallery row-break (forces new flex row in gallery mode) */
+    .gallery-break { display: none; height: 0; }
+    body.gallery-mode .gallery-break { display: block; flex: 0 0 100%; height: 0; width: 100%; margin: 0; padding: 0; }
+    /* slightly smaller landscape for Art Showcase so two fit side-by-side */
+    body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 460px !important; width: 460px !important; }
 
     /* ── iPad / tablet (821px–1380px) ── */
     @media (min-width: 821px) and (max-width: 1380px) {
@@ -814,13 +820,13 @@
         <a href="extras/bjork-fullscreen.webp" target="_blank" class="stack-card" data-title="Venus as a Boy" data-desc="Bjork's Venus as a Boy song design poster. Using traced cybersigilism and typography elements."><img src="extras/bjork-fullscreen.webp" alt="Björk Venus as a Boy Poster"></a>
         <a href="extras/pit-fullscreen.webp" target="_blank" class="stack-card" data-title="27a Pitfield St" data-desc="bassvicitm's 27a Pitfiled St song design poster. Using traced cybersigilism and outlined graphics."><img src="extras/pit-fullscreen.webp" alt="27a Pitfield St Poster"></a>
         <a href="extras/sometimesibeliveingod-fullscreen.webp" target="_blank" class="stack-card" data-title="Sometimes I believe in God (Sometimes I believe in Me)" data-desc="bassvicitm's Sometimes I believe in God song design poster. Using typography elements and traced, outlined graphics."><img src="extras/sometimesibeliveingod-fullscreen.webp" alt="Sometimes I Believe in God Poster"></a>
-        <a href="extras/whywaitforthebest-fullscreen.webp" target="_blank" class="stack-card" data-title="Why wait for the best, when I could have you?" data-desc="Lana Del Rey's Norman fucking Rockwell song design poster. Using traced images (coffee latte art) and bitmap typography elements."><img src="extras/whywaitforthebest-fullscreen.webp" alt="Lana Del Rey NFR Poster"></a>
-        <a href="extras/allisfulloflove-fullscreen.webp" target="_blank" class="stack-card" data-title="All is Full of Love" data-desc="Bjork's All is Full of Love song design poster. Using traced images (coffee latte art) and typography elements."><img src="extras/allisfulloflove-fullscreen.webp" alt="Björk Poster"></a>
         <a href="extras/pinkpantheress-fullscreen.webp" target="_blank" class="stack-card" data-title="PinkPantheress" data-desc="Artist poster for PinkPantheress. Image traced photo from Melbourne Laneway 2026."><img src="extras/pinkpantheress-fullscreen.webp" alt="PinkPantheress Poster"></a>
+        <a href="extras/allisfulloflove-fullscreen.webp" target="_blank" class="stack-card" data-title="All is Full of Love" data-desc="Bjork's All is Full of Love song design poster. Using traced images (coffee latte art) and typography elements."><img src="extras/allisfulloflove-fullscreen.webp" alt="Björk Poster"></a>
+        <a href="extras/bangbangkisskiss-fullscreen.webp" target="_blank" class="stack-card" data-title="Bang Bang kiss Kiss" data-desc="Lana Del Rey's Venice Bitch song design poster. Using bitmap image graphics and typography elements."><img src="extras/bangbangkisskiss-fullscreen.webp" alt="Bang Bang Kiss Kiss"></a>
         <a href="extras/poppies-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Poppies" data-desc="Marcy Playground's Poppies song design poster. Using traced cybersigilism and traced image graphics."><img src="extras/poppies-fullscreen.webp" alt="Poppies Poster"></a>
         <a href="extras/wacotexas-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Waco Texas" data-desc="Ethel Cain's Waco Texas song design poster. Using traced cybersigilism, typography elements and traced images (coffee latte art)."><img src="extras/wacotexas-fullscreen.webp" alt="Waco Texas Poster"></a>
         <a href="extras/movies-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Movies" data-desc="Weyes Blood's Movies song design poster. Using hand written and cursive typography elements."><img src="extras/movies-fullscreen.webp" alt="Movies Poster"></a>
-        <a href="extras/bangbangkisskiss-fullscreen.webp" target="_blank" class="stack-card" data-title="Bang Bang kiss Kiss" data-desc="Lana Del Rey's Venice Bitch song design poster. Using bitmap image graphics and typography elements."><img src="extras/bangbangkisskiss-fullscreen.webp" alt="Bang Bang Kiss Kiss"></a>
+        <a href="extras/whywaitforthebest-fullscreen.webp" target="_blank" class="stack-card" data-title="Why wait for the best, when I could have you?" data-desc="Lana Del Rey's Norman fucking Rockwell song design poster. Using traced images (coffee latte art) and bitmap typography elements."><img src="extras/whywaitforthebest-fullscreen.webp" alt="Lana Del Rey NFR Poster"></a>
         <a href="extras/joost-fullscreen.webp" target="_blank" class="stack-card" data-title="Joost Klein" data-desc="Artist poster for Joost Klein, featuring new album Kleinkunst. Using bitmap cybersigilism, textured graphics and typography elements."><img src="extras/joost-fullscreen.webp" alt="Joost Klein Poster 1"></a>
         <a href="extras/joost2-fullscreen.webp" target="_blank" class="stack-card" data-title="Luchtballon" data-desc="Joost Klein's Luchtballon song and album design poster. Using bitmap cybersigilism and layout design."><img src="extras/joost2-fullscreen.webp" alt="Joost Klein Poster 2"></a>
         <a href="extras/language-fullscreen.webp" target="_blank" class="stack-card" data-title="Language" data-desc="Spirit Blue's Language song design poster. Using textured and bitmap graphics and typography elements."><img src="extras/language-fullscreen.webp" alt="Language Poster"></a>
@@ -867,8 +873,9 @@
       <div class="card-stack">
         <a href="extras/orchidposterart-fullscreen.webp" target="_blank" class="stack-card" data-title="Orchid Poster I" data-desc="Botanical orchid poster. Using illustration, typography elements and layout design."><img src="extras/orchidposterart-fullscreen.webp" alt="Orchid Poster Trio Layout"></a>
         <a href="extras/orchidposter2-fullscreen.webp" target="_blank" class="stack-card" data-title="Orchid Poster II" data-desc="Botanical orchid poster. Using illustration, typography elements and layout design."><img src="extras/orchidposter2-fullscreen.webp" alt="Orchid Poster on Burgundy Background"></a>
-        <a href="extras/landscapeorchid-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Landscape Poster" data-desc="Botanical orchid poster. Using illustration, typography elements and layout design."><img src="extras/landscapeorchid-fullscreen.webp" alt="Rotated Orchid Poster Layout"></a>
-        <a href="extras/greenorchidart-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Green Orchid" data-desc="Orchid close up illustration poster."><img src="extras/greenorchidart-fullscreen.webp" alt="Green Orchid Design"></a>
+        <div class="gallery-break"></div>
+        <a href="extras/landscapeorchid-fullscreen.webp" target="_blank" class="stack-card lsm" data-orient="landscape" data-title="Landscape Poster" data-desc="Botanical orchid poster. Using illustration, typography elements and layout design."><img src="extras/landscapeorchid-fullscreen.webp" alt="Rotated Orchid Poster Layout"></a>
+        <a href="extras/greenorchidart-fullscreen.webp" target="_blank" class="stack-card lsm" data-orient="landscape" data-title="Green Orchid" data-desc="Orchid close up illustration poster."><img src="extras/greenorchidart-fullscreen.webp" alt="Green Orchid Design"></a>
       </div>
       <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
     </div>
@@ -904,6 +911,7 @@
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
       <div class="card-stack">
         <a href="extras/packaging design full screen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Sugar Blooms" data-desc="Dieline design"><img src="extras/packaging design full screen.webp" alt="Packaging Design"></a>
+        <div class="gallery-break"></div>
         <a href="extras/sugar bloom full screen image1.webp" target="_blank" class="stack-card" data-title="Sugar Blooms" data-desc="3D packaging design for Sugar Blooms confectionery brand"><img src="extras/sugar bloom full screen image1.webp" alt="Sugar Blooms Packaging 1"></a>
         <a href="extras/sugar bloom full screen image2.webp" target="_blank" class="stack-card" data-title="Sugar Blooms" data-desc="3D packaging design for Sugar Blooms confectionery brand"><img src="extras/sugar bloom full screen image2.webp" alt="Sugar Blooms Packaging 2"></a>
         <a href="extras/sugar bloom full screen image3.webp" target="_blank" class="stack-card" data-title="Sugar Blooms" data-desc="3D packaging design for Sugar Blooms confectionery brand"><img src="extras/sugar bloom full screen image3.webp" alt="Sugar Blooms Packaging 3"></a>
@@ -925,8 +933,9 @@
       <div class="card-stack">
         <a href="extras/artshowcaseposter-fullscreen.webp" target="_blank" class="stack-card" data-title="Event Poster" data-desc="Promotional poster for the Dickson College Art Showcase"><img src="extras/artshowcaseposter-fullscreen.webp" alt="Art Showcase Poster"></a>
         <a href="extras/menuart-fullscreen.png" target="_blank" class="stack-card" data-title="Menu" data-desc="Event menu items"><img src="extras/menuart-fullscreen.png" alt="Art Showcase Artwork Detail"></a>
-        <a href="extras/artshowcaseoutside-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Program – Outside Spread" data-desc="Front and back of the program"><img src="extras/artshowcaseoutside-fullscreen.webp" alt="Art Showcase Programme Outside Spread"></a>
-        <a href="extras/artshowcaseinside-fullscreen.webp" target="_blank" class="stack-card" data-orient="landscape" data-title="Program – Inside Spread" data-desc="Overview, timings and menu"><img src="extras/artshowcaseinside-fullscreen.webp" alt="Art Showcase Programme Inside Spread"></a>
+        <div class="gallery-break"></div>
+        <a href="extras/artshowcaseoutside-fullscreen.webp" target="_blank" class="stack-card lsm" data-orient="landscape" data-title="Program – Outside Spread" data-desc="Front and back of the program"><img src="extras/artshowcaseoutside-fullscreen.webp" alt="Art Showcase Programme Outside Spread"></a>
+        <a href="extras/artshowcaseinside-fullscreen.webp" target="_blank" class="stack-card lsm" data-orient="landscape" data-title="Program – Inside Spread" data-desc="Overview, timings and menu"><img src="extras/artshowcaseinside-fullscreen.webp" alt="Art Showcase Programme Inside Spread"></a>
       </div>
       <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
     </div>
@@ -945,6 +954,7 @@
         <a href="theatre/dorothy.webp" target="_blank" class="stack-card" data-title="Dorothy" data-desc="Illustrated character poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/dorothy.webp" alt="Dorothy Character Poster"></a>
         <a href="theatre/glinda.webp" target="_blank" class="stack-card" data-title="Glinda the Good" data-desc="Illustrated character poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/glinda.webp" alt="Glinda Character Poster"></a>
         <a href="theatre/witch.webp" target="_blank" class="stack-card" data-title="Wicked Witch" data-desc="Illustrated character poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/witch.webp" alt="Wicked Witch Poster"></a>
+        <div class="gallery-break"></div>
         <a href="theatre/wizardofoz.webp" target="_blank" class="stack-card" data-title="The Wizard of Oz I" data-desc="Illustrated promotional poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/wizardofoz.webp" alt="Rainbow Cast Poster"></a>
         <a href="theatre/white.webp" target="_blank" class="stack-card" data-title="The Wizard of Oz II" data-desc="Illustrated promotional poster for Lyneham High School's 2023 Wizard of Oz musical."><img src="theatre/white.webp" alt="School Production Poster"></a>
       </div>
@@ -1135,7 +1145,7 @@
         if (hasDesc) {
           var d = document.createElement('div');
           d.className = 'gallery-card-desc';
-          d.textContent = card.dataset.desc;
+          d.innerHTML = card.dataset.desc;
           wrap.appendChild(d);
         }
         card.appendChild(wrap);
@@ -1151,7 +1161,6 @@
     viewBtns.forEach(function(btn) {
       btn.addEventListener('click', function() { setView(btn.dataset.view); });
     });
-    try { var sv = localStorage.getItem('poster-view'); if (sv) setView(sv); } catch(e) {}
 
   </script>
   <script src="shared/lightbox.js?v=5"></script>

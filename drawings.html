@@ -596,7 +596,7 @@
       overflow: hidden !important;
       box-shadow: 0 4px 16px rgba(139,71,93,0.13) !important;
       transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-      background: rgba(255,255,255,0.55) !important;
+      background: transparent !important;
       display: flex !important;
       flex-direction: column !important;
       flex: 0 0 220px !important;
@@ -607,7 +607,7 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 454px !important; width: 454px !important;
+      flex: 0 0 460px !important; width: 460px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -999,8 +999,11 @@
         });
       });
 
+      update();
+    });
     // ── Inject gallery title/desc divs into each stack card ──
     document.querySelectorAll('.stack-card').forEach(function(card) {
+      if (card.querySelector('.gallery-card-title')) return;
       var hasTitle = card.dataset.title, hasDesc = card.dataset.desc;
       if (hasTitle || hasDesc) {
         var wrap = document.createElement('div');
@@ -1014,7 +1017,7 @@
         if (hasDesc) {
           var d = document.createElement('div');
           d.className = 'gallery-card-desc';
-          d.textContent = card.dataset.desc;
+          d.innerHTML = card.dataset.desc;
           wrap.appendChild(d);
         }
         card.appendChild(wrap);
@@ -1029,10 +1032,6 @@
     }
     viewBtns.forEach(function(btn) {
       btn.addEventListener('click', function() { setView(btn.dataset.view); });
-    });
-    try { var sv = localStorage.getItem('poster-view'); if (sv) setView(sv); } catch(e) {}
-
-      update();
     });
   </script>
   <script src="shared/lightbox.js?v=5"></script>
