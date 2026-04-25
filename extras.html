@@ -1104,10 +1104,9 @@
           captionEl.querySelector('h4').textContent = fc.dataset.title || '';
           captionEl.querySelector('p').textContent = fc.dataset.desc || '';
         }
-        if (yearEl) {
-          const fc = cards[front];
-          yearEl.textContent = fc.dataset.year || yearEl.dataset.default || yearEl.textContent;
-        }
+        // Section year stays fixed (e.g., "2024") regardless of front card.
+        // Per-card years (e.g., 2026 on Drunk in Chinatown) appear above the
+        // card itself in gallery view, not in the section header.
       }
 
       function go(dir) {
