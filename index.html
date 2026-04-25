@@ -719,15 +719,15 @@
         .business-card-wrap {
             margin-top: 50px;
             display: flex;
-            gap: 30px;
+            gap: 12px;
             justify-content: center;
             align-items: stretch;
         }
 
         .business-card-img {
             width: 100%;
-            max-width: 540px;
-            height: 340px;
+            max-width: 600px;
+            height: 380px;
             object-fit: contain;
             border-radius: 0;
             box-shadow: none;
@@ -1076,13 +1076,16 @@
                 margin-top: 30px !important;
                 flex-direction: column !important;
                 align-items: center !important;
-                gap: 0 !important;
+                gap: 4px !important;
             }
 
             .business-card-img {
-                max-width: 360px !important;
-                height: auto !important;
-                width: 92% !important;
+                max-width: 420px !important;
+                width: 96% !important;
+                /* Lock both cards to the same height so they render identically
+                   regardless of any subpixel difference in PNG bounding boxes */
+                height: 260px !important;
+                object-fit: contain !important;
                 margin: 0 !important;
             }
 
@@ -1666,18 +1669,18 @@
                 </div>
             </div>
             </a>
-            <a href="coding.html" style="text-decoration: none; color: inherit; display: block;">
+            <a href="drawings.html" style="text-decoration: none; color: inherit; display: block;">
             <div class="portfolio-item fade-in">
                 <div class="portfolio-image">
-                    <img src="shared/codingcover.png" alt="Creative Coding Projects">
+                    <img src="shared/gettingready1.jpg?v=4" alt="Drawings and Illustration" class="drawing-card-img">
                     <div class="portfolio-overlay">
                         <div class="portfolio-overlay-text">VIEW PROJECT</div>
                     </div>
                 </div>
                 <div class="portfolio-content">
-                    <h3>Creative Coding Projects</h3>
-                    <span style="font-size:14px; color:#8b475d; font-style:italic; display:block; margin-bottom:8px; letter-spacing:0.5px; font-family: 'Cavalhatriz', serif;">2025</span>
-                    <p>Interactive p5.js from my Creative Computing H course </p>
+                    <h3>Drawings</h3>
+                    <span style="font-size:14px; color:#8b475d; font-style:italic; display:block; margin-bottom:8px; letter-spacing:0.5px; font-family: 'Cavalhatriz', serif;">2024-2026</span>
+                    <p>Digital illustration, character design, t-shirt artwork &amp; personal creative work</p>
                 </div>
             </div>
             </a>
@@ -1693,21 +1696,6 @@
                     <h3>Light Rail Safety Campaign</h3>
                     <span style="font-size:14px; color:#8b475d; font-style:italic; display:block; margin-bottom:8px; letter-spacing:0.5px; font-family: 'Cavalhatriz', serif;">2025</span>
                     <p>1st Place Winner - CMET Competition 2025</p>
-                </div>
-            </div>
-            </a>
-            <a href="drawings.html" style="text-decoration: none; color: inherit; display: block;">
-            <div class="portfolio-item fade-in">
-                <div class="portfolio-image">
-                    <img src="shared/gettingready1.jpg?v=4" alt="Drawings and Illustration" class="drawing-card-img">
-                    <div class="portfolio-overlay">
-                        <div class="portfolio-overlay-text">VIEW PROJECT</div>
-                    </div>
-                </div>
-                <div class="portfolio-content">
-                    <h3>Drawings</h3>
-                    <span style="font-size:14px; color:#8b475d; font-style:italic; display:block; margin-bottom:8px; letter-spacing:0.5px; font-family: 'Cavalhatriz', serif;">2024-2026</span>
-                    <p>Digital illustration, character design, t-shirt artwork &amp; personal creative work</p>
                 </div>
             </div>
             </a>
@@ -1738,6 +1726,21 @@
                     <h3>Photography Series</h3>
                     <span style="font-size:14px; color:#8b475d; font-style:italic; display:block; margin-bottom:8px; letter-spacing:0.5px; font-family: 'Cavalhatriz', serif;">2023</span>
                     <p>1st Place — CMAG Secondary School Art Prize 2023</p>
+                </div>
+            </div>
+            </a>
+            <a href="coding.html" style="text-decoration: none; color: inherit; display: block;">
+            <div class="portfolio-item fade-in">
+                <div class="portfolio-image">
+                    <img src="shared/codingcover.png" alt="Creative Coding Projects">
+                    <div class="portfolio-overlay">
+                        <div class="portfolio-overlay-text">VIEW PROJECT</div>
+                    </div>
+                </div>
+                <div class="portfolio-content">
+                    <h3>Creative Coding Projects</h3>
+                    <span style="font-size:14px; color:#8b475d; font-style:italic; display:block; margin-bottom:8px; letter-spacing:0.5px; font-family: 'Cavalhatriz', serif;">2025</span>
+                    <p>Interactive p5.js from my Creative Computing H course </p>
                 </div>
             </div>
             </a>
