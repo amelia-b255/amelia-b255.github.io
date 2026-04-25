@@ -242,11 +242,16 @@
         }
 
         .music-nav-link {
-            background: linear-gradient(135deg, #5c2a3a, #3d1a2a);
+            background: linear-gradient(135deg, #f5c1cf, #a8c5b5);
+            color: #8b475d;
             padding: 10px 20px !important;
             border-radius: 20px;
             font-weight: 600 !important;
             transition: all 0.3s ease;
+        }
+        html:not(.light-mode) .music-nav-link {
+            background: linear-gradient(135deg, #5c2a3a, #3d1a2a) !important;
+            color: #e8a0b8 !important;
         }
 
         .music-nav-link:hover {
@@ -1489,7 +1494,8 @@
         html.light-mode .menu-toggle { color: #8b475d !important; }
         html.light-mode .nav-links a { color: #8b475d !important; }
         html.light-mode .music-nav-link { background: linear-gradient(135deg, #f5c1cf, #a8c5b5) !important; }
-        html.light-mode .nav-links a.music-nav-link, html.light-mode .nav-links a.cv-button { color: white !important; }
+        html.light-mode .nav-links a.music-nav-link { color: #8b475d !important; }
+        html.light-mode .nav-links a.cv-button { color: white !important; }
         html.light-mode .hero-content h1 { color: #8b475d !important; }
         html.light-mode .hero-content p { color: #a0617a !important; }
         html.light-mode .hero-image { box-shadow: 0 20px 60px rgba(0,0,0,0.15) !important; }
@@ -1500,22 +1506,22 @@
         html.light-mode h2 { color: #8b475d !important; }
         html.light-mode h2::after { background: #f5c1cf !important; }
         html.light-mode h2.will-animate.visible::after { background: linear-gradient(90deg, #f5c1cf, #a8c5b5, #f5c1cf) !important; }
-        html.light-mode .portfolio-item { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .portfolio-item { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .portfolio-content h3 { color: #8b475d !important; }
         html.light-mode .portfolio-content p { color: #5a5a5a !important; }
         html.light-mode .portfolio-content span { color: #8b475d !important; }
-        html.light-mode .about-content { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .about-content { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .about-content h3 { color: #8b475d !important; }
         html.light-mode .about-content p { color: #5a5a5a !important; }
         html.light-mode .about-image { box-shadow: none !important; }
         html.light-mode .about-image:hover { box-shadow: none !important; }
         html.light-mode .instagram-link { background: rgba(139,71,93,0.05) !important; }
         html.light-mode .instagram-text { color: #8b475d !important; }
-        html.light-mode .skill-card { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .skill-card { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .skill-icon { background: linear-gradient(135deg, #f5c1cf, #a8c5b5) !important; }
         html.light-mode .skill-card h3 { color: #8b475d !important; }
         html.light-mode .skill-card p { color: #a0617a !important; }
-        html.light-mode .contact-info, html.light-mode .contact-form { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .contact-info, html.light-mode .contact-form { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .contact-info h3 { color: #8b475d !important; }
         html.light-mode .contact-info p { color: #5a5a5a !important; }
         html.light-mode .form-group label { color: #8b475d !important; }
@@ -1539,7 +1545,7 @@
             .music-nav-link { padding: 7px 13px !important; }
         }
     </style>
-    <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+    <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 <body>
 
@@ -2006,7 +2012,7 @@
         });
     </script>
 <script src="shared/lightbox.js?v=5"></script>
-<script src="shared/theme.js?v=3"></script>
+<script src="shared/theme.js?v=4"></script>
 
 <script>
 // $5 prints spotlight — shows on every page load; dismiss removes it for this view only.

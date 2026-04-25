@@ -1534,22 +1534,22 @@
         html.light-mode h2 { color: #8b475d !important; }
         html.light-mode h2::after { background: #f5c1cf !important; }
         html.light-mode h2.will-animate.visible::after { background: linear-gradient(90deg, #f5c1cf, #a8c5b5, #f5c1cf) !important; }
-        html.light-mode .portfolio-item { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .portfolio-item { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .portfolio-content h3 { color: #8b475d !important; }
         html.light-mode .portfolio-content p { color: #5a5a5a !important; }
         html.light-mode .portfolio-content span { color: #8b475d !important; }
-        html.light-mode .about-content { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .about-content { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .about-content h3 { color: #8b475d !important; }
         html.light-mode .about-content p { color: #5a5a5a !important; }
         html.light-mode .about-image { box-shadow: 15px 15px 0px rgba(245,193,207,0.4) !important; }
         html.light-mode .about-image:hover { box-shadow: 20px 20px 0px rgba(245,193,207,0.4) !important; }
         html.light-mode .instagram-link { background: rgba(139,71,93,0.05) !important; }
         html.light-mode .instagram-text { color: #8b475d !important; }
-        html.light-mode .skill-card { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .skill-card { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .skill-icon { background: linear-gradient(135deg, #f5c1cf, #a8c5b5) !important; }
         html.light-mode .skill-card h3 { color: #8b475d !important; }
         html.light-mode .skill-card p { color: #a0617a !important; }
-        html.light-mode .contact-info, html.light-mode .contact-form { background: rgba(255,255,255,0.9) !important; }
+        html.light-mode .contact-info, html.light-mode .contact-form { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .contact-info h3 { color: #8b475d !important; }
         html.light-mode .contact-info p { color: #5a5a5a !important; }
         html.light-mode .form-group label { color: #8b475d !important; }
@@ -1602,7 +1602,7 @@
             }
         }
     </style>
-    <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+    <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 <body>
 
@@ -2082,6 +2082,6 @@
         });
     </script>
 <script src="shared/lightbox.js?v=5"></script>
-<script src="shared/theme.js?v=3"></script>
+<script src="shared/theme.js?v=4"></script>
 </body>
 </html>

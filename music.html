@@ -8,7 +8,7 @@
     <meta http-equiv="Expires" content="0" />
     <title>Amelia Bobbin - Music</title>
     <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&display=swap" rel="stylesheet">
-    <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+    <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
     <style>
         @import url('https://fonts.cdnfonts.com/css/made-sunflower');
     @font-face { font-family: "Cavalhatriz"; src: url("fonts/Cavalhatriz.ttf") format("truetype"); font-weight: normal; font-style: normal; }
@@ -362,7 +362,7 @@
             max-width: 700px;
             margin: 0 auto;
             padding: 40px 50px;
-            background: white;
+            background: rgba(255,255,255,0.4);
             border-radius: 20px;
             box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
         }
@@ -798,6 +798,18 @@
     html:not(.light-mode) .view-btn { color: #e8a0b8; }
     html:not(.light-mode) .view-btn.active { background: #4a1f30; color: #e8a0b8; box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
 
+    /* During view swap: suppress only transitions (NOT animations) so layout change is instant
+       without restarting keyframe animations like the h2 underline shimmer */
+    body.view-swapping, body.view-swapping * { transition: none !important; }
+    html { scroll-behavior: auto !important; }
+
+    /* Subtle zoom animation that plays after view toggle (both directions: stack ↔ gallery) */
+    @keyframes viewSwapZoom {
+      from { transform: scale(0.94); opacity: 0.5; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    body.view-just-swapped .stack-scene { animation: viewSwapZoom 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+
     /* ── Gallery mode ── */
     body.gallery-mode .stack-nav { display: none !important; }
     body.gallery-mode .stack-counter { display: none !important; }
@@ -1123,6 +1135,8 @@
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
+                } else {
+                    entry.target.classList.remove('visible');
                 }
             });
         }, observerOptions);
@@ -1287,7 +1301,24 @@
       try { localStorage.setItem('poster-view', v); } catch(e) {}
     }
     viewBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() { setView(btn.dataset.view); });
+      btn.addEventListener('click', function() {
+        var rectBefore = btn.getBoundingClientRect();
+        document.body.classList.add('view-swapping');
+        setView(btn.dataset.view);
+        var rectAfter = btn.getBoundingClientRect();
+        var delta = rectAfter.top - rectBefore.top;
+        if (delta !== 0) {
+          window.scrollTo({ top: window.scrollY + delta, left: window.scrollX, behavior: 'auto' });
+        }
+        requestAnimationFrame(function() {
+          document.body.classList.remove('view-swapping');
+          // Force-restart the zoom animation: remove class, force reflow, then re-add so animation always plays
+          document.body.classList.remove('view-just-swapped');
+          void document.body.offsetWidth;
+          document.body.classList.add('view-just-swapped');
+          setTimeout(function() { document.body.classList.remove('view-just-swapped'); }, 1000);
+        });
+      });
     });
 
         let ticking = false;
@@ -1324,6 +1355,6 @@
         });
     </script>
 <script src="shared/lightbox.js?v=5"></script>
-<script src="shared/theme.js?v=3"></script>
+<script src="shared/theme.js?v=4"></script>
 </body>
 </html>

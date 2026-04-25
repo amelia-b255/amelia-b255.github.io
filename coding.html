@@ -182,7 +182,7 @@
     }
 
     .project-card {
-      background: white;
+      background: rgba(255,255,255,0.4);
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
@@ -771,7 +771,7 @@
         .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
-  <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+  <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 
 <body>
@@ -1238,7 +1238,7 @@
         });
     })();
 </script>
-  <script src="shared/theme.js?v=3"></script>
+  <script src="shared/theme.js?v=4"></script>
 
 <style>
 #mobile-note-overlay {
@@ -1323,7 +1323,7 @@ html.light-mode #mobile-note-box p { color: #5a5a5a !important; }
     overlay.id = 'mobile-note-overlay';
     overlay.innerHTML = '<div id="mobile-note-box"><button id="mobile-note-close" aria-label="Close">\u00D7</button><h3>Best on Desktop</h3><p>These interactive projects work best on a computer. Mobile devices may not support all features.</p></div>';
     document.body.appendChild(overlay);
-    requestAnimationFrame(function() { overlay.classList.add('spotlight-visible'); });
+    setTimeout(function() { overlay.classList.add('spotlight-visible'); }, 1000);
     function dismiss() {
         overlay.classList.remove('spotlight-visible');
         overlay.addEventListener('transitionend', function() { overlay.remove(); }, { once: true });

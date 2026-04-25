@@ -289,7 +289,7 @@
         .project-info {
             max-width: 1000px;
             margin: 0 auto;
-            background: white;
+            background: rgba(255,255,255,0.4);
             padding: 50px;
             border-radius: 20px;
             box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
@@ -322,7 +322,7 @@
         }
 
         .brand-item {
-            background: white;
+            background: rgba(255,255,255,0.4);
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
@@ -668,7 +668,7 @@
         .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
-    <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+    <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 <body>
     <!-- Decorative stars -->
@@ -902,6 +902,6 @@
         });
     </script>
 <script src="shared/lightbox.js?v=5"></script>
-<script src="shared/theme.js?v=3"></script>
+<script src="shared/theme.js?v=4"></script>
 </body>
 </html>

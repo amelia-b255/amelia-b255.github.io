@@ -260,7 +260,7 @@
         .train-wrap-item {
             max-width: 1100px;
             margin: 40px auto;
-            background: white;
+            background: rgba(255,255,255,0.4);
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
@@ -326,7 +326,7 @@
         .brief-container {
             max-width: 1000px;
             margin: 0 auto;
-            background: white;
+            background: rgba(255,255,255,0.4);
             padding: 50px;
             border-radius: 20px;
             box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
@@ -454,7 +454,7 @@
         }
 
         .still-item {
-            background: white;
+            background: rgba(255,255,255,0.4);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 10px 10px 30px rgba(139, 71, 93, 0.1);
@@ -974,6 +974,18 @@
     html:not(.light-mode) .view-btn { color: #e8a0b8; }
     html:not(.light-mode) .view-btn.active { background: #4a1f30; color: #e8a0b8; box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
 
+    /* During view swap: suppress only transitions (NOT animations) so layout change is instant
+       without restarting keyframe animations like the h2 underline shimmer */
+    body.view-swapping, body.view-swapping * { transition: none !important; }
+    html { scroll-behavior: auto !important; }
+
+    /* Subtle zoom animation that plays after view toggle (both directions: stack ↔ gallery) */
+    @keyframes viewSwapZoom {
+      from { transform: scale(0.94); opacity: 0.5; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    body.view-just-swapped .stack-scene { animation: viewSwapZoom 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+
     /* ── Gallery mode ── */
     body.gallery-mode .stack-nav { display: none !important; }
     body.gallery-mode .stack-counter { display: none !important; }
@@ -1065,7 +1077,7 @@
         .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
-    <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+    <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 <body>
     <!-- Decorative stars -->
@@ -1333,13 +1345,7 @@
                     card._baseTransform = `rotate(${rot}deg) scale(${scale})`;
                     card.style.zIndex = n - pos;
                     card.style.transform = card._baseTransform;
-                    card.style.filter = pos === 0
-                        ? 'drop-shadow(0 28px 55px rgba(0,0,0,0.6)) drop-shadow(0 8px 18px rgba(0,0,0,0.35))'
-                        : pos === 1
-                            ? 'drop-shadow(0 18px 38px rgba(0,0,0,0.38))'
-                            : pos === 2
-                                ? 'drop-shadow(0 12px 26px rgba(0,0,0,0.25))'
-                                : 'none';
+                    card.style.filter = pos === 0 ? 'drop-shadow(0 20px 40px rgba(0,0,0,0.32))' : 'none';
                     card.style.opacity = pos < 5 ? 1 : 0;
                     card.style.pointerEvents = pos === 0 ? 'auto' : 'none';
                 });
@@ -1429,7 +1435,24 @@
       try { localStorage.setItem('poster-view', v); } catch(e) {}
     }
     viewBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() { setView(btn.dataset.view); });
+      btn.addEventListener('click', function() {
+        var rectBefore = btn.getBoundingClientRect();
+        document.body.classList.add('view-swapping');
+        setView(btn.dataset.view);
+        var rectAfter = btn.getBoundingClientRect();
+        var delta = rectAfter.top - rectBefore.top;
+        if (delta !== 0) {
+          window.scrollTo({ top: window.scrollY + delta, left: window.scrollX, behavior: 'auto' });
+        }
+        requestAnimationFrame(function() {
+          document.body.classList.remove('view-swapping');
+          // Force-restart the zoom animation: remove class, force reflow, then re-add so animation always plays
+          document.body.classList.remove('view-just-swapped');
+          void document.body.offsetWidth;
+          document.body.classList.add('view-just-swapped');
+          setTimeout(function() { document.body.classList.remove('view-just-swapped'); }, 1000);
+        });
+      });
     });
 
         // Parallax effect for stars — desktop only
@@ -1457,6 +1480,7 @@
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
+                else entry.target.classList.remove('visible');
             });
         }, opts);
 
@@ -1479,6 +1503,6 @@
         });
     })();
 </script>
-<script src="shared/theme.js?v=3"></script>
+<script src="shared/theme.js?v=4"></script>
 </body>
 </html>

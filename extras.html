@@ -176,7 +176,7 @@
     .work-item:hover{ transform:translateY(-8px); }
 
     .work-item.with-bg{
-      background:white; border-radius:16px; overflow:hidden;
+      background:rgba(255,255,255,0.4); border-radius:16px; overflow:hidden;
       box-shadow:8px 8px 24px rgba(139,71,93,.1);
     }
     .work-item.with-bg:hover{ box-shadow:12px 12px 32px rgba(139,71,93,.15); }
@@ -611,6 +611,18 @@
     html:not(.light-mode) .view-btn { color: #e8a0b8; }
     html:not(.light-mode) .view-btn.active { background: #4a1f30; color: #e8a0b8; box-shadow: 0 2px 8px rgba(0,0,0,0.45); }
 
+    /* During view swap: suppress only transitions (NOT animations) so layout change is instant
+       without restarting keyframe animations like the h2 underline shimmer */
+    body.view-swapping, body.view-swapping * { transition: none !important; }
+    html { scroll-behavior: auto !important; }
+
+    /* Subtle zoom animation that plays after view toggle (both directions: stack ↔ gallery) */
+    @keyframes viewSwapZoom {
+      from { transform: scale(0.94); opacity: 0.5; }
+      to   { transform: scale(1); opacity: 1; }
+    }
+    body.view-just-swapped .stack-scene { animation: viewSwapZoom 0.9s cubic-bezier(0.22, 1, 0.36, 1); }
+
     /* ── Gallery mode ── */
     body.gallery-mode .stack-nav { display: none !important; }
     body.gallery-mode .stack-counter { display: none !important; }
@@ -692,9 +704,22 @@
 
     /* gallery row-break (forces new flex row in gallery mode) */
     .gallery-break { display: none; height: 0; }
-    body.gallery-mode .gallery-break { display: block; flex: 0 0 100%; height: 0; width: 100%; margin: 0; padding: 0; }
+    body.gallery-mode .gallery-break { display: block; flex: 0 0 100%; height: 0; width: 100%; margin: 0 0 -14px 0; padding: 0; }
     /* slightly smaller landscape for Art Showcase so two fit side-by-side */
     body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 460px !important; width: 460px !important; }
+    /* 4-up row: bang bang + poppies + waco + movies — vertically center so square cards align against taller portrait bang bang */
+    body.gallery-mode .stack-card.fourup { flex: 0 0 248px !important; width: 248px !important; align-self: center !important; }
+    /* Mobile overrides for lsm/fourup — placed AFTER global rules so same-specificity !important wins */
+    @media (max-width: 968px) {
+      body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stack-card.fourup { flex: 0 0 150px !important; width: 150px !important; }
+    }
+    @media (max-width: 480px) {
+      body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 100% !important; width: 100% !important; }
+      body.gallery-mode .stack-card.fourup { flex: 0 0 calc(50% - 4px) !important; width: calc(50% - 4px) !important; }
+      /* Waco + Movies row: both square, top-align to avoid tiny text-length offsets */
+      body.gallery-mode .stack-card.fourup.fourup-bottomrow { align-self: flex-start !important; }
+    }
 
     /* ── iPad / tablet (821px–1380px) ── */
     @media (min-width: 821px) and (max-width: 1380px) {
@@ -708,7 +733,7 @@
         .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
-  <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+  <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
 </head>
 <body>
   <!-- Decorative Stars -->
@@ -792,24 +817,11 @@
     </div>
   </section>
 
-  <!-- View toggle -->
-  <div style="text-align:center; position:relative; z-index:10; padding-bottom:4px;">
-    <div class="view-toggle-wrap">
-      <button class="view-btn active" data-view="stack" id="btnStack">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg>
-        Stack
-      </button>
-      <button class="view-btn" data-view="gallery" id="btnGallery">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-        Gallery
-      </button>
-    </div>
-  </div>
-
   <!-- Artist Posters -->
   <section>
     <h2>Artist Posters</h2>
-    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:20px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:12px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 12px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <p style="text-align:center; font-size:12px; color:#a07080; margin:0 auto 32px; max-width:600px; line-height:1.6; opacity:0.85; font-family: Georgia, serif;">These are unofficial, fan-made design pieces created as personal projects. All artist names, song titles, and associated imagery remain the property of their respective rights holders. Not affiliated with or endorsed by any featured artist — no commercial use intended.</p>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
@@ -822,10 +834,11 @@
         <a href="extras/sometimesibeliveingod-fullscreen.webp" target="_blank" class="stack-card" data-title="Sometimes I believe in God (Sometimes I believe in Me)" data-desc="bassvicitm's Sometimes I believe in God song design poster. Using typography elements and traced, outlined graphics."><img src="extras/sometimesibeliveingod-fullscreen.webp" alt="Sometimes I Believe in God Poster"></a>
         <a href="extras/pinkpantheress-fullscreen.webp" target="_blank" class="stack-card" data-title="PinkPantheress" data-desc="Artist poster for PinkPantheress. Image traced photo from Melbourne Laneway 2026."><img src="extras/pinkpantheress-fullscreen.webp" alt="PinkPantheress Poster"></a>
         <a href="extras/allisfulloflove-fullscreen.webp" target="_blank" class="stack-card" data-title="All is Full of Love" data-desc="Bjork's All is Full of Love song design poster. Using traced images (coffee latte art) and typography elements."><img src="extras/allisfulloflove-fullscreen.webp" alt="Björk Poster"></a>
-        <a href="extras/bangbangkisskiss-fullscreen.webp" target="_blank" class="stack-card" data-title="Bang Bang kiss Kiss" data-desc="Lana Del Rey's Venice Bitch song design poster. Using bitmap image graphics and typography elements."><img src="extras/bangbangkisskiss-fullscreen.webp" alt="Bang Bang Kiss Kiss"></a>
-        <a href="extras/poppies-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Poppies" data-desc="Marcy Playground's Poppies song design poster. Using traced cybersigilism and traced image graphics."><img src="extras/poppies-fullscreen.webp" alt="Poppies Poster"></a>
-        <a href="extras/wacotexas-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Waco Texas" data-desc="Ethel Cain's Waco Texas song design poster. Using traced cybersigilism, typography elements and traced images (coffee latte art)."><img src="extras/wacotexas-fullscreen.webp" alt="Waco Texas Poster"></a>
-        <a href="extras/movies-fullscreen.webp" target="_blank" class="stack-card" data-orient="square" data-title="Movies" data-desc="Weyes Blood's Movies song design poster. Using hand written and cursive typography elements."><img src="extras/movies-fullscreen.webp" alt="Movies Poster"></a>
+        <div class="gallery-break"></div>
+        <a href="extras/bangbangkisskiss-fullscreen.webp" target="_blank" class="stack-card fourup" data-title="Bang Bang kiss Kiss" data-desc="Lana Del Rey's Venice Bitch song design poster. Using bitmap image graphics and typography elements."><img src="extras/bangbangkisskiss-fullscreen.webp" alt="Bang Bang Kiss Kiss"></a>
+        <a href="extras/poppies-fullscreen.webp" target="_blank" class="stack-card fourup" data-orient="square" data-title="Poppies" data-desc="Marcy Playground's Poppies song design poster. Using traced cybersigilism and traced image graphics."><img src="extras/poppies-fullscreen.webp" alt="Poppies Poster"></a>
+        <a href="extras/wacotexas-fullscreen.webp" target="_blank" class="stack-card fourup fourup-bottomrow" data-orient="square" data-title="Waco Texas" data-desc="Ethel Cain's Waco Texas song design poster. Using traced cybersigilism, typography elements and traced images (coffee latte art)."><img src="extras/wacotexas-fullscreen.webp" alt="Waco Texas Poster"></a>
+        <a href="extras/movies-fullscreen.webp" target="_blank" class="stack-card fourup fourup-bottomrow" data-orient="square" data-title="Movies" data-desc="Weyes Blood's Movies song design poster. Using hand written and cursive typography elements."><img src="extras/movies-fullscreen.webp" alt="Movies Poster"></a>
         <a href="extras/whywaitforthebest-fullscreen.webp" target="_blank" class="stack-card" data-title="Why wait for the best, when I could have you?" data-desc="Lana Del Rey's Norman fucking Rockwell song design poster. Using traced images (coffee latte art) and bitmap typography elements."><img src="extras/whywaitforthebest-fullscreen.webp" alt="Lana Del Rey NFR Poster"></a>
         <a href="extras/joost-fullscreen.webp" target="_blank" class="stack-card" data-title="Joost Klein" data-desc="Artist poster for Joost Klein, featuring new album Kleinkunst. Using bitmap cybersigilism, textured graphics and typography elements."><img src="extras/joost-fullscreen.webp" alt="Joost Klein Poster 1"></a>
         <a href="extras/joost2-fullscreen.webp" target="_blank" class="stack-card" data-title="Luchtballon" data-desc="Joost Klein's Luchtballon song and album design poster. Using bitmap cybersigilism and layout design."><img src="extras/joost2-fullscreen.webp" alt="Joost Klein Poster 2"></a>
@@ -841,7 +854,8 @@
   <!-- Posters -->
   <section>
     <h2>Posters</h2>
-    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:12px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
       <div class="card-stack">
@@ -867,7 +881,8 @@
   <!-- Orchid Posters -->
   <section>
     <h2>Orchidaceae</h2>
-    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:12px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2026</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
       <div class="card-stack">
@@ -886,7 +901,8 @@
   <!-- Magazine Project -->
   <section>
     <h2>Magazine Design</h2>
-    <p class="section-year" data-default="2024" style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <p class="section-year" data-default="2024" style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:12px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <h3>Covers &amp; Spreads</h3>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
@@ -905,7 +921,8 @@
   <!-- Packaging Design -->
   <section>
     <h2>Packaging Design</h2>
-    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:12px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <h3>Sugar Blooms</h3>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
@@ -926,7 +943,8 @@
   <!-- Art Showcase poster & program -->
   <section>
     <h2>Art Showcase Design</h2>
-    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2025</p>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:12px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2025</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <h3>Dickson College Art Showcase</h3>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
@@ -946,7 +964,8 @@
   <!-- Musical Posters -->
   <section>
     <h2>Musical Posters</h2>
-    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:32px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2023</p>
+    <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-20px; margin-bottom:12px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2023</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <h3>The Wizard of Oz</h3>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
@@ -1159,7 +1178,24 @@
       try { localStorage.setItem('poster-view', v); } catch(e) {}
     }
     viewBtns.forEach(function(btn) {
-      btn.addEventListener('click', function() { setView(btn.dataset.view); });
+      btn.addEventListener('click', function() {
+        var rectBefore = btn.getBoundingClientRect();
+        document.body.classList.add('view-swapping');
+        setView(btn.dataset.view);
+        var rectAfter = btn.getBoundingClientRect();
+        var delta = rectAfter.top - rectBefore.top;
+        if (delta !== 0) {
+          window.scrollTo({ top: window.scrollY + delta, left: window.scrollX, behavior: 'auto' });
+        }
+        requestAnimationFrame(function() {
+          document.body.classList.remove('view-swapping');
+          // Force-restart the zoom animation: remove class, force reflow, then re-add so animation always plays
+          document.body.classList.remove('view-just-swapped');
+          void document.body.offsetWidth;
+          document.body.classList.add('view-just-swapped');
+          setTimeout(function() { document.body.classList.remove('view-just-swapped'); }, 1000);
+        });
+      });
     });
 
   </script>
@@ -1171,6 +1207,7 @@
         var observer = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) entry.target.classList.add('visible');
+                else entry.target.classList.remove('visible');
             });
         }, opts);
 
@@ -1193,7 +1230,7 @@
         });
     })();
 </script>
-<script src="shared/theme.js?v=3"></script>
+<script src="shared/theme.js?v=4"></script>
 
 <style>
 #swipe-hint-overlay {

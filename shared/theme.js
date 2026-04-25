@@ -6,6 +6,16 @@ function toggleTheme() {
     updateThemeUI();
 }
 
+function applyStoredTheme() {
+    var isLight = localStorage.getItem('theme') === 'light';
+    var html = document.documentElement;
+    if (isLight) {
+        html.classList.add('light-mode');
+    } else {
+        html.classList.remove('light-mode');
+    }
+}
+
 function updateThemeUI() {
     var isLight = document.documentElement.classList.contains('light-mode');
     var label = document.getElementById('themeLabel');
@@ -23,25 +33,13 @@ function updateThemeUI() {
 
 document.addEventListener('DOMContentLoaded', updateThemeUI);
 
-// Opt out of Safari's back-forward cache entirely.
-// Any 'unload' listener makes the page ineligible for bfcache in Safari iOS.
-window.addEventListener('unload', function() {});
-
-// Belt-and-suspenders: if the page is still restored from bfcache,
-// mark it as a back-navigation (so the splash doesn't fire), then force a fresh load.
+// When the page is restored from bfcache (back navigation in Safari/Firefox),
+// re-apply the stored theme so the page reflects the user's current preference,
+// not whatever state the page was in when they navigated away.
 window.addEventListener('pageshow', function(e) {
     if (e.persisted) {
         sessionStorage.setItem('_from_back', '1');
-        var url = window.location.pathname + '?_cb=' + Date.now() + window.location.hash;
-        window.location.replace(url);
+        applyStoredTheme();
+        updateThemeUI();
     }
 });
-
-// Remove the cache-buster from the URL after a forced reload so it doesn't stay visible.
-(function() {
-    if (window.location.search.indexOf('_cb=') !== -1) {
-        var clean = window.location.search.replace(/[?&]_cb=\d+/g, '').replace(/^\?/, '');
-        var cleanUrl = window.location.pathname + (clean ? '?' + clean : '') + window.location.hash;
-        history.replaceState(null, '', cleanUrl);
-    }
-})();

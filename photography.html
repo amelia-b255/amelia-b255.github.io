@@ -8,7 +8,7 @@
   <meta http-equiv="Expires" content="0" />
   <title>Photography - Amelia Bobbin</title>
   <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Cookie&display=swap" rel="stylesheet" />
-  <script>(function(){var ne=performance.getEntriesByType('navigation')[0],nt=ne?ne.type:'navigate';if(nt!=='reload'&&localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
+  <script>(function(){if(localStorage.getItem('theme')==='light')document.documentElement.classList.add('light-mode');})();</script>
   <style>
     @import url('https://fonts.cdnfonts.com/css/made-sunflower');
     @font-face { font-family: "Cavalhatriz"; src: url("fonts/Cavalhatriz.ttf") format("truetype"); font-weight: normal; font-style: normal; }
@@ -177,7 +177,7 @@
 
     /* Info & Photo */
     .project-info {
-      max-width:1000px;margin:0 auto;background:#fff;padding:50px;border-radius:20px;
+      max-width:1000px;margin:0 auto;background:rgba(255,255,255,0.4);padding:50px;border-radius:20px;
       box-shadow:10px 10px 30px rgba(139,71,93,.1);
     }
     .project-info h3 { font-family:'MADE Sunflower',sans-serif;font-size:26px;color:#8b475d;margin-bottom:25px;font-weight:400;}
@@ -267,8 +267,10 @@
       .featured-caption p { font-size:14px; }
       .featured-image { max-height:300px; }
       .featured-image img { max-height:300px; }
-      .media-link { flex-direction:column; text-align:center; gap:10px; }
-      .link-icon { font-size:40px; }
+      .media-link { padding:14px !important; gap:12px !important; margin-bottom:10px !important; }
+      .link-icon { font-size:24px !important; min-width:36px !important; }
+      .link-text h4 { font-size:14px !important; }
+      .link-text p { font-size:12px !important; }
       footer { padding:20px 14px; font-size:10px; }
       .star { width:10px !important; height:10px !important; opacity:0.3; }
     }
@@ -282,6 +284,10 @@
       .project-info h3 { font-size:16px; }
       .project-info p { font-size:13px; }
       .star { width:8px !important; height:8px !important; opacity:.25; }
+      .media-link { padding:12px !important; gap:10px !important; }
+      .link-icon { font-size:20px !important; min-width:30px !important; }
+      .link-text h4 { font-size:13px !important; }
+      .link-text p { font-size:11px !important; }
     }
 
         /* ── Animation enhancements ── */
@@ -676,6 +682,6 @@
         });
     })();
 </script>
-<script src="shared/theme.js?v=3"></script>
+<script src="shared/theme.js?v=4"></script>
 </body>
 </html>
