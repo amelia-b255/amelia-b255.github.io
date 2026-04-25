@@ -683,6 +683,19 @@
       text-align: center; line-height: 1.4;
     }
     body.gallery-mode .gallery-card-title { display: block; }
+    /* Year tag above the card image in gallery view */
+    .gallery-card-year-top { display: none; }
+    body.gallery-mode .gallery-card-year-top {
+      display: block;
+      font-family: 'Cavalhatriz', serif;
+      font-size: 16px;
+      color: #8b475d;
+      font-style: italic;
+      text-align: center;
+      letter-spacing: 1px;
+      padding: 6px 0 8px;
+    }
+    html:not(.light-mode) body.gallery-mode .gallery-card-year-top { color: #e8a0b8; }
     html:not(.light-mode) body.gallery-mode .stack-card {
       background: rgba(18,8,14,0.65) !important;
       box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
@@ -1002,7 +1015,7 @@
   </section>
 
   <footer>
-    <p>© 2025 Amelia Bobbin</p>
+    <p>© 2026 Amelia Bobbin</p>
   </footer>
 
   <script>
@@ -1149,9 +1162,16 @@
       update();
     });
 
-    // ── Inject gallery title/desc divs into each stack card ──
+    // ── Inject gallery title/desc/year divs into each stack card ──
     document.querySelectorAll('.stack-card').forEach(function(card) {
-      var hasTitle = card.dataset.title, hasDesc = card.dataset.desc;
+      var hasTitle = card.dataset.title, hasDesc = card.dataset.desc, hasYear = card.dataset.year;
+      // Year tag rendered ABOVE the image in gallery view
+      if (hasYear && !card.querySelector('.gallery-card-year-top')) {
+        var yt = document.createElement('div');
+        yt.className = 'gallery-card-year-top';
+        yt.textContent = card.dataset.year;
+        card.insertBefore(yt, card.firstChild);
+      }
       if (hasTitle || hasDesc) {
         var wrap = document.createElement('div');
         wrap.className = 'gallery-card-title';
