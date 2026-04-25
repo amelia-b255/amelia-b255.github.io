@@ -299,10 +299,63 @@
         .hero-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
+            grid-template-rows: auto auto;
+            grid-template-areas: "content image" "bio image";
+            column-gap: 80px;
+            row-gap: 0;
             max-width: 1100px;
-            align-items: center;
+            align-items: start;
             width: 100%;
+        }
+
+        .hero-content {
+            grid-area: content;
+            align-self: end;
+        }
+
+        .hero-image {
+            grid-area: image;
+            align-self: center;
+            width: 100%;
+            height: 500px;
+            background: none;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+            position: relative;
+            animation: fadeInUp 1s ease 0.4s backwards;
+            transition: height 0.45s ease, box-shadow 0.4s ease, transform 0.4s ease;
+        }
+
+        .hero-bio {
+            grid-area: bio;
+            align-self: start;
+            padding-top: 8px;
+        }
+
+        /* Image-style layout: name spans full height left, smaller image+bio stack right */
+        .hero-container.image-style {
+            grid-template-areas: "content side";
+            grid-template-rows: auto;
+            align-items: start;
+        }
+
+        .hero-container.image-style .hero-content {
+            align-self: start;
+        }
+
+        .hero-container.image-style .hero-image {
+            grid-area: side;
+            height: 295px;
+            width: 100%;
+            align-self: start;
+        }
+
+        .hero-container.image-style .hero-bio {
+            grid-area: side;
+            align-self: start;
+            margin-top: 320px;
+            padding-top: 0;
         }
 
         .hero-content h1 {
@@ -315,7 +368,7 @@
             font-weight: 400;
         }
 
-        .hero-content p {
+        .hero-bio p {
             font-size: 17px;
             color: #d4899e;
             margin-bottom: 35px;
@@ -332,18 +385,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .hero-image {
-            width: 100%;
-            height: 500px;
-            background: none;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            overflow: hidden;
-            position: relative;
-            animation: fadeInUp 1s ease 0.4s backwards;
-            transition: all 0.4s ease;
-        }
-
         .hero-image:hover {
             transform: translateY(-10px);
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.7);
@@ -353,6 +394,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             transition: transform 0.4s ease;
         }
 
@@ -719,7 +761,7 @@
         .business-card-wrap {
             margin-top: 50px;
             display: flex;
-            gap: 12px;
+            gap: 4px;
             justify-content: center;
             align-items: stretch;
         }
@@ -947,7 +989,21 @@
 
             .hero-container {
                 grid-template-columns: 1fr !important;
+                grid-template-areas: "content" "bio" !important;
                 gap: 16px;
+            }
+
+            .hero-container.image-style {
+                grid-template-areas: "content" "bio" !important;
+            }
+
+            .hero-container.image-style .hero-image {
+                display: none !important;
+            }
+
+            .hero-container.image-style .hero-bio {
+                grid-area: bio !important;
+                margin-top: 0 !important;
             }
 
             .hero-content {
@@ -955,10 +1011,32 @@
             }
 
             .hero-content h1 {
-                font-size: 24px !important;
+                font-size: 52px !important;
+                line-height: 1.15 !important;
+                margin-bottom: 16px !important;
+                text-align: left !important;
             }
 
-            .hero-content p {
+            .hero-container.image-style #name-cycler {
+                height: calc((100vw - 32px) * 1.17);
+                overflow: hidden;
+            }
+
+            .hero-container.image-style #name-img,
+            .hero-container.bold-style #name-img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                object-position: center top !important;
+                margin: 0 !important;
+                display: block !important;
+            }
+
+            .hero-container.cursive-style #name-img {
+                margin-bottom: 16px !important;
+            }
+
+            .hero-bio p {
                 font-size: 13px;
             }
 
@@ -1097,7 +1175,10 @@
 
         @media (max-width: 480px) {
             .hero-content h1 {
-                font-size: 20px !important;
+                font-size: 40px !important;
+                line-height: 1.15 !important;
+                text-align: left !important;
+                margin-bottom: 14px !important;
             }
 
             h2 {
@@ -1159,9 +1240,28 @@
             object-position: center center;
             image-orientation: none !important;
             -webkit-image-orientation: none !important;
+            transform: scale(1.04);
         }
         .portfolio-item:hover .drawing-card-img {
-            transform: scale(1.05) !important;
+            transform: scale(1.09) !important;
+        }
+
+        /* Desktop-only portfolio grid reorder: posters, coding, tram, drawings, film, photo */
+        @media (min-width: 1381px) {
+            .portfolio-grid > a:nth-child(1) { order: 1; }
+            .portfolio-grid > a:nth-child(2) { order: 4; }
+            .portfolio-grid > a:nth-child(3) { order: 3; }
+            .portfolio-grid > a:nth-child(4) { order: 5; }
+            .portfolio-grid > a:nth-child(5) { order: 6; }
+            .portfolio-grid > a:nth-child(6) { order: 2; }
+        }
+        @media (max-width: 768px) {
+            .drawing-card-img {
+                transform: scale(1.025);
+            }
+            .portfolio-item:hover .drawing-card-img {
+                transform: scale(1.075) !important;
+            }
         }
         /* ── Splash screen overlay ── */
         #splash-overlay {
@@ -1507,12 +1607,15 @@
         html.light-mode .nav-links a.music-nav-link { color: #8b475d !important; }
         html.light-mode .nav-links a.cv-button { color: white !important; }
         html.light-mode .hero-content h1 { color: #8b475d !important; }
-        html.light-mode .hero-content p { color: #a0617a !important; }
+        html.light-mode .hero-bio p { color: #a0617a !important; }
         html.light-mode .hero-image { box-shadow: 0 20px 60px rgba(0,0,0,0.15) !important; }
         html.light-mode .hero-image:hover { box-shadow: 0 30px 80px rgba(0,0,0,0.2) !important; }
+        .hero-img-dark { display: none; }
+        .hero-img-dark.active { display: block; }
         .hero-img-light { display: none; }
-        html.light-mode .hero-img-dark { display: none; }
-        html.light-mode .hero-img-light { display: block; }
+        html.light-mode .hero-img-dark,
+        html.light-mode .hero-img-dark.active { display: none; }
+        html.light-mode .hero-img-light.active { display: block; }
         html.light-mode h2 { color: #8b475d !important; }
         html.light-mode h2::after { background: #f5c1cf !important; }
         html.light-mode h2.will-animate.visible::after { background: linear-gradient(90deg, #f5c1cf, #a8c5b5, #f5c1cf) !important; }
@@ -1560,6 +1663,17 @@
             .nav-links a { font-size: 13px !important; }
             .cv-button { padding: 7px 13px !important; font-size: 12px !important; margin-left: 0 !important; }
             .music-nav-link { padding: 7px 13px !important; }
+            .hero-container.image-style #name-img {
+                max-height: 62vh !important;
+                width: auto !important;
+                max-width: 100% !important;
+            }
+            .drawing-card-img {
+                transform: scale(1.09);
+            }
+            .portfolio-item:hover .drawing-card-img {
+                transform: scale(1.13) !important;
+            }
         }
     </style>
     <script>(function(){try{var t=performance.getEntriesByType('navigation'),n=t.length?t[0].type:'navigate',s=document.referrer&&(new URL(document.referrer)).origin===location.origin;if(n==='reload'||(n==='navigate'&&!s)){sessionStorage.removeItem('theme');}else if(sessionStorage.getItem('theme')==='light'){document.documentElement.classList.add('light-mode');}}catch(e){}})();</script>
@@ -1638,15 +1752,31 @@
     </nav>
 
     <section id="home" class="hero">
-        <div class="hero-container">
+        <div class="hero-container" id="hero-container">
             <div class="hero-content">
-                <h1>Amelia Bobbin</h1>
+                <div id="name-cycler" onclick="cycleNameStyle()" title="Click to change font style">
+                    <h1 id="name-text">Amelia<br>Bobbin</h1>
+                    <img id="name-img" src="" alt="Amelia Bobbin" style="display:none;">
+                </div>
+                <div id="name-dots" class="name-dots" aria-label="Name style"></div>
+            </div>
+            <div class="hero-bio">
                 <p>Aspiring graphic designer passionate about combining storytelling and visual design. Skilled in Adobe Creative Suite and creative computing, with experience in branding, digital illustration, and visual communication.</p>
                 <a href="#portfolio" class="cta-button">View My Work</a>
             </div>
-            <div class="hero-image">
-                <img src="dogtagDARKHEADER.png" alt="Dog Tag Freestyle Poster" class="hero-img-dark">
-                <img src="dogtagLIGHT header image.png" alt="Dog Tag Freestyle Poster" class="hero-img-light">
+            <div class="hero-image" id="hero-image-cycler" onclick="cycleHeroImage()" title="Click to change image" style="cursor:pointer;">
+                <img src="extras/serendipity.webp?v=2" alt="" class="hero-img-dark active">
+                <img src="extras/euphoria.webp" alt="" class="hero-img-dark">
+                <img src="extras/greenorchidart-fullscreen.webp" alt="" class="hero-img-dark">
+                <img src="extras/poppies-fullscreen.webp" alt="" class="hero-img-dark">
+                <img src="extras/joost-fullscreen.webp" alt="" class="hero-img-dark">
+                <img src="extras/RADIANCE poster.webp" alt="" class="hero-img-dark">
+                <img src="extras/feelinglucky-fullscreen.webp?v=2" alt="" class="hero-img-light active">
+                <img src="extras/allisfulloflove-fullscreen.webp" alt="" class="hero-img-light">
+                <img src="extras/luminosity.webp" alt="" class="hero-img-light">
+                <img src="extras/sometimesibeliveingod-fullscreen.webp" alt="" class="hero-img-light">
+                <img src="extras/wacotexas-fullscreen.webp" alt="" class="hero-img-light">
+                <img src="drawings/girl in room.webp" alt="" class="hero-img-light">
             </div>
         </div>
     </section>
@@ -2046,9 +2176,225 @@
     document.getElementById('spotlight-close').addEventListener('click', dismiss);
     overlay.addEventListener('click', function(e) { if (e.target === overlay) dismiss(); });
 })();
+
+// ── Name style cycler ──
+var nameStyleIdx = 0;
+var NAME_V = '?v=3';
+var nameStyles = [
+    { type: 'text' },
+    { type: 'img', group: 'cursive', dark: '4DARK.png'+NAME_V, light: '4LIGHT.png'+NAME_V },
+    { type: 'img', group: 'cursive', dark: '5DARK.png'+NAME_V, light: '5LIGHT.png'+NAME_V },
+    { type: 'img', group: 'bold',    dark: '1DARK.png'+NAME_V, light: '1LIGHT.png'+NAME_V },
+    { type: 'img', group: 'bold',    dark: '2DARK.png'+NAME_V, light: '2LIGHT.png'+NAME_V },
+    { type: 'img', group: 'bold',    dark: '3DARK.png'+NAME_V, light: '3LIGHT.png'+NAME_V },
+];
+
+function applyNameStyle() {
+    var style = nameStyles[nameStyleIdx];
+    var h1 = document.getElementById('name-text');
+    var img = document.getElementById('name-img');
+    var container = document.getElementById('hero-container');
+    if (!h1 || !img) return;
+    var isLight = document.documentElement.classList.contains('light-mode');
+    if (style.type === 'text') {
+        h1.style.display = '';
+        img.style.display = 'none';
+        if (container) { container.classList.remove('image-style'); container.classList.remove('cursive-style'); }
+    } else {
+        h1.style.display = 'none';
+        img.src = isLight ? style.light : style.dark;
+        img.style.display = 'block';
+        if (container) {
+            if (style.group === 'bold') {
+                container.classList.add('image-style');
+                container.classList.remove('cursive-style');
+            } else {
+                container.classList.remove('image-style');
+                container.classList.add('cursive-style');
+            }
+        }
+    }
+}
+
+function cycleNameStyle() {
+    nameStyleIdx = (nameStyleIdx + 1) % nameStyles.length;
+    applyNameStyle();
+    updateNameDots();
+    var active = nameStyles[nameStyleIdx].type === 'text'
+        ? document.getElementById('name-text')
+        : document.getElementById('name-img');
+    if (active) {
+        active.classList.remove('name-anim');
+        void active.offsetWidth;
+        active.classList.add('name-anim');
+    }
+}
+
+function setNameStyle(i) {
+    if (i === nameStyleIdx) return;
+    nameStyleIdx = i;
+    applyNameStyle();
+    updateNameDots();
+    var active = nameStyles[nameStyleIdx].type === 'text'
+        ? document.getElementById('name-text')
+        : document.getElementById('name-img');
+    if (active) {
+        active.classList.remove('name-anim');
+        void active.offsetWidth;
+        active.classList.add('name-anim');
+    }
+}
+
+function renderNameDots() {
+    var wrap = document.getElementById('name-dots');
+    if (!wrap) return;
+    wrap.innerHTML = '';
+    for (var i = 0; i < nameStyles.length; i++) {
+        var b = document.createElement('button');
+        b.className = 'dot' + (i === nameStyleIdx ? ' active' : '');
+        b.setAttribute('aria-label', 'Name style ' + (i + 1));
+        b.dataset.idx = i;
+        b.onclick = function(e) {
+            e.stopPropagation();
+            setNameStyle(parseInt(this.dataset.idx, 10));
+        };
+        wrap.appendChild(b);
+    }
+}
+
+function updateNameDots() {
+    var dots = document.querySelectorAll('#name-dots .dot');
+    dots.forEach(function(d, i) {
+        d.classList.toggle('active', i === nameStyleIdx);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', renderNameDots);
+
+// Reset to first style when returning via back button (BF cache restore)
+window.addEventListener('pageshow', function(e) {
+    if (!e.persisted) return;
+    nameStyleIdx = 0;
+    heroDarkIdx = 0;
+    heroLightIdx = 0;
+    applyNameStyle();
+    updateNameDots();
+    document.querySelectorAll('.hero-img-dark').forEach(function(img, i) {
+        img.classList.toggle('active', i === 0);
+        img.classList.remove('hero-img-anim');
+    });
+    document.querySelectorAll('.hero-img-light').forEach(function(img, i) {
+        img.classList.toggle('active', i === 0);
+        img.classList.remove('hero-img-anim');
+    });
+});
+
+// ── Hero image cycler ──
+var heroDarkIdx = 0;
+var heroLightIdx = 0;
+
+function cycleHeroImage() {
+    var isLight = document.documentElement.classList.contains('light-mode');
+    var cls = isLight ? '.hero-img-light' : '.hero-img-dark';
+    var imgs = document.querySelectorAll(cls);
+    if (!imgs.length) return;
+    var idx = isLight ? heroLightIdx : heroDarkIdx;
+    imgs[idx].classList.remove('active', 'hero-img-anim');
+    idx = (idx + 1) % imgs.length;
+    imgs[idx].classList.add('active');
+    void imgs[idx].offsetWidth;
+    imgs[idx].classList.add('hero-img-anim');
+    if (isLight) heroLightIdx = idx; else heroDarkIdx = idx;
+}
 </script>
 
 <style>
+/* ── Name style cycler ── */
+#name-cycler {
+    cursor: default;
+    display: block;
+    user-select: none;
+    -webkit-user-select: none;
+}
+#name-img {
+    width: 100%;
+    display: block;
+    margin-bottom: 18px;
+    image-rendering: auto;
+}
+/* Bold/halftone: name fills full left column width */
+.hero-container.image-style .hero-content {
+    overflow: visible;
+}
+.hero-container.image-style #name-img {
+    width: 100%;
+    height: auto;
+    object-fit: initial;
+    margin: 0;
+}
+/* Cursive: fixed height matching h1 so layout never shifts */
+.hero-container.cursive-style .hero-content {
+    overflow: visible;
+}
+.hero-container.cursive-style #name-img {
+    width: auto;
+    max-width: 100%;
+    height: 168px;
+    object-fit: initial;
+    margin-left: 0;
+    margin-bottom: 25px;
+}
+/* Name style dot indicator */
+.name-dots {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+}
+.name-dots .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(232, 160, 184, 0.35);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+}
+.name-dots .dot:hover { background: rgba(232, 160, 184, 0.65); }
+.name-dots .dot.active {
+    background: #e8a0b8;
+    transform: scale(1.25);
+}
+html.light-mode .name-dots .dot { background: rgba(140, 60, 90, 0.3); }
+html.light-mode .name-dots .dot:hover { background: rgba(140, 60, 90, 0.6); }
+html.light-mode .name-dots .dot.active { background: #8c3c5a; }
+
+/* Swap-in animation */
+@keyframes nameIn {
+    from { opacity: 0; transform: scale(0.93) translateY(12px); }
+    to   { opacity: 1; transform: none; }
+}
+.name-anim {
+    animation: nameIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (max-width: 480px) {
+    .hero-container.cursive-style #name-img {
+        height: 92px !important;
+        margin-bottom: 14px !important;
+    }
+}
+
+/* Hero image swap animation */
+@keyframes heroImgIn {
+    from { opacity: 0; transform: scale(1.04); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.hero-img-anim {
+    animation: heroImgIn 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
 #spotlight-overlay {
     position: fixed;
     inset: 0;

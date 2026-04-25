@@ -29,6 +29,7 @@ function updateThemeUI() {
     document.querySelectorAll('.logo-img').forEach(function(img) {
         img.src = isLight ? 'shared/AB logo.png' : 'shared/AB logo light.png';
     });
+    if (typeof applyNameStyle === 'function') applyNameStyle();
 }
 
 document.addEventListener('DOMContentLoaded', updateThemeUI);
