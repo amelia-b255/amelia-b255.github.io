@@ -1493,6 +1493,8 @@
         html.light-mode .logo:hover { color: #a0617a !important; }
         html.light-mode .menu-toggle { color: #8b475d !important; }
         html.light-mode .nav-links a { color: #8b475d !important; }
+        /* Extra-specific guarantee: the Music nav button text stays dark burgundy in light mode */
+        html.light-mode nav#navbar .nav-links li a.music-nav-link { color: #8b475d !important; }
         html.light-mode .music-nav-link { background: linear-gradient(135deg, #f5c1cf, #a8c5b5) !important; }
         html.light-mode .nav-links a.music-nav-link { color: #8b475d !important; }
         html.light-mode .nav-links a.cv-button { color: white !important; }
@@ -1513,8 +1515,15 @@
         html.light-mode .about-content { background: rgba(255,255,255,0.4) !important; }
         html.light-mode .about-content h3 { color: #8b475d !important; }
         html.light-mode .about-content p { color: #5a5a5a !important; }
-        html.light-mode .about-image { box-shadow: none !important; }
+        /* Remove rounded corners + box-shadow in light mode so the body gradient
+           doesn't bleed through the corners of the photo */
+        html.light-mode .about-image {
+            box-shadow: none !important;
+            background: transparent !important;
+            border-radius: 0 !important;
+        }
         html.light-mode .about-image:hover { box-shadow: none !important; }
+        html.light-mode .about-image img { border-radius: 0 !important; }
         html.light-mode .instagram-link { background: rgba(139,71,93,0.05) !important; }
         html.light-mode .instagram-text { color: #8b475d !important; }
         html.light-mode .skill-card { background: rgba(255,255,255,0.4) !important; }
@@ -2012,7 +2021,7 @@
         });
     </script>
 <script src="shared/lightbox.js?v=5"></script>
-<script src="shared/theme.js?v=4"></script>
+<script src="shared/theme.js?v=5"></script>
 
 <script>
 // $5 prints spotlight — shows on every page load; dismiss removes it for this view only.

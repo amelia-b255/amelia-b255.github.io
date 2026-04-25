@@ -1025,7 +1025,7 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 460px !important; width: 460px !important;
+      flex: 0 0 360px !important; width: 360px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -1056,13 +1056,61 @@
     @media (max-width: 968px) {
       body.gallery-mode .card-stack { gap: 10px !important; }
       body.gallery-mode .stack-card { flex: 0 0 150px !important; width: 150px !important; }
-      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 240px !important; width: 240px !important; }
       .view-btn { padding: 6px 14px; font-size: 9px; }
     }
     @media (max-width: 480px) {
       body.gallery-mode .card-stack { gap: 8px !important; }
       body.gallery-mode .stack-card { flex: 0 0 calc(50% - 4px) !important; width: calc(50% - 4px) !important; }
       body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 100% !important; width: 100% !important; }
+    }
+
+    /* ── "VIDEO" badge for gallery video cards ── */
+    body.gallery-mode .stack-card:has(video) { position: relative !important; }
+    .video-badge { display: none; }
+    body.gallery-mode .video-badge {
+      display: flex; align-items: center; gap: 5px;
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(139,71,93,0.9); color: #fff;
+      padding: 5px 10px; border-radius: 4px;
+      font-family: 'Archivo Black', sans-serif;
+      font-size: 10px; letter-spacing: 1.5px;
+      z-index: 6; pointer-events: none;
+      backdrop-filter: blur(4px);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+    }
+    html:not(.light-mode) body.gallery-mode .video-badge {
+      background: rgba(232,160,184,0.92);
+      color: #2a1520;
+    }
+
+    /* ── Tram page: Campaign Design posters in gallery mode ── */
+    body.gallery-mode .tram-posters .stack-card {
+      flex: 0 0 340px !important; width: 340px !important;
+    }
+    /* Push title/desc text a little further below the poster image */
+    body.gallery-mode .tram-posters .gallery-card-title {
+      padding-top: 18px !important;
+    }
+    /* Campaign in Action: tram video card bigger */
+    body.gallery-mode .tram-vid-card {
+      flex: 0 0 320px !important; width: 320px !important;
+    }
+    @media (max-width: 968px) {
+      body.gallery-mode .tram-posters .stack-card {
+        flex: 0 0 240px !important; width: 240px !important;
+      }
+      body.gallery-mode .tram-vid-card {
+        flex: 0 0 220px !important; width: 220px !important;
+      }
+    }
+    @media (max-width: 480px) {
+      body.gallery-mode .tram-posters .stack-card {
+        flex: 0 0 calc(100% - 8px) !important; width: calc(100% - 8px) !important;
+      }
+      body.gallery-mode .tram-vid-card {
+        flex: 0 0 calc(80% - 8px) !important; width: calc(80% - 8px) !important;
+      }
     }
 
     /* ── iPad / tablet (821px–1380px) ── */
@@ -1163,19 +1211,6 @@
         </div>
     </section>
 
-  <!-- View toggle -->
-  <div style="text-align:center; position:relative; z-index:10; padding-bottom:4px;">
-    <div class="view-toggle-wrap">
-      <button class="view-btn active" data-view="stack" id="btnStack">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg>
-        Stack
-      </button>
-      <button class="view-btn" data-view="gallery" id="btnGallery">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-        Gallery
-      </button>
-    </div>
-  </div>
 
     <!-- Brief Section -->
     <section>
@@ -1194,9 +1229,10 @@
     <!-- Designs Section -->
     <section>
         <h2>Campaign Designs</h2>
+    <div style="text-align:center; position:relative; z-index:10; margin: 28px auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
         <div class="stack-scene">
             <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-            <div class="card-stack">
+            <div class="card-stack tram-posters">
                 <a href="tram/tram1-fullscreen.png" target="_blank" class="stack-card" data-title="&quot;Hit Me Baby NOT This Time&quot;" data-desc="Britney Spears reference — 🏆 1st Place Winner"><img src="tram/tram1-fullscreen.png" alt="Hit Me Baby NOT This Time"></a>
                 <a href="tram/tramclown-fullscreen.png" target="_blank" class="stack-card" data-title="&quot;Don't Be a Clown&quot;" data-desc="Encouraging cyclists and pedestrians to slow down near light rail tracks"><img src="tram/tramclown-fullscreen.png" alt="Don't be a clown - SLOW DOWN!"></a>
             </div>
@@ -1219,15 +1255,16 @@
     <!-- Implementation Photos & Video -->
     <section>
         <h2>Campaign in Action</h2>
+    <div style="text-align:center; position:relative; z-index:10; margin: 28px auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
         <div class="stack-scene">
             <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-            <div class="card-stack">
+            <div class="card-stack tram-action">
                 <div class="stack-card" data-orient="landscape" data-title="Designs on Canberra Light Rail" data-desc=""><img src="tram/tram1.jpg" alt="Designs displayed on Canberra Light Rail"></div>
                 <div class="stack-card" data-orient="landscape" data-title="Campaign Visible from Platform" data-desc=""><img src="tram/tram4.jpg" alt="Campaign visible from platform"></div>
                 <div class="stack-card" data-orient="landscape" data-title="Display at Alinga Street Station" data-desc=""><img src="tram/tram5.jpg" alt="Station display"></div>
                 <div class="stack-card" data-title="Full Train Wrap" data-desc=""><img src="tram/tram2.jpg" alt="Full train wrap"></div>
                 <div class="stack-card" data-title="&quot;Don't Be a Clown&quot; Inside the Tram" data-desc=""><img src="tram/tram3.jpg" alt="Interior campaign poster"></div>
-                <div class="stack-card" data-title="Light Rail with Campaign Designs" data-desc=""><video controls playsinline preload="metadata"><source src="tram/tramvid.mp4" type="video/mp4"></video></div>
+                <div class="stack-card tram-vid-card" data-title="Light Rail with Campaign Designs" data-desc=""><video playsinline preload="metadata" controlslist="nodownload"><source src="tram/tramvid.mp4" type="video/mp4"></video></div>
             </div>
             <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
         </div>
@@ -1402,11 +1439,95 @@
                 card.addEventListener('mouseleave', () => {
                     if (card._baseTransform) card.style.transform = card._baseTransform;
                 });
+
+                // Video card behaviour
+                var video = card.querySelector('video');
+                if (video) {
+                  var cardHovered = false;
+
+                  // Gallery mode: hover shows native controls bar (time / progress / small play button)
+                  card.addEventListener('mouseenter', () => {
+                    cardHovered = true;
+                    if (document.body.classList.contains('gallery-mode')) {
+                      video.setAttribute('controls', '');
+                    }
+                  });
+                  card.addEventListener('mouseleave', () => {
+                    cardHovered = false;
+                    if (document.body.classList.contains('gallery-mode') && video.paused) {
+                      video.removeAttribute('controls');
+                    }
+                  });
+                  video.addEventListener('pause', () => {
+                    if (document.body.classList.contains('gallery-mode') && !cardHovered) {
+                      video.removeAttribute('controls');
+                    }
+                  });
+                  video.addEventListener('ended', () => {
+                    if (document.body.classList.contains('gallery-mode')) {
+                      video.removeAttribute('controls');
+                    }
+                  });
+
+                  // Click: gallery → toggle play/pause in-place; stack → fullscreen
+                  card.addEventListener('click', (e) => {
+                    var inGallery = document.body.classList.contains('gallery-mode');
+                    if (!inGallery && card.style.pointerEvents === 'none') return;
+                    if (inGallery) {
+                      var vRect = video.getBoundingClientRect();
+                      if (vRect.height > 0 && e.clientY > vRect.bottom - 45) return;
+                      video.muted = false;
+                      if (!video.hasAttribute('controls')) video.setAttribute('controls', '');
+                      if (video.paused) video.play().catch(() => {});
+                      else video.pause();
+                      return;
+                    }
+                    video.muted = false;
+                    video.setAttribute('controls', '');
+                    var req = video.requestFullscreen || video.webkitRequestFullscreen || video.webkitEnterFullscreen;
+                    if (req) { try { req.call(video); } catch (e2) {} }
+                    video.play().catch(() => {});
+                  });
+
+                  ['fullscreenchange', 'webkitfullscreenchange', 'webkitendfullscreen'].forEach(evt => {
+                    video.addEventListener(evt, () => {
+                      const isFs = document.fullscreenElement || document.webkitFullscreenElement || video.webkitDisplayingFullscreen;
+                      if (!isFs) { video.removeAttribute('controls'); video.pause(); }
+                    });
+                  });
+
+                  // Gallery mode: redirect native fullscreen → branded spotlight
+                  function openSpotlightFromCard() {
+                    if (!document.body.classList.contains('gallery-mode')) return;
+                    if (typeof window.abOpenVideoSpotlight !== 'function') return;
+                    var t = video.currentTime;
+                    video.pause();
+                    window.abOpenVideoSpotlight(card, t);
+                  }
+                  document.addEventListener('fullscreenchange', () => {
+                    if (document.fullscreenElement === video && document.body.classList.contains('gallery-mode')) {
+                      document.exitFullscreen().then(openSpotlightFromCard).catch(openSpotlightFromCard);
+                    }
+                  });
+                  document.addEventListener('webkitfullscreenchange', () => {
+                    if (document.webkitFullscreenElement === video && document.body.classList.contains('gallery-mode')) {
+                      if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                      setTimeout(openSpotlightFromCard, 50);
+                    }
+                  });
+                  video.addEventListener('webkitbeginfullscreen', () => {
+                    if (!document.body.classList.contains('gallery-mode')) return;
+                    setTimeout(() => {
+                      if (video.webkitExitFullscreen) video.webkitExitFullscreen();
+                      openSpotlightFromCard();
+                    }, 50);
+                  });
+                }
             });
             update();
         });
 
-    // ── Inject gallery title/desc divs into each stack card ──
+    // ── Inject gallery title/desc divs + VIDEO badge into each stack card ──
     document.querySelectorAll('.stack-card').forEach(function(card) {
       var hasTitle = card.dataset.title, hasDesc = card.dataset.desc;
       if (hasTitle || hasDesc) {
@@ -1426,13 +1547,40 @@
         }
         card.appendChild(wrap);
       }
+      if (card.querySelector('video') && !card.querySelector('.video-badge')) {
+        var badge = document.createElement('div');
+        badge.className = 'video-badge';
+        badge.innerHTML = '<span style="font-size:11px">▶</span> VIDEO';
+        card.appendChild(badge);
+      }
     });
     // ── View toggle (stack ↔ gallery) ──
     var viewBtns = document.querySelectorAll('.view-btn');
+    // Briefly play+pause every muted video so iOS renders the first frame as a thumbnail
+    function loadAllVideoCovers() {
+      document.querySelectorAll('.stack-card video').forEach(function(video) {
+        if (video.readyState >= 2) return;
+        video.muted = true;
+        video.preload = 'auto';
+        var p = video.play();
+        if (p && typeof p.then === 'function') {
+          p.then(function() { video.pause(); video.currentTime = 0; }).catch(function() {});
+        } else {
+          try { video.pause(); video.currentTime = 0; } catch(e) {}
+        }
+      });
+    }
+    loadAllVideoCovers();
+    if (document.readyState !== 'complete') window.addEventListener('load', loadAllVideoCovers);
+    ['touchstart', 'pointerdown', 'click', 'scroll'].forEach(function(evt) {
+      window.addEventListener(evt, loadAllVideoCovers, { once: true, capture: true, passive: true });
+    });
+
     function setView(v) {
       document.body.classList.toggle('gallery-mode', v === 'gallery');
       viewBtns.forEach(function(b) { b.classList.toggle('active', b.dataset.view === v); });
       try { localStorage.setItem('poster-view', v); } catch(e) {}
+      if (v === 'gallery') loadAllVideoCovers();
     }
     viewBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
@@ -1472,7 +1620,7 @@
             ticking = true;
         });
     </script>
-<script src="shared/lightbox.js?v=5"></script>
+<script src="shared/lightbox.js?v=8"></script>
 <script>
     // Scroll-triggered animations
     (function() {

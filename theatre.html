@@ -447,7 +447,7 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 460px !important; width: 460px !important;
+      flex: 0 0 360px !important; width: 360px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -478,7 +478,7 @@
     @media (max-width: 968px) {
       body.gallery-mode .card-stack { gap: 10px !important; }
       body.gallery-mode .stack-card { flex: 0 0 150px !important; width: 150px !important; }
-      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 240px !important; width: 240px !important; }
       .view-btn { padding: 6px 14px; font-size: 9px; }
     }
     @media (max-width: 480px) {
@@ -583,19 +583,6 @@
     </div>
   </section>
 
-  <!-- View toggle -->
-  <div style="text-align:center; position:relative; z-index:10; padding-bottom:4px;">
-    <div class="view-toggle-wrap">
-      <button class="view-btn active" data-view="stack" id="btnStack">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg>
-        Stack
-      </button>
-      <button class="view-btn" data-view="gallery" id="btnGallery">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-        Gallery
-      </button>
-    </div>
-  </div>
 
   <!-- Project Info -->
   <section>
@@ -611,6 +598,7 @@
   <section>
     <h2>The Wizard of Oz</h2>
     <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-15px; margin-bottom:40px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2023</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
       <div class="card-stack">
@@ -630,6 +618,7 @@
   <section>
     <h2>Love &amp; Information</h2>
     <p style="text-align:center; font-size:17px; color:#8b475d; font-style:italic; margin-top:-15px; margin-bottom:40px; letter-spacing:1px; font-family: 'Cavalhatriz', serif;">2024</p>
+    <div style="text-align:center; position:relative; z-index:10; margin: 0 auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <div class="stack-scene">
       <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
       <div class="card-stack">

@@ -662,7 +662,7 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 460px !important; width: 460px !important;
+      flex: 0 0 360px !important; width: 360px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -693,7 +693,7 @@
     @media (max-width: 968px) {
       body.gallery-mode .card-stack { gap: 10px !important; }
       body.gallery-mode .stack-card { flex: 0 0 150px !important; width: 150px !important; }
-      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 240px !important; width: 240px !important; }
       .view-btn { padding: 6px 14px; font-size: 9px; }
     }
     @media (max-width: 480px) {
@@ -706,12 +706,12 @@
     .gallery-break { display: none; height: 0; }
     body.gallery-mode .gallery-break { display: block; flex: 0 0 100%; height: 0; width: 100%; margin: 0 0 -14px 0; padding: 0; }
     /* slightly smaller landscape for Art Showcase so two fit side-by-side */
-    body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 460px !important; width: 460px !important; }
+    body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 360px !important; width: 360px !important; }
     /* 4-up row: bang bang + poppies + waco + movies — vertically center so square cards align against taller portrait bang bang */
     body.gallery-mode .stack-card.fourup { flex: 0 0 248px !important; width: 248px !important; align-self: center !important; }
     /* Mobile overrides for lsm/fourup — placed AFTER global rules so same-specificity !important wins */
     @media (max-width: 968px) {
-      body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stack-card.lsm[data-orient="landscape"] { flex: 0 0 240px !important; width: 240px !important; }
       body.gallery-mode .stack-card.fourup { flex: 0 0 150px !important; width: 150px !important; }
     }
     @media (max-width: 480px) {

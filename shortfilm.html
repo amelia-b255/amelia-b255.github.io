@@ -125,10 +125,37 @@
     .music-nav-link:hover { transform: scale(1.04); box-shadow: 0 5px 15px rgba(139,71,93,0.3); }
     .music-nav-link::after { display: none !important; }
 
+    /* Page header banner image */
+    .page-header-image {
+      width: 100%;
+      margin-top: 88px; /* clear fixed nav (banner + nav padding) */
+      height: 56vh; max-height: 620px; min-height: 320px;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+    }
+    .page-header-image img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      display: block;
+    }
+    .page-header-image::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%);
+      pointer-events: none;
+    }
+    @media (max-width: 820px) {
+      .page-header-image { margin-top: 65px; height: 30vh; min-height: 220px; max-height: 360px; }
+    }
+    @media (max-width: 480px) {
+      .page-header-image { height: 26vh; min-height: 180px; }
+    }
+
     /* Hero */
     .hero {
-      min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;
-      padding: 150px 40px 100px;
+      min-height: 40vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 60px 40px 80px;
     }
     .hero-content h1 {
       font-family: "MADE Sunflower", sans-serif; font-size: 58px; color: #8b475d; font-weight: 400;
@@ -498,7 +525,7 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 460px !important; width: 460px !important;
+      flex: 0 0 360px !important; width: 360px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -554,7 +581,7 @@
     @media (max-width: 968px) {
       body.gallery-mode .card-stack { gap: 10px !important; }
       body.gallery-mode .stack-card { flex: 0 0 150px !important; width: 150px !important; }
-      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 240px !important; width: 240px !important; }
       body.gallery-mode .stills-card-stack { gap: 10px !important; }
       body.gallery-mode .still-card { flex: 0 0 310px !important; width: 310px !important; }
       .view-btn { padding: 6px 14px; font-size: 9px; }
@@ -652,6 +679,11 @@
     </ul>
   </nav>
 
+  <!-- Page header banner -->
+  <div class="page-header-image">
+    <img src="shortfilm/shortfilm-header.jpg" alt="Blowing Out The Candles">
+  </div>
+
   <!-- Hero -->
   <section class="hero">
     <div class="hero-content">
@@ -661,19 +693,6 @@
     </div>
   </section>
 
-  <!-- View toggle -->
-  <div style="text-align:center; position:relative; z-index:10; padding-bottom:4px;">
-    <div class="view-toggle-wrap">
-      <button class="view-btn active" data-view="stack" id="btnStack">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg>
-        Stack
-      </button>
-      <button class="view-btn" data-view="gallery" id="btnGallery">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-        Gallery
-      </button>
-    </div>
-  </div>
 
   <!-- Project Info -->
   <section>
@@ -748,6 +767,7 @@
   <!-- Production Stills -->
   <section>
     <h2>Production Stills</h2>
+    <div style="text-align:center; position:relative; z-index:10; margin: 28px auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
     <div class="stills-stack-scene">
       <button class="stills-nav stills-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
       <div class="stills-card-stack" id="stillsStack">

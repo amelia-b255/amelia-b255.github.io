@@ -209,13 +209,18 @@
             background: #8b475d;
             color: white !important;
             text-decoration: none;
-            font-size: 15px;
-            letter-spacing: 1px;
+            font-size: 16px;
+            letter-spacing: 0.5px;
             transition: all 0.4s ease;
             font-family: 'Georgia Custom', Georgia, serif;
-            font-weight: 500;
+            font-weight: 400;
             border-radius: 25px;
             box-shadow: 0 3px 10px rgba(139, 71, 93, 0.3);
+        }
+        .hero-cv-button {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            font-weight: 700 !important;
+            text-transform: uppercase !important;
         }
 
         .music-cv-button:hover {
@@ -304,6 +309,7 @@
         .stack-scene{display:flex;align-items:center;justify-content:center;gap:48px;margin:0 auto 16px}
         .card-stack{position:relative;flex-shrink:0}
         .stack-card{position:absolute;inset:0;overflow:visible;transition:transform 0.6s cubic-bezier(0.4,0,0.2,1),filter 0.4s ease,opacity 0.4s ease;will-change:transform;background:transparent}
+        a.stack-card { text-decoration: none; color: inherit; }
         .stack-card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;-webkit-user-select:none;user-select:none;border-radius:2px}
         .stack-card video{width:100%;height:100%;object-fit:contain;display:block;background:transparent;border-radius:2px}
         .stack-card[data-orient="landscape"] img{object-fit:contain}
@@ -356,6 +362,36 @@
         }
         .card-stack-video .stack-card:hover::before {
             transform: translate(-42%, -50%) scale(1.15);
+        }
+        /* Gallery mode: no big centered play circle — native controls show on hover via JS */
+        body.gallery-mode .card-stack-video .stack-card::before,
+        body.gallery-mode .card-stack-video .stack-card::after { display: none !important; }
+        /* Make video cards positioned so the VIDEO badge anchors to the card */
+        body.gallery-mode .card-stack-video .stack-card { position: relative !important; }
+        /* "VIDEO" badge — visible in gallery mode only */
+        .video-badge { display: none; }
+        body.gallery-mode .video-badge {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+          background: rgba(139,71,93,0.9);
+          color: #fff;
+          padding: 5px 10px;
+          border-radius: 4px;
+          font-family: 'Archivo Black', sans-serif;
+          font-size: 10px;
+          letter-spacing: 1.5px;
+          z-index: 6;
+          pointer-events: none;
+          backdrop-filter: blur(4px);
+          box-shadow: 0 2px 6px rgba(0,0,0,0.35);
+        }
+        html:not(.light-mode) body.gallery-mode .video-badge {
+          background: rgba(232,160,184,0.92);
+          color: #2a1520;
         }
 
         .music-achievements {
@@ -849,7 +885,10 @@
       box-shadow: 0 12px 28px rgba(139,71,93,0.22) !important;
     }
     body.gallery-mode .stack-card[data-orient="landscape"] {
-      flex: 0 0 460px !important; width: 460px !important;
+      flex: 0 0 360px !important; width: 360px !important;
+    }
+    body.gallery-mode .card-stack-video .stack-card:not(.portrait) {
+      flex: 0 0 380px !important; width: 380px !important;
     }
     body.gallery-mode .stack-card img {
       width: 100% !important; height: auto !important;
@@ -869,7 +908,19 @@
       font-size: 11px; color: #a0617a;
       text-align: center; line-height: 1.4;
     }
+    .gallery-card-year {
+      font-family: 'Cavalhatriz', serif;
+      font-size: 13px; color: #8b475d;
+      font-style: italic;
+      text-align: center;
+      display: block;
+      margin-top: 5px;
+      letter-spacing: 1px;
+    }
+    html:not(.light-mode) .gallery-card-year { color: #d4899e; }
     body.gallery-mode .gallery-card-title { display: block; }
+    /* Performance Gallery: don't show the "Performance" label under each card in gallery view */
+    body.gallery-mode .card-stack-photo .gallery-card-title { display: none !important; }
     html:not(.light-mode) body.gallery-mode .stack-card {
       background: rgba(18,8,14,0.65) !important;
       box-shadow: 0 4px 16px rgba(0,0,0,0.4) !important;
@@ -880,13 +931,15 @@
     @media (max-width: 968px) {
       body.gallery-mode .card-stack { gap: 10px !important; }
       body.gallery-mode .stack-card { flex: 0 0 150px !important; width: 150px !important; }
-      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 310px !important; width: 310px !important; }
+      body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 240px !important; width: 240px !important; }
+      body.gallery-mode .card-stack-video .stack-card:not(.portrait) { flex: 0 0 280px !important; width: 280px !important; }
       .view-btn { padding: 6px 14px; font-size: 9px; }
     }
     @media (max-width: 480px) {
       body.gallery-mode .card-stack { gap: 8px !important; }
       body.gallery-mode .stack-card { flex: 0 0 calc(50% - 4px) !important; width: calc(50% - 4px) !important; }
       body.gallery-mode .stack-card[data-orient="landscape"] { flex: 0 0 100% !important; width: 100% !important; }
+      body.gallery-mode .card-stack-video .stack-card:not(.portrait) { flex: 0 0 calc(100% - 4px) !important; width: calc(100% - 4px) !important; }
     }
 
     /* ── iPad / tablet (821px–1380px) ── */
@@ -974,19 +1027,6 @@
             <a href="musiccv.html" class="music-cv-button hero-cv-button">View Music CV</a>
         </div>
     </section>
-  <!-- View toggle -->
-  <div style="text-align:center; position:relative; z-index:10; padding-bottom:4px;">
-    <div class="view-toggle-wrap">
-      <button class="view-btn active" data-view="stack" id="btnStack">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg>
-        Stack
-      </button>
-      <button class="view-btn" data-view="gallery" id="btnGallery">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg>
-        Gallery
-      </button>
-    </div>
-  </div>
 
     <section>
         <h2>Key Achievements</h2>
@@ -1006,6 +1046,7 @@
 
     <section>
         <h2>Videos</h2>
+    <div style="text-align:center; position:relative; z-index:10; margin: 28px auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
         <div class="stack-scene">
           <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
           <div class="card-stack card-stack-video">
@@ -1017,7 +1058,7 @@
               <video preload="metadata" playsinline muted controlslist="nodownload"><source src="music/my-island-home-solo.mp4" type="video/mp4"></video>
             </div>
             <div class="stack-card" data-title="Express This Way Solo" data-desc="My solo part from Limelight rehearsal" data-year="2025">
-              <video preload="metadata" playsinline muted controlslist="nodownload"><source src="music/express this way solo.mp4" type="video/mp4"></video>
+              <video preload="metadata" playsinline muted controlslist="nodownload"><source src="music/express-this-way-solo.mp4" type="video/mp4"></video>
             </div>
             <div class="stack-card" data-title="My Island Home" data-desc="Limelight solo" data-year="2025">
               <video preload="metadata" playsinline muted controlslist="nodownload"><source src="music/my-island-home.mp4" type="video/mp4"></video>
@@ -1048,7 +1089,7 @@
               <video preload="metadata" playsinline muted controlslist="nodownload"><source src="music/underneath-the-stars.mp4" type="video/mp4"></video>
             </div>
             <div class="stack-card portrait" data-title="Glinda Rehearsal" data-desc="Wizard of Oz" data-year="2023">
-              <video preload="metadata" playsinline muted controlslist="nodownload"><source src="music/glinda rehersal.mp4" type="video/mp4"></video>
+              <video preload="metadata" playsinline muted controlslist="nodownload"><source src="music/NEW%20Glinda%20Video.MOV" type="video/mp4"></video>
             </div>
           </div>
           <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
@@ -1059,23 +1100,24 @@
 
     <section>
         <h2>Performance Gallery</h2>
+    <div style="text-align:center; position:relative; z-index:10; margin: 28px auto 20px;"><div class="view-toggle-wrap"><button class="view-btn active" data-view="stack"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="15.5" width="20" height="3" rx="1.5"/><rect x="2" y="10.5" width="20" height="3" rx="1.5" opacity="0.55"/><rect x="2" y="5.5" width="20" height="3" rx="1.5" opacity="0.25"/></svg> Stack</button><button class="view-btn" data-view="gallery"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="1.5"/><rect x="13" y="3" width="8" height="8" rx="1.5"/><rect x="3" y="13" width="8" height="8" rx="1.5"/><rect x="13" y="13" width="8" height="8" rx="1.5"/></svg> Gallery</button></div></div>
         <div class="stack-scene">
           <button class="stack-nav stack-prev" aria-label="Previous"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
-          <div class="card-stack card-stack-photo">
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/one.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/two.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/three.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/four.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/five.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/six.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/seven.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/eight.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/nine.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/ten.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/eleven.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/twelve.jpeg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/thirteen.jpg" alt="Performance"></div>
-            <div class="stack-card" data-title="Performance" data-desc=""><img src="music/fourteen.jpg" alt="Performance"></div>
+          <div class="card-stack card-stack-photo" data-no-watermark>
+            <a href="music/one.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/one.jpg" alt="Performance"></a>
+            <a href="music/two.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/two.jpg" alt="Performance"></a>
+            <a href="music/three.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/three.jpg" alt="Performance"></a>
+            <a href="music/four.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/four.jpg" alt="Performance"></a>
+            <a href="music/five.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/five.jpg" alt="Performance"></a>
+            <a href="music/six.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/six.jpg" alt="Performance"></a>
+            <a href="music/seven.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/seven.jpg" alt="Performance"></a>
+            <a href="music/eight.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/eight.jpg" alt="Performance"></a>
+            <a href="music/nine.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/nine.jpg" alt="Performance"></a>
+            <a href="music/ten.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/ten.jpg" alt="Performance"></a>
+            <a href="music/eleven.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/eleven.jpg" alt="Performance"></a>
+            <a href="music/twelve.jpeg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/twelve.jpeg" alt="Performance"></a>
+            <a href="music/thirteen.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/thirteen.jpg" alt="Performance"></a>
+            <a href="music/fourteen.jpg" target="_blank" class="stack-card" data-title="Performance" data-desc=""><img src="music/fourteen.jpg" alt="Performance"></a>
           </div>
           <button class="stack-nav stack-next" aria-label="Next"><svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
         </div>
@@ -1249,22 +1291,89 @@
               if (card._baseTransform) card.style.transform = card._baseTransform;
             });
 
-            // Click-to-fullscreen for video cards
+            // Video card behaviour
             const video = card.querySelector('video');
             if (video) {
-              card.addEventListener('click', () => {
-                if (card.style.pointerEvents === 'none') return;
+              var cardHovered = false;
+
+              // Gallery mode: hover shows native controls bar (time / progress / small play button)
+              card.addEventListener('mouseenter', () => {
+                cardHovered = true;
+                if (document.body.classList.contains('gallery-mode')) {
+                  video.setAttribute('controls', '');
+                }
+              });
+              card.addEventListener('mouseleave', () => {
+                cardHovered = false;
+                if (document.body.classList.contains('gallery-mode') && video.paused) {
+                  video.removeAttribute('controls');
+                }
+              });
+              video.addEventListener('pause', () => {
+                if (document.body.classList.contains('gallery-mode') && !cardHovered) {
+                  video.removeAttribute('controls');
+                }
+              });
+              video.addEventListener('ended', () => {
+                if (document.body.classList.contains('gallery-mode')) {
+                  video.removeAttribute('controls');
+                }
+              });
+
+              // Click: gallery → toggle play/pause in-place; stack → fullscreen
+              card.addEventListener('click', (e) => {
+                const inGallery = document.body.classList.contains('gallery-mode');
+                if (!inGallery && card.style.pointerEvents === 'none') return;
+                if (inGallery) {
+                  // Skip click if it's on the native controls bar (bottom ~45px)
+                  var vRect = video.getBoundingClientRect();
+                  if (vRect.height > 0 && e.clientY > vRect.bottom - 45) return;
+                  video.muted = false;
+                  if (!video.hasAttribute('controls')) video.setAttribute('controls', '');
+                  if (video.paused) video.play().catch(() => {});
+                  else video.pause();
+                  return;
+                }
+                // Stack mode: native fullscreen with controls
                 video.muted = false;
                 video.setAttribute('controls', '');
                 var req = video.requestFullscreen || video.webkitRequestFullscreen || video.webkitEnterFullscreen;
-                if (req) { try { req.call(video); } catch (e) {} }
+                if (req) { try { req.call(video); } catch (e2) {} }
                 video.play().catch(() => {});
               });
+
               ['fullscreenchange', 'webkitfullscreenchange', 'webkitendfullscreen'].forEach(evt => {
                 video.addEventListener(evt, () => {
                   const isFs = document.fullscreenElement || document.webkitFullscreenElement || video.webkitDisplayingFullscreen;
                   if (!isFs) { video.removeAttribute('controls'); video.pause(); }
                 });
+              });
+
+              // Gallery mode: redirect native fullscreen → branded spotlight overlay
+              function openSpotlightFromCard() {
+                if (!document.body.classList.contains('gallery-mode')) return;
+                if (typeof window.abOpenVideoSpotlight !== 'function') return;
+                var t = video.currentTime;
+                video.pause();
+                window.abOpenVideoSpotlight(card, t);
+              }
+              document.addEventListener('fullscreenchange', () => {
+                if (document.fullscreenElement === video && document.body.classList.contains('gallery-mode')) {
+                  document.exitFullscreen().then(openSpotlightFromCard).catch(openSpotlightFromCard);
+                }
+              });
+              document.addEventListener('webkitfullscreenchange', () => {
+                if (document.webkitFullscreenElement === video && document.body.classList.contains('gallery-mode')) {
+                  if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+                  setTimeout(openSpotlightFromCard, 50);
+                }
+              });
+              video.addEventListener('webkitbeginfullscreen', () => {
+                if (!document.body.classList.contains('gallery-mode')) return;
+                setTimeout(() => {
+                  if (video.webkitExitFullscreen) video.webkitExitFullscreen();
+                  openSpotlightFromCard();
+                }, 50);
               });
             }
           });
@@ -1272,10 +1381,10 @@
           update();
         });
 
-    // ── Inject gallery title/desc divs into each stack card ──
+    // ── Inject gallery title/desc/year divs + VIDEO badge into each stack card ──
     document.querySelectorAll('.stack-card').forEach(function(card) {
-      var hasTitle = card.dataset.title, hasDesc = card.dataset.desc;
-      if (hasTitle || hasDesc) {
+      var hasTitle = card.dataset.title, hasDesc = card.dataset.desc, hasYear = card.dataset.year;
+      if (hasTitle || hasDesc || hasYear) {
         var wrap = document.createElement('div');
         wrap.className = 'gallery-card-title';
         if (hasTitle) {
@@ -1290,15 +1399,48 @@
           d.innerHTML = card.dataset.desc;
           wrap.appendChild(d);
         }
+        if (hasYear) {
+          var y = document.createElement('span');
+          y.className = 'gallery-card-year';
+          y.textContent = card.dataset.year;
+          wrap.appendChild(y);
+        }
         card.appendChild(wrap);
       }
     });
     // ── View toggle (stack ↔ gallery) ──
     var viewBtns = document.querySelectorAll('.view-btn');
+    // Briefly play+pause every muted video so iOS renders the first frame as a thumbnail
+    // (preload="metadata" loads no frames on mobile Safari). Safe to call repeatedly —
+    // already-loaded videos are skipped.
+    function loadAllVideoCovers() {
+      document.querySelectorAll('.card-stack-video .stack-card video').forEach(function(video) {
+        if (video.readyState >= 2) return;
+        video.muted = true;
+        video.preload = 'auto';
+        var p = video.play();
+        if (p && typeof p.then === 'function') {
+          p.then(function() { video.pause(); video.currentTime = 0; }).catch(function() {});
+        } else {
+          try { video.pause(); video.currentTime = 0; } catch(e) {}
+        }
+      });
+    }
+    // Try immediately on script run + after window load (most browsers allow muted autoplay)
+    loadAllVideoCovers();
+    if (document.readyState !== 'complete') {
+      window.addEventListener('load', loadAllVideoCovers);
+    }
+    // Backup: fire on the first user interaction in case iOS blocked the autoplay attempt
+    ['touchstart', 'pointerdown', 'click', 'scroll'].forEach(function(evt) {
+      window.addEventListener(evt, loadAllVideoCovers, { once: true, capture: true, passive: true });
+    });
+
     function setView(v) {
       document.body.classList.toggle('gallery-mode', v === 'gallery');
       viewBtns.forEach(function(b) { b.classList.toggle('active', b.dataset.view === v); });
       try { localStorage.setItem('poster-view', v); } catch(e) {}
+      if (v === 'gallery') loadAllVideoCovers(); // also fire on gallery toggle
     }
     viewBtns.forEach(function(btn) {
       btn.addEventListener('click', function() {
@@ -1354,7 +1496,7 @@
             if (idx > 0) el.style.transitionDelay = (idx * 0.11) + 's';
         });
     </script>
-<script src="shared/lightbox.js?v=5"></script>
+<script src="shared/lightbox.js?v=8"></script>
 <script src="shared/theme.js?v=4"></script>
 </body>
 </html>
