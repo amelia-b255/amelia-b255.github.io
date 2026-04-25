@@ -125,37 +125,10 @@
     .music-nav-link:hover { transform: scale(1.04); box-shadow: 0 5px 15px rgba(139,71,93,0.3); }
     .music-nav-link::after { display: none !important; }
 
-    /* Page header banner image */
-    .page-header-image {
-      width: 100%;
-      margin-top: 88px; /* clear fixed nav (banner + nav padding) */
-      height: 56vh; max-height: 620px; min-height: 320px;
-      overflow: hidden;
-      position: relative;
-      background: #000;
-    }
-    .page-header-image img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center;
-      display: block;
-    }
-    .page-header-image::after {
-      content: '';
-      position: absolute; inset: 0;
-      background: linear-gradient(180deg, rgba(0,0,0,0) 60%, rgba(0,0,0,0.35) 100%);
-      pointer-events: none;
-    }
-    @media (max-width: 820px) {
-      .page-header-image { margin-top: 65px; height: 30vh; min-height: 220px; max-height: 360px; }
-    }
-    @media (max-width: 480px) {
-      .page-header-image { height: 26vh; min-height: 180px; }
-    }
-
     /* Hero */
     .hero {
-      min-height: 40vh; display: flex; align-items: center; justify-content: center; text-align: center;
-      padding: 60px 40px 80px;
+      min-height: 60vh; display: flex; align-items: center; justify-content: center; text-align: center;
+      padding: 150px 40px 100px;
     }
     .hero-content h1 {
       font-family: "MADE Sunflower", sans-serif; font-size: 58px; color: #8b475d; font-weight: 400;
@@ -606,7 +579,7 @@
         .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
-  <script>(function(){document.documentElement.classList.remove('light-mode');})();</script>
+  <script>(function(){try{var t=performance.getEntriesByType('navigation'),n=t.length?t[0].type:'navigate',s=document.referrer&&(new URL(document.referrer)).origin===location.origin;if(n==='reload'||(n==='navigate'&&!s)){sessionStorage.removeItem('theme');}else if(sessionStorage.getItem('theme')==='light'){document.documentElement.classList.add('light-mode');}}catch(e){}})();</script>
 </head>
 <body>
   <!-- Decorative Stars -->
@@ -678,11 +651,6 @@
       <li><a href="design-cv.html" class="cv-button">View Design CV</a></li>
     </ul>
   </nav>
-
-  <!-- Page header banner -->
-  <div class="page-header-image">
-    <img src="shortfilm/shortfilm-header.jpg" alt="Blowing Out The Candles">
-  </div>
 
   <!-- Hero -->
   <section class="hero">
@@ -993,6 +961,6 @@
         });
     })();
 </script>
-<script src="shared/theme.js?v=6"></script>
+<script src="shared/theme.js?v=7"></script>
 </body>
 </html>

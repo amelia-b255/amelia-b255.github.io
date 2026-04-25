@@ -668,7 +668,7 @@
         .music-nav-link { padding: 7px 13px !important; }
     }
   </style>
-    <script>(function(){document.documentElement.classList.remove('light-mode');})();</script>
+    <script>(function(){try{var t=performance.getEntriesByType('navigation'),n=t.length?t[0].type:'navigate',s=document.referrer&&(new URL(document.referrer)).origin===location.origin;if(n==='reload'||(n==='navigate'&&!s)){sessionStorage.removeItem('theme');}else if(sessionStorage.getItem('theme')==='light'){document.documentElement.classList.add('light-mode');}}catch(e){}})();</script>
 </head>
 <body>
     <!-- Decorative stars -->
@@ -902,6 +902,6 @@
         });
     </script>
 <script src="shared/lightbox.js?v=5"></script>
-<script src="shared/theme.js?v=6"></script>
+<script src="shared/theme.js?v=7"></script>
 </body>
 </html>

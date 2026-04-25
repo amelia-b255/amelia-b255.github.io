@@ -1,14 +1,19 @@
-/* Theme Toggle – dark mode is default */
+/* Theme Toggle – dark on every fresh visit/refresh, but persists across in-site nav */
 function toggleTheme() {
     document.documentElement.classList.toggle('light-mode');
     var isLight = document.documentElement.classList.contains('light-mode');
-    localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    // Use sessionStorage so the preference travels with internal navigation
+    // but resets on tab close / refresh / fresh external visit.
+    try { sessionStorage.setItem('theme', isLight ? 'light' : 'dark'); } catch(e) {}
     updateThemeUI();
 }
 
 function applyStoredTheme() {
-    // Always start in dark mode on every visit, regardless of stored preference
-    document.documentElement.classList.remove('light-mode');
+    var html = document.documentElement;
+    var stored;
+    try { stored = sessionStorage.getItem('theme'); } catch(e) { stored = null; }
+    if (stored === 'light') html.classList.add('light-mode');
+    else                    html.classList.remove('light-mode');
 }
 
 function updateThemeUI() {
