@@ -7,13 +7,8 @@ function toggleTheme() {
 }
 
 function applyStoredTheme() {
-    var isLight = localStorage.getItem('theme') === 'light';
-    var html = document.documentElement;
-    if (isLight) {
-        html.classList.add('light-mode');
-    } else {
-        html.classList.remove('light-mode');
-    }
+    // Always start in dark mode on every visit, regardless of stored preference
+    document.documentElement.classList.remove('light-mode');
 }
 
 function updateThemeUI() {
